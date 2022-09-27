@@ -5,7 +5,7 @@ description: Popis predavanja.
 ---
 
 # Predavanja
-1. TBD
+1. Uvodno predavanje.
 2. TBD
 3. TBD
 4. TBD
