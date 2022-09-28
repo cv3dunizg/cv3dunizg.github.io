@@ -10,7 +10,7 @@ nav_exclude: true
 
 U računalnom vidu često trebamo modificirati slike 
 različitim geometrijskim deformacijama.
-Ova laboratorijska vježba razmatra `unatražne` deformacije
+Ova laboratorijska vježba razmatra _unatražne_ deformacije
 koje se najčešće koriste u praksi.
 Označimo ulaznu sliku s $I_s$, 
 izlaznu sliku s $I_d$,
@@ -56,7 +56,8 @@ možemo izlučiti iz korespondencija.
 Neka su u izvorišnoj slici 
 $I_s$
 zadane točke
-$\mathbf{q}_{si}$. [//]: <> (_)
+$\mathbf{q}$<sup>si</sup>.
+
 Neka su u odredišnoj slici 
 $I_d$ 
 zadane korespondentne točke 
@@ -77,7 +78,7 @@ $$ {\left\lbrack \matrix{q_{si1} & q_{si2} & 0 & 0 & 1 & 0\cr 0 & 0 & q_{si1} & 
 $$
 
 Ako dodamo još dvije korespondencije, dobit ćemo sustav $6\times 6$
-koji ima jedinstveno rješenje.
+koji ima jedinstveno rješenje, osim ako su korespondencije kolinearne.
 Tražena deformacija biti će određena rješenjem tog sustava.
 
 ## Projekcijske transformacije
@@ -87,6 +88,73 @@ možemo prikazati sljedećom jednadžbom
 (primijetite da je brojnik vektor, a nazivnik skalar):
 $$\mathbf{q}_d = \mathbf{T}_p(\mathbf{q}_s) = \frac{\mathbf{A} \cdot \mathbf{q}_s + \mathbf{b}}{\mathbf{w}^\top\mathbf{x} + w_0} \ .$$
 
+Projekcijske transformacije možemo odrediti iz korespondencija
+na vrlo sličan način kao što smo to pokazali za afine transformacije.
+Međutim, lako se vidi da su u ovom slučaju nepoznanice određene
+do proizvoljne multiplikativne konstante koja se u razlomku pokrati. 
+Ako prikupimo četiri korespondencije, dobit ćemo 
+homogeni sustav s devet nepoznanica oblika 
+$\mathbf{M}\mathbf{x}=\mathbf{0}$.
+Pokazuje se da takav sustav 
+ima točno jedno netrivijalno rješenje
+ako niti jedna trojka korespondencija nije kolinearna.
+Rješenje odgovara 
+[desnom singularnom vektoru](https://en.wikipedia.org/wiki/Singular_value_decomposition#Solving_homogeneous_linear_equations)
+matrice $\mathbf{M}$
+koji odgovara singularnoj vrijednosti nula.
+Ako imamo višak ograničenja (više od 4 korespondencije)
+optimalno rješenje u algebarskom smislu
+dobivamo kao desni singuarni vektor
+koji odgovara najmanjoj singularnoj vrijednost.
 
-## Bilinearna interpolacija
+## Interpolacija piksela
+
+Ranije smo najavili da natražnu deformaciju slike 
+formuliramo sljedećim izrazom:
+$$I_d (\mathbf{q}) = I_s (\mathbf{T}_p(\mathbf{q})) \ .$$
+Primijetimo da koordinatna transformacija nije diskretna,
+tj. da 2D vektor $\mathbf{T}_p(\mathbf{q}) ima realn koordinate.
+To znači da u odredišni piksel $\mathbf{q}$ valja upisati
+piksel koji se nalazi "između" piksela izvorne slike.
+Ovaj problem nazivamo interpolacijom slike.
+Postoji više načina da se to napravi,
+a ovdje ćemo upoznati interpolaciju najbližim susjedom
+i bilinearnu interpolaciju.
+
+### Interpolacija najbližim susjedom
+
+
+### Bilinearna interpolacija
+
+Bilinearna inter
+[literatura](http://www.zemris.fer.hr/~ssegvic/project/pubs/bosilj10bs.pdf)
+
+## Zadatak 1: interpoliranje
+
+Napišite kod koji učitava sliku,
+te na nju primjenjuje slučajnu afinu transformaciju
+primjenom i) interpolacije najbližim susjedom
+te ii) bilinearnom interpolacijom. 
+Upute:
+- poslužite se slikama _scipy.misc.ascent()_ i _scipy.misc.face()_
+- matricu $\mathbf{A}$ slučajne afine transformacije zadajte ovako: _A = .25*np.eye(2) + np.random.normal([2,2])_
+- vektor $\mathbf{b}$ slučajne afine transformacije zadajte tako da se središnji piksel izvorišne slike preslika u središnji piksel odredišne slike
+- napišite funkciju _affine_nn(Is, A,b, Hd,Wd)_ koja izvorišnu sliku _Is_ deformira u skladu s parametrima _A_ i _b_ te odredišnu sliku rezolucije _Hd_$\times$_Wd_ vraća u povratnoj vrijednosti; odredišni pikseli koji padaju izvan izvorišne slike trebaju biti crni; funkcija treba koristiti interpolaciju najbližim susjedom te funkcionirati i za sive slike i za slike u boji
+- napišite funkciju _affine_bilin(Is, A,b, Hd,Wd)_ koja radi isto što i _affine_nn_, ali s bilinearnom interpolacijom 
+- neka odredišna rezolucija bude $H_d\times W_d$ = 200$\times$200 
+
+## Zadatak 2: određivanje parametara afine transformacije iz korespondencija
+
+Napišite funkciju _diamond_warp(Hs,Ws, Hd,Wd)_ koja vraća parametre afine transformacije
+koja središnje piksele stranica izvorišne slike dimenzija Hs$\times$Hs 
+preslikava u kuteve odredišne slike dimenzija Hd$\times$Hd . 
+Upute:
+- za rješavanje sustava jednadžbi koristite _np.linalg.solve_
+
+## Zadatak 3: određivanje parametara projekcijske transformacije iz korespondencija
+
+Napišite funkciju _get_projective_params(Qs, Qd)_ koja vraća parametre projekcijske transformacije
+ako su zadane točke izvorišne slike _Qs_ i točke odredišne slike _Qd_. 
+Upute:
+- za rješavanje homogenog sustava koristite _np.linalg.svd_
 
