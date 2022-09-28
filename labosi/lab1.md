@@ -56,8 +56,7 @@ možemo izlučiti iz korespondencija.
 Neka su u izvorišnoj slici 
 $I_s$
 zadane točke
-$\mathbf{q}$<sup>si</sup>.
-
+$\mathbf{q}$<sub>si</sub>.
 Neka su u odredišnoj slici 
 $I_d$ 
 zadane korespondentne točke 
@@ -105,7 +104,7 @@ koji odgovara singularnoj vrijednosti nula.
 Ako imamo višak ograničenja (više od 4 korespondencije)
 optimalno rješenje u algebarskom smislu
 dobivamo kao desni singuarni vektor
-koji odgovara najmanjoj singularnoj vrijednost.
+koji odgovara najmanjoj singularnoj vrijednosti matrice $\mathbf{M}$.
 
 ## Interpolacija piksela
 
@@ -113,7 +112,7 @@ Ranije smo najavili da natražnu deformaciju slike
 formuliramo sljedećim izrazom:
 $$I_d (\mathbf{q}) = I_s (\mathbf{T}_p(\mathbf{q})) \ .$$
 Primijetimo da koordinatna transformacija nije diskretna,
-tj. da 2D vektor $\mathbf{T}_p(\mathbf{q}) ima realn koordinate.
+tj. da 2D vektor $\mathbf{T}_p(\mathbf{q})$ ima realne koordinate.
 To znači da u odredišni piksel $\mathbf{q}$ valja upisati
 piksel koji se nalazi "između" piksela izvorne slike.
 Ovaj problem nazivamo interpolacijom slike.
@@ -136,25 +135,25 @@ te na nju primjenjuje slučajnu afinu transformaciju
 primjenom i) interpolacije najbližim susjedom
 te ii) bilinearnom interpolacijom. 
 Upute:
-- poslužite se slikama _scipy.misc.ascent()_ i _scipy.misc.face()_
-- matricu $\mathbf{A}$ slučajne afine transformacije zadajte ovako: _A = .25*np.eye(2) + np.random.normal([2,2])_
+- poslužite se slikama `scipy.misc.ascent()` i `scipy.misc.face()`
+- matricu $\mathbf{A}$ slučajne afine transformacije zadajte ovako: `A = .25*np.eye(2) + np.random.normal([2,2])`
 - vektor $\mathbf{b}$ slučajne afine transformacije zadajte tako da se središnji piksel izvorišne slike preslika u središnji piksel odredišne slike
-- napišite funkciju _affine_nn(Is, A,b, Hd,Wd)_ koja izvorišnu sliku _Is_ deformira u skladu s parametrima _A_ i _b_ te odredišnu sliku rezolucije _Hd_$\times$_Wd_ vraća u povratnoj vrijednosti; odredišni pikseli koji padaju izvan izvorišne slike trebaju biti crni; funkcija treba koristiti interpolaciju najbližim susjedom te funkcionirati i za sive slike i za slike u boji
-- napišite funkciju _affine_bilin(Is, A,b, Hd,Wd)_ koja radi isto što i _affine_nn_, ali s bilinearnom interpolacijom 
-- neka odredišna rezolucija bude $H_d\times W_d$ = 200$\times$200 
+- napišite funkciju `affine_nn(Is, A,b, Hd,Wd)` koja izvorišnu sliku `Is` deformira u skladu s parametrima `A` i `b` te odredišnu sliku rezolucije `Hd`$\times$`Wd` vraća u povratnoj vrijednosti; odredišni pikseli koji padaju izvan izvorišne slike trebaju biti crni; funkcija treba koristiti interpolaciju najbližim susjedom te funkcionirati i za sive slike i za slike u boji
+- napišite funkciju `affine_bilin(Is, A,b, Hd,Wd)` koja radi isto što i `affine_nn`, ali s bilinearnom interpolacijom 
+- neka odredišna rezolucija bude `Hd`$\times$`Wd` = 200$\times$200 
 
 ## Zadatak 2: određivanje parametara afine transformacije iz korespondencija
 
-Napišite funkciju _diamond_warp(Hs,Ws, Hd,Wd)_ koja vraća parametre afine transformacije
+Napišite funkciju `diamond_warp(Hs,Ws, Hd,Wd)` koja vraća parametre afine transformacije
 koja središnje piksele stranica izvorišne slike dimenzija Hs$\times$Hs 
 preslikava u kuteve odredišne slike dimenzija Hd$\times$Hd . 
 Upute:
-- za rješavanje sustava jednadžbi koristite _np.linalg.solve_
+- za rješavanje sustava jednadžbi koristite `np.linalg.solve`
 
 ## Zadatak 3: određivanje parametara projekcijske transformacije iz korespondencija
 
-Napišite funkciju _get_projective_params(Qs, Qd)_ koja vraća parametre projekcijske transformacije
-ako su zadane točke izvorišne slike _Qs_ i točke odredišne slike _Qd_. 
+Napišite funkciju `get_projective_params(Qs, Qd)` koja vraća parametre projekcijske transformacije
+ako su zadane točke izvorišne slike `Qs` i točke odredišne slike `Qd`. 
 Upute:
-- za rješavanje homogenog sustava koristite _np.linalg.svd_
+- za rješavanje homogenog sustava koristite `np.linalg.svd`
 
