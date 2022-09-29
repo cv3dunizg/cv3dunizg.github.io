@@ -9,7 +9,8 @@ nav_exclude: true
 # Prva laboratorijska vježba: geometrijske deformacije slika
 
 U računalnom vidu često trebamo modificirati slike 
-različitim geometrijskim deformacijama.
+različitim geometrijskim deformacijama
+kao što su uvećanje, rotiranje ili izrezivanje.
 Ova laboratorijska vježba razmatra _unatražne_ deformacije
 koje se najčešće koriste u praksi.
 Označimo ulaznu sliku s $$I_s$$, 
