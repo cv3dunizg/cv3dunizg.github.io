@@ -140,19 +140,43 @@ Upute:
 - vektor $\mathbf{b}$ slučajne afine transformacije zadajte tako da se središnji piksel izvorišne slike preslika u središnji piksel odredišne slike
 - napišite funkciju `affine_nn(Is, A,b, Hd,Wd)` koja izvorišnu sliku `Is` deformira u skladu s parametrima `A` i `b` te odredišnu sliku rezolucije `Hd`$\times$`Wd` vraća u povratnoj vrijednosti; odredišni pikseli koji padaju izvan izvorišne slike trebaju biti crni; funkcija treba koristiti interpolaciju najbližim susjedom te funkcionirati i za sive slike i za slike u boji
 - napišite funkciju `affine_bilin(Is, A,b, Hd,Wd)` koja radi isto što i `affine_nn`, ali s bilinearnom interpolacijom 
-- neka odredišna rezolucija bude `Hd`$\times$`Wd` = 200$\times$200 
+- neka odredišna rezolucija bude `Hd`$\times$`Wd` = 200$\times$200
+- ispišite standardnu devijaciju odstupanja odgovarajućih piksela u dvije slike
+- neka vaš glavni program odgovara sljedećem kodu:
+```
+import matplotlib.pyplot as plt
+import scipy.misc as misc
+import numpy as np
+
+Is = misc.face()
+Is = np.asarray(Is)
+
+Hd,Wd = 200,200
+A,b = recover_affine_diamond(Is.shape[0],Is.shape[1], Hd,Wd)
+
+Id1 = affine_nn(Is, A,b, Hd,Wd)
+Id2 = affine_bilin(Is, A,b, Hd, Wd)
+# dodati ispis standardne devijacije
+
+fig = plt.figure()
+if len(Is.shape)==2: plt.gray()
+for i,im in enumerate([Is, Id1, Id2]):
+  fig.add_subplot(1,3, i+1)
+  plt.imshow(im.astype(int))
+plt.show()
+```
 
 ## Zadatak 2: određivanje parametara afine transformacije iz korespondencija
 
-Napišite funkciju `diamond_warp(Hs,Ws, Hd,Wd)` koja vraća parametre afine transformacije
-koja središnje piksele stranica izvorišne slike dimenzija Hs$\times$Hs 
-preslikava u kuteve odredišne slike dimenzija Hd$\times$Hd . 
+Napišite funkciju `recover_affine_diamond(Hs,Ws, Hd,Wd)` koja vraća parametre afine transformacije
+koja piksele _središta stranica_ izvorišne slike dimenzija Hs$\times$Hs 
+preslikava u _kuteve_ odredišne slike dimenzija Hd$\times$Hd . 
 Upute:
 - za rješavanje sustava jednadžbi koristite `np.linalg.solve`
 
 ## Zadatak 3: određivanje parametara projekcijske transformacije iz korespondencija
 
-Napišite funkciju `get_projective_params(Qs, Qd)` koja vraća parametre projekcijske transformacije
+Napišite funkciju `recover_projective(Qs, Qd)` koja vraća parametre projekcijske transformacije
 ako su zadane točke izvorišne slike `Qs` i točke odredišne slike `Qd`. 
 Upute:
 - za rješavanje homogenog sustava koristite `np.linalg.svd`
