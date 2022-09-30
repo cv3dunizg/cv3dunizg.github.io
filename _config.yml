@@ -13,12 +13,12 @@
 # you will see them accessed via {{ site.title }}, {{ site.github_repo }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Računalni vid
-tagline: Računalni vid
-description: Službene stranice kolegija Računalni vid koji se izvodi na Fakultetu elektrotehnike i računarstva, Sveučilišta u Zagrebu.
+title: Trodimenzionalni računalni vid
+tagline: Trodimenzionalni računalni vid
+description: Službene stranice kolegija Trodimenzionalni računalni vid koji se izvodi na Fakultetu elektrotehnike i računarstva, Sveučilišta u Zagrebu.
 author: Josip Šarić
 baseurl: '' # the subpath of your site, e.g. /blog
-url: 'https://cvunizg.github.io' # the base hostname & protocol for your site, e.g. http://example.com
+url: 'https://cv3dunizg.github.io' # the base hostname & protocol for your site, e.g. http://example.com
 exclude: ["Gemfile", "Gemfile.lock", "LICENSE"]
 
 # Theme settings
@@ -28,8 +28,8 @@ search_enabled: false
 heading_anchors: true
 permalink: pretty
 aux_links:
-  Računalni vid @ FER:
-    - 'https://www.fer.unizg.hr/predmet/racvid_a'
+  Trodimenzionalni računalni vid @ FER:
+    - 'https://www.fer.unizg.hr/predmet/trv'
 footer_content:
 
 # Collections for website data
