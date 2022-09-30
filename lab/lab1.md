@@ -55,7 +55,7 @@ i pomak druge kamere -
 promatrane slike neće se promijeniti. 
 
 ## Sintetički eksperimentalni postav
-[source](src/ create_2vg_setup.cpp.cxx)
+[source](src/ create_2vg_setup.cxx)
 
 ## Algoritam s osam točaka
 
