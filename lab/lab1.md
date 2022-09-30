@@ -56,7 +56,7 @@ promatrane slike neće se promijeniti.
 
 ## Sintetički eksperimentalni postav
 [source](../src/create_2vg_setup.cxx)
-![Synthetic two-view geometry](../assets/2vg_setup.png)
+![Synthetic two-view geometry](../assets/images/2vg_setup.png)
 
 ## Algoritam s osam točaka
 
