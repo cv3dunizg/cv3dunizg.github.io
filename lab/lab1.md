@@ -55,8 +55,97 @@ i pomak druge kamere -
 promatrane slike neće se promijeniti. 
 
 ## Sintetički eksperimentalni postav
-[source](../src/create_2vg_setup.cxx)
-![Synthetic two-view geometry](../assets/images/2vg_setup.png)
+
+Laboratorijsku vježbu ćemo provoditi
+na sintetičkom eksperimentalnom postavu
+gdje dvije kamere promatraju 
+slučajni oblak točaka.
+Radi jednostavnosti, obje kamere 
+nalaze se u ravnini x-z referentne kamere,
+a udaljenost među ishodištima kamera
+uvijek ima jediničnu normu.
+Stoga pomak druge kamere nedvosmisleno možemo opisati
+pomakom smjera gledanja druge kamere 
+te orijentacijom spojnice dvaju ishodišta.
+Oblak točaka instanciramo u kvadru za kojeg zadajemo
+udaljenost od referentne kamere i dubinu.
+Stoga, eksperimentalni postav 
+zadajemo sljedećim parametrima:
+- $$\theta$$: smjer gledanja kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub>,
+- $$\phi$$: smjer pomaka kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub>,
+- $$D$$: udaljenost oblaka točaka,
+- $$d$$: dubina oblaka točaka,
+- $$\delta$$: nagib oblaka točaka,
+- $$N$$: broj točaka.
+Sljedeća slika ilustrira navedene parametre 
+i prikazuje tri konkretne konfiguracije:
+
+![Sintetički postav za vrednovanje postupaka za izlučivanje relativne orijentacije dvaju kamera](../assets/images/2vg_setup.png)
+
+Slika ilustrira i kako se oblak točaka instancira
+samo u dijelovima scene koji su vidljivi u obje kamere.
+Da bismo to mogli provesti, potrebni su nam 
+intrinsični parametri kamera
+(pretpostavljamo da obje kamere imaju iste parametre).
+Konačno, da bi cijala ova vježba imala smisla,
+svakoj projiciranoj točci dodajemo
+slučajan normalni šum zadane varijance.
+Stoga zahtijevamo zadavanje
+i sljedećih parametara eksperimentalnog postava:
+- `hfov`: horizontalno vidno polje u stupnjevima,
+- `h`, `w`: dimenzije slike
+- $$\sigma$$: standardna devijacija šuma u pikselima
+
+Eksperimentalni postav možemo instancirati
+primjenom sljedećeg 
+[programa](../src/create_2vg_setup.cxx).
+Program možete prevesti i s g++-om i s MSVC-om.
+Parametri postava zadaju se u naredbenom retku. 
+Evo primjera naredbenog retka koji 
+instancira postav na lijevoj slici:
+```
+./create_2vg_setup -5_90_10_5_0_10000 45_384_288_100 >exp.data
+```
+Navedeni primjer zadaje $$\theta=-5^\circ$$,
+$$\phi=90^\circ$$, $$D=10$$, $$d=5$$, $$\delta=0$$,
+$$N=10000$$, hfov=$$45^\circ$$,
+`h`,`w`=384,288, $$\sigma=1.00$$.
+Primijetite da zbog lakšeg parsanja,
+program zahtijeva da sve parametre upišemo
+kao cjelobrojne konstante te 
+da se zadaje standardna devijacija pomnožena sa 100.
+Ako za prvi argument zadamo xx, npr:
+```
+./create_2vg_setup xx_00_10_5_0_10000 45_384_288_100 >exp.data
+```
+
+U prikazanim primjerima, ispis programa preusmjerava se u datoteku `exp.data`. 
+Ta datoteka sadrži projekcijsku matricu druge kamere,
+te dva polja po N projiciranih točaka 
+za dvije kamere pretpostavljenog postava
+koja su razdvojena praznim retkom.
+Matricu kamere `P` te vektore točaka `qas` i `qbs`
+iz Pythona možemo čitati sljedećim kodom:
+```
+import numpy as np
+import itertools
+
+def makegen(f):
+  return ( np.array([float(c) 
+    for c in line[1:-2].split(',')])
+      for line in itertools.takewhile(lambda x: x != "\n", f))
+
+f = open('exp.data')
+line = f.readline().split('),(')
+line[0] = line[0][7:]
+line[2] = line[2][:-3]
+P = np.array([ [float(x)  for x in row.split(',')] for row in line])
+f.readline()
+
+qas = np.array(list(makegen(f)))
+qbs = np.array(list(makegen(f)))
+
+```
 
 ## Algoritam s osam točaka
 
