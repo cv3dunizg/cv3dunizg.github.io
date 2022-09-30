@@ -10,5 +10,5 @@ seo:
 
 # O predmetu
 
-Računalni vid je predmet diplomskog studija.
+Trodimenzionalni računalni vid je predmet diplomskog studija.
 
