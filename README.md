@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Računalni vid
+title: Trodimenzionalni računalni vid
 nav_exclude: true
 permalink: index.html
 seo:
