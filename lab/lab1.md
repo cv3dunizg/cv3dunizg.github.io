@@ -38,10 +38,10 @@ da je koordinatni sustav svijeta poravnat
 s koordinatnim sustavom prve kamere.
 Ta pretpostavka neće smanjiti općenitost rješenja.
 Stoga, projekcijska matrica prve kamere biti će 
-$$\mathbf{P}_1 = \left\brack mathbf{I} | mathbf{0} \right\brack$$,
+$$\mathbf{P}_1 = \left\lbrack mathbf{I} | mathbf{0} \right\rbrack$$,
 dok će naš postupak trebati izlučiti 
 projekcijsku matricu druge kamere 
-$$ \mathbf{P}_2 = \left\brack mathbf{R} | mathbf{t} \right\brack$$.
+$$ \mathbf{P}_2 = \left\lbrack mathbf{R} | mathbf{t} \right\rbrack$$.
 
 Valja napomenuti da će svi naši postupci moći izlučiti 
 samo smjer translacije ali ne i njen iznos.
