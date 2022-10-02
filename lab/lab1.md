@@ -49,14 +49,17 @@ Razlog tome je nemogućnost razlikovanja
 iznosa translacije od globalnog mjerila 
 trodimenzionalne rekonstrukcije scene.
 Drugim riječima, ako umjesto prave scene
-promatramo s$$\times$$ umanjenu maketu
-te s jednakim faktorom s umanjimo 
+promatramo $$s\times$$ umanjenu maketu
+te s jednakim faktorom $$s$$ umanjimo 
 i pomak druge kamere -
-promatrane slike neće se promijeniti. 
+dobit ćemo iste slike kao i u originalnom slučaju. 
 
 ## Sintetički eksperimentalni postav
 
-Laboratorijsku vježbu ćemo provoditi
+Metode relativne orijentacije kamera 
+teško je evaluirati na stvarnim slikama
+zbog teškog mjerenja stvarnih pomaka.
+Zbog toga ćemo ovu vježbu provoditi
 na sintetičkom eksperimentalnom postavu
 gdje dvije kamere promatraju 
 slučajni oblak točaka.
@@ -87,19 +90,21 @@ samo u dijelovima scene koji su vidljivi u obje kamere.
 Da bismo to mogli provesti, potrebni su nam 
 intrinsični parametri kamera
 (pretpostavljamo da obje kamere imaju iste parametre).
-Konačno, da bi cijala ova vježba imala smisla,
+Konačno, kako bismo izmjerili otpornost metode na šum,
 svakoj projiciranoj točci dodajemo
-slučajan normalni šum zadane varijance.
-Stoga zahtijevamo zadavanje
-i sljedećih parametara eksperimentalnog postava:
-- `hfov`: horizontalno vidno polje u stupnjevima,
-- `h`, `w`: dimenzije slike
-- $$\sigma$$: standardna devijacija šuma u pikselima
+slučajan normalni šum varijance $$\sigma$$.
+Stoga valja zadati i sljedeće parametre eksperimentalnog postava:
+- `\alpha_H`: horizontalno vidno polje u stupnjevima,
+- `h`, `w`: dimenzije slike,
+- $$\sigma$$: standardna devijacija šuma u pikselima.
 
 Eksperimentalni postav možemo instancirati
 primjenom sljedećeg 
 [programa](../src/create_2vg_setup.cxx).
-Program možete prevesti i s g++-om i s MSVC-om.
+Program bi se trebao moći prevesti 
+s bilo kojim standardnim prevoditeljem
+(mi smo testirali g++ i MSVC).
+Javite ako bude bilo bilo kakvih problema.
 Parametri postava zadaju se u naredbenom retku. 
 Evo primjera naredbenog retka koji 
 instancira postav na lijevoj slici:
@@ -108,34 +113,42 @@ instancira postav na lijevoj slici:
 ```
 Navedeni primjer zadaje $$\theta=-5^\circ$$,
 $$\phi=90^\circ$$, $$D=10$$, $$d=5$$, $$\delta=0$$,
-$$N=10000$$, hfov=$$45^\circ$$,
+$$N=10000$$, $$\alpha_H$$=$$45^\circ$$,
 `h`,`w`=384,288, $$\sigma=1.00$$.
 Primijetite da zbog lakšeg parsanja,
 program zahtijeva da sve parametre upišemo
 kao cjelobrojne konstante te 
 da se zadaje standardna devijacija pomnožena sa 100.
-Ako za prvi argument zadamo xx, npr:
+Ako za prvi argument zadamo xx, smjer gledanja druge kamere
+odabrat će se tako da presjecište smjerova gledanja
+bude u sredini oblaka točaka. Evo primjera:
 ```
 ./create_2vg_setup xx_00_10_5_0_10000 45_384_288_100 >exp.data
 ```
 
-U prikazanim primjerima, ispis programa preusmjerava se u datoteku `exp.data`. 
-Ta datoteka sadrži projekcijsku matricu druge kamere,
+Program za kreiranje postava ispisuje 
+projekcijsku matricu druge kamere
 te dva polja po N projiciranih točaka 
-za dvije kamere pretpostavljenog postava
-koja su razdvojena praznim retkom.
+za dvije kamere pretpostavljenog postava.
+Pojedini elementi ispisa razdvojeni su praznim retkom.
+U svim prikazanim primjerima, ispis programa 
+preusmjerava se u datoteku `exp.data`, ali u praksi, 
+ako program pokrećemo iz naredbenog retka,
+možemo koristiti i ulančavanje procesa. 
 Matricu kamere `P` te vektore točaka `qas` i `qbs`
 iz Pythona možemo čitati sljedećim kodom:
 ```
 import numpy as np
 import itertools
+import sys
 
 def makegen(f):
   return ( np.array([float(c) 
     for c in line[1:-2].split(',')])
       for line in itertools.takewhile(lambda x: x != "\n", f))
 
-f = open('exp.data')
+# f = open('exp.data')
+f = sys.stdin
 line = f.readline().split('),(')
 line[0] = line[0][7:]
 line[2] = line[2][:-3]
@@ -144,7 +157,6 @@ f.readline()
 
 qas = np.array(list(makegen(f)))
 qbs = np.array(list(makegen(f)))
-
 ```
 
 ## Algoritam s osam točaka
