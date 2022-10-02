@@ -74,8 +74,8 @@ Oblak točaka instanciramo u kvadru za kojeg zadajemo
 udaljenost od referentne kamere i dubinu.
 Stoga, eksperimentalni postav 
 zadajemo sljedećim parametrima:
-- $$\theta$$: smjer gledanja kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub>,
-- $$\phi$$: smjer pomaka kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub>,
+- $$\theta$$: smjer gledanja kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
+- $$\phi$$: smjer pomaka kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
 - $$D$$: udaljenost oblaka točaka,
 - $$d$$: dubina oblaka točaka,
 - $$\delta$$: nagib oblaka točaka,
@@ -159,9 +159,24 @@ qas = np.array(list(makegen(f)))
 qbs = np.array(list(makegen(f)))
 ```
 
+U ovoj vježbi usredotočit ćemo se na sljedeće konfiguracije:
+- deset različitih pomaka: $$\theta \in$$ `range(0,91,10)` (stupnjevi)
+- konvergentni kutevi gledanja: $$\phi$$ = `'xx'`
+- D,d,$$\delta$$ = 10,5,0
+- N = 10000
+- uobičajena širina vidnog polja: $$\alpha_H$$ = $$45^\circ$$ 
+- h,w = 288, 384
+- standardna devijacija pogreške: jedan piksel, $$\sigma$$ = 1.00
+
+Ispitni program treba za svaki pomak provesti 
+nexp=100 eksperimenata nad uzorkom 
+od szSample=50 slučajnih parova točaka,
+te zabilježiti kutnu po grešku 
+rekonstruiranog vektora translacije.
+
 ## Algoritam s osam točaka
 
-## Dekompozicija esencijalne matrice
+## Dekompozicija esencijalne matrice i procjena pogreške
 
 ## Poboljšanja osnovnog postupka
 
