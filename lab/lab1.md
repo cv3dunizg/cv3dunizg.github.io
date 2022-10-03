@@ -38,10 +38,10 @@ da je koordinatni sustav svijeta poravnat
 s koordinatnim sustavom prve kamere.
 Ta pretpostavka neće smanjiti općenitost rješenja.
 Stoga, projekcijska matrica prve kamere biti će 
-$$\mathbf{P}_1 = \left\lbrack \mathbf{I} | \mathbf{0} \right\rbrack$$,
+$$\mathbf{P}_a = \left\lbrack \mathbf{I} | \mathbf{0} \right\rbrack$$,
 dok će naš postupak trebati izlučiti 
 projekcijsku matricu druge kamere 
-$$\mathbf{P}_2 = \left\lbrack \mathbf{R} | \mathbf{t} \right\rbrack$$.
+$$\mathbf{P}_b = \left\lbrack \mathbf{R} | \mathbf{t} \right\rbrack$$.
 
 Valja napomenuti da će svi naši postupci moći izlučiti 
 samo smjer translacije ali ne i njen iznos.
@@ -53,6 +53,59 @@ promatramo $$s\times$$ umanjenu maketu
 te s jednakim faktorom $$s$$ umanjimo 
 i pomak druge kamere -
 dobit ćemo iste slike kao i u originalnom slučaju. 
+
+## Triangulacija strukture
+
+Pretpostavimo za trenutak da smo uspjeli izlučiti 
+relativnu orijentaciju te da želimo rekonstruirati 
+trodimenzionalnu strukturu scene.
+Dakle, poznate su projekcijske matrice obje kamere, 
+$$\mathbf{P}_a = \left\lbrack \mathbf{I} | \mathbf{0} \right\rbrack$$
+i 
+$$\mathbf{P}_b = \left\lbrack \mathbf{R} | \mathbf{t} \right\rbrack$$
+kao i korespondentne točke $$mathbf{q}_{a}$$ i $$mathbf{q}_{a}$$,
+a naš zadatak je odrediti 3D položaj $$mathbf{Q}$$.
+
+![Triangulacija strukture kad je relativna orijentacija poznata](../assets/images/szeliski22book_triang2.png)
+
+Problemu možemo pristupiti na način
+da primijetimo da su ograničenja
+linearna u svim nepoznanicama.
+Ako se točka $$mathbf{Q}$$ u koordinatnom sustavu svijeta
+preslikava u točke $$mathbf{q}_a$$ i $$mathbf{q}$$_b,
+onda vrijede sljedeće jednadžbe:
+
+$$\lambda_a\mathbf{q}_a=\mathbf{P}_a\mathbf{Q}$
+
+$$\lambda_b\mathbf{q}_b=\mathbf{P}_b\mathbf{Q}$
+
+Poznate vrijednosti su
+$$\mathbf{q}_a$$, 
+$$\mathbf{q}_b$$,  
+$$\mathbf{P}_a$$ i 
+$$\mathbf{P}_b$$,
+a želimo naći $\mathbf{Q}$.
+Nepoznate multiplikativne faktore 
+$\lambda$_a i $\lambda$_b
+možemo izbaciti iz igre 
+na način da obje strane vektorski
+pomnožimo s odgovarajućom točkom slike.
+Dobivamo sljedeći linearni sustav u kojem 
+svaka kamera doprinosi dva 
+linearno nezavisna ograničenja:
+$$[q_c]_\times \mathbf{P}_c \mathbf{Q}=0, c \in{a,b}$$
+Tako dobivamo homogeni linearni sustav
+s četiri jednadžbe i četiri nepoznanice:
+
+$$\mathbf{M}_{4\times 4}\mathbf{Q}_{4\times 1}=0$$
+
+Standardan pristup za rješavanje ovakvih sustava
+temelji se na [singularnoj dekompoziciji](https://en.wikipedia.org/wiki/System_of_linear_equations#Homogeneous_systems).
+Preciznije, netrivijalno rješenje sustava 
+koje minimizira algebarski rezidual odgovara 
+[desnom singularnom vektoru](https://en.wikipedia.org/wiki/Singular_value_decomposition#Solving_homogeneous_linear_equations) 
+matrice $$\mathbf{M}$$ koji odgovara njenoj najmanjoj singularnoj vrijednosti.
+
 
 ## Sintetički eksperimentalni postav
 
@@ -161,15 +214,124 @@ qbs = np.array(list(makegen(f)))
 
 ## Algoritam s osam točaka
 
+Algoritam s osam točaka temelji se na epipolarnom ograničenju
+koje možemo zapisati kao bilinearnu formu
+nad homogenim prikazima korespondentnih točkaka 
+$$\mathbf{q_{ia}} = (x_{ia}, y_{ia}, 1)$$ i 
+$$\mathbf{q_{ib}} = (x_{ib}, y_{ib}, 1)$$ 
+te nepoznatom esencijalnom matricom $$\mathbf{E}$$:
+
+$$\mathbf{q_{ib}}^\top \cdot \mathbf{E} \cdot \mathbf{q_{ia}} = 0$$.
+
+Podsjetimo se, epipolarno ograničenje 
+kaže da su prikazi točke $$\mathbf{Q}$$ 
+u koordinatnim sustavima dvaju kamera
+koplanarni sa spojnicom dvaju žarišta.
+Epipolarno ograničenje možemo presložiti
+tako da 9 parametara matrice $$\mathbf{E}$$ 
+istaknemo kao nepoznanice
+te ga zapisati u homogenom matričnom obliku kako slijedi:
+
+$$ {\left\lbrack \matrix{x_{ib}x_{ia} & x_{ib}y_{ia} & x_{ib} & y_{ib}x_{ia} & y_{ib}y_{ia} & y_{ib} & x_{ia}       & y_{ia}       & 1} \right\rbrack} 
+\cdot \left\lbrack \matrix{e_{11} \cr e_{12} \cr e_{13} \cr e_{21} \cr e_{22} \cr e_{23} \cr e_{31} \cr e_{32} \cr e_{33}} \right\rbrack
+= 0 
+$$
+
+Ako prikupimo n korespondencija, dobit ćemo 
+homogeni linearni sustav s viškom ograničenja
+koji rješavamo standardnom metodom (SVD):
+
+$$\mathbf{M}_{n\times 9}\cdot \mathbf{e}_{9\times 1}=\mathbf{0}_{n\times 1}$$
+
 ## Dekompozicija esencijalne matrice i procjena pogreške
+
+Esencijalna matrica koju smo dobili 
+rješavanjem homogenog linearnog sustava 
+ima 8 stupnjeva slobode.
+Međutim, mi znamo da esencijalna matrica
+ima samo 5 stupnjeva slobode jer vrijedi:
+$$\mathbf{E} = [\mathbf{t}]_\times \mathbf{R}$$.
+Nadalje, mi znamo da matrica 
+$$\mathbf{E}$$ nema puni rang,
+jer epipolarno ograničenje degenerira u epipolovima
+(epipol je projekcija žarišta druge kamere):
+
+$$\mathbf{E} \cdot \mathbf{e}_a = 
+  \mathbf{e}_b^\top \cdot \mathbf{E} = \mathbf{0}.$$
+
+Zbog toga ćemo izlučenu matricu "približiti"
+mnogostrukosti esencijalnih matrica na način 
+da i) provedemo singularnu dekompoziciju,
+matricu singularnih vrijednosti postavimo na
+$$\mathbf{D} = \mathrm{diag}(1,1,0)$$
+i rekombiniramo faktore kao što predlaže teorem 2 u 
+[(nister04pami)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.8769&rep=rep1&type=pdf).
+
+Sada možemo formulirati postupak 
+dekompozicije esencijalne matrice
+na faktore pomaka druge kamere - 
+$$\mathbf{R}$$ i $$\mathbf{t}$$.
+Neka je zadana singularna dekompozicija
+korigirane esencijalne matrice:  
+
+$$
+  \mathbf{E}=\mathbf{U}
+    \cdot
+    \mathrm{diag}(1,1,0) 
+    \ssprtran{V}^\top
+$$
+  
+Tada pomak druge kamere odgovara trećem lijevom singularnom vektoru:
+    
+$$\mathbf{t}=\pm\ssprtran{U}_{:3}$$
+  
+Nadalje, dobivamo dvije hipoteze za rotacijsku matricu:
+  
+$$\mathbf{R}_a=\mathbf{U}\cdot
+      \left\lbrack\array{0&-1&0 \cr 1&0&0 \cr 0&0&1} \right\rbrack
+      \cdot\mathbf{V}^\top$$
+      
+$$\mathbf{R}_b=\mathbf{U}\cdot
+      \left\lbrack\array{0&1&0 \cr -1&0&0 \cr 0&0&1} \right\rbrack
+      \cdot\mathbf{V}^\top$$
+  
+Moramo uzeti u obzir da translacijski pomak 
+može biti negativan i pozitivan
+pa konačno dobivamo četiri hipoteze:  
+- ($$\mathbf{R}_a$$, $$\mathbf{t}$$),
+- ($$\mathbf{R}_a$$, $$-\mathbf{t}$$),
+- ($$\mathbf{R}_b$$, $$\mathbf{t}$$),
+- ($$\mathbf{R}_b$$, $$-\mathbf{t}$$)
+
+Odabir točne hipoteze provodimo trianguliranjem korespondencija.
+Pobjeđuje ona hipoteza za koju se najveći broj 
+rekonstrukcija nalazi _ispred_ obje kamere.
 
 ## Poboljšanja osnovnog postupka
 
-### Normalizacija koordinata
+### Normalizacija koordinata korespondencija
+  Literatura: [(hartley97pami)](https://www.cse.unr.edu/~bebis/CS485/Handouts/hartley.pdf)
 
 ### Robusna estimacija (bonus)
+  Izmjeriti robusnost postava za $$\theta$$=$$90^\circ$$
+  tako da se prikaže grafička ovisnost točnosti
+  o udjelu uvedenih lažnih korespondencija.
+  Točke lažnih korespondencija valja nasumično uzorkovati
+  iz uniformne distribucije koja pokriva cijelu sliku.
+  
+  Izmjerenu točnost osnovne metode 
+  treba usporediti s robusnom metodom 
+  utemeljenoj na konsenzusu slučajnog uzorka (RANSAC).
 
+  Literatura: [(nister04pami)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.8769&rep=rep1&type=pdf).
+
+
+<!--
 ## Rekonstrukcija 3D strukture (bonus)
+
+Izmjeriti točnost 3D rekonstrukcije  
+-->
+
 
 ## Zadatci
 
