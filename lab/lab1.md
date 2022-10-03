@@ -297,12 +297,12 @@ $$
   \mathbf{E}=\mathbf{U}
     \cdot
     \mathrm{diag}(1,1,0) 
-    \ssprtran{V}^\top
+    \mathrm{V}^\top
 $$
   
 Tada pomak druge kamere odgovara trećem lijevom singularnom vektoru:
     
-$$\mathbf{t}=\pm\ssprtran{U}_{:3}$$
+$$\mathbf{t}=\pm \mathrm{U}_{:3}$$
   
 Nadalje, dobivamo dvije hipoteze za rotacijsku matricu:
   
@@ -346,7 +346,7 @@ Konačno, mjeru pogreške možemo procijeniti kao
 [rotacijski kut](https://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation) 
 koji odgovara korekcijskoj matrici:
 
-$$\eps_R = \arc cos \frac{\mathrm{Tr}(\mathbf{R}_e)-1}{2}$$.
+$$\epsilon_R = \arc cos \frac{\mathrm{Tr}(\mathbf{R}_e)-1}{2}$$.
 
 Podsjetimo se, translaciju je moguće procijeniti
 samo do na nepoznati multiplikativni faktor.
@@ -354,7 +354,7 @@ Zato translacijsku pogrešku tipično procjenjujemo
 kutem između normalizirane točne translacije 
 i normalizirane naše procjene:
 
-$$ \eps_T = \arccos(<\mathbf{t},\hat{\mathbf{t}}>)$$.
+$$ \epsilon_T = \arccos(<\mathbf{t},\hat{\mathbf{t}}>)$$.
 
 Pokazuje se da su rotacijske pogreške
 znatno manje od translacijskih.
