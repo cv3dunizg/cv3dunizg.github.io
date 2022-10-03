@@ -95,7 +95,7 @@ onda vrijede sljedeće jednadžbe:
 
 $$\lambda_a\mathbf{q}_a=\mathbf{P}_a\mathbf{Q}$$
 
-$$\lambda_b\mathbf{q}_b=\mathbf{P}_b\mathbf{Q}$$.
+$$\lambda_b\mathbf{q}_b=\mathbf{P}_b\mathbf{Q}$$
 
 Poznate vrijednosti su
 $$\mathbf{q}_a$$, 
@@ -114,7 +114,7 @@ $$[\mathbf{q}_c]_\times \mathbf{P}_c \cdot \mathbf{Q}=0, c \in{a,b}$$.
 Tako dobivamo homogeni linearni sustav
 s četiri jednadžbe i četiri nepoznanice:
 
-$$\mathbf{M}_{4\times 4} \cdot \mathbf{Q}_{4\times 1}=0$$.
+$$\mathbf{M}_{4\times 4} \cdot \mathbf{Q}_{4\times 1}=0$$
 
 Standardan pristup za rješavanje ovakvih sustava
 temelji se na [singularnoj dekompoziciji](https://en.wikipedia.org/wiki/System_of_linear_equations#Homogeneous_systems).
@@ -239,7 +239,7 @@ $$\mathbf{q_{ia}} = (x_{ia}, y_{ia}, 1)$$ i
 $$\mathbf{q_{ib}} = (x_{ib}, y_{ib}, 1)$$ 
 te nepoznatom esencijalnom matricom $$\mathbf{E}$$:
 
-$$\mathbf{q_{ib}}^\top \cdot \mathbf{E} \cdot \mathbf{q_{ia}} = 0$$.
+$$\mathbf{q_{ib}}^\top \cdot \mathbf{E} \cdot \mathbf{q_{ia}} = 0$$
 
 Podsjetimo se, epipolarno ograničenje 
 kaže da su prikazi točke $$\mathbf{Q}$$ 
@@ -351,13 +351,13 @@ a $$\hat{\mathbf{R}}$$ - naša procjena.
 Tada korekcijsku matricu $$\mathbf{R}_e$$ 
 možemo izračunati kao:
 
-$$\mathbf{R}_e = \mathbf{R} \cdot \hat{\mathbf{R}}^\top$$.
+$$\mathbf{R}_e = \mathbf{R} \cdot \hat{\mathbf{R}}^\top$$
 
 Konačno, mjeru pogreške možemo procijeniti kao
 [rotacijski kut](https://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation) 
 koji odgovara korekcijskoj matrici:
 
-$$\epsilon_R = \arccos \frac{\mathrm{Tr}(\mathbf{R}_e)-1}{2}$$.
+$$\epsilon_R = \arccos \frac{\mathrm{Tr}(\mathbf{R}_e)-1}{2}$$
 
 Podsjetimo se, translaciju je moguće procijeniti
 samo do na nepoznati multiplikativni faktor.
@@ -365,7 +365,7 @@ Zato translacijsku pogrešku tipično procjenjujemo
 kutem između normalizirane točne translacije 
 i normalizirane naše procjene:
 
-$$ \epsilon_T = \arccos(<\mathbf{t},\hat{\mathbf{t}}>)$$.
+$$ \epsilon_T = \arccos(<\mathbf{t},\hat{\mathbf{t}}>)$$
 
 Pokazuje se da su rotacijske pogreške
 znatno manje od translacijskih.
