@@ -84,20 +84,20 @@ $$\mathbf{q}_a$$,
 $$\mathbf{q}_b$$,  
 $$\mathbf{P}_a$$ i 
 $$\mathbf{P}_b$$,
-a želimo naći $\mathbf{Q}$.
+a želimo naći $$\mathbf{Q}$$.
 Nepoznate multiplikativne faktore 
-$\lambda$_a i $\lambda$_b
+$$\lambda_a$$ i $$\lambda_b$$
 možemo izbaciti iz igre 
 na način da obje strane vektorski
 pomnožimo s odgovarajućom točkom slike.
 Dobivamo sljedeći linearni sustav u kojem 
 svaka kamera doprinosi dva 
 linearno nezavisna ograničenja:
-$$[q_c]_\times \mathbf{P}_c \mathbf{Q}=0, c \in{a,b}$$
+$$[\mathbf{q}_c]_\times \mathbf{P}_c \cdot \mathbf{Q}=0, c \in{a,b}$$
 Tako dobivamo homogeni linearni sustav
 s četiri jednadžbe i četiri nepoznanice:
 
-$$\mathbf{M}_{4\times 4}\mathbf{Q}_{4\times 1}=0$$
+$$\mathbf{M}_{4\times 4} \cdot \mathbf{Q}_{4\times 1}=0$$
 
 Standardan pristup za rješavanje ovakvih sustava
 temelji se na [singularnoj dekompoziciji](https://en.wikipedia.org/wiki/System_of_linear_equations#Homogeneous_systems).
