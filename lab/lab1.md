@@ -371,7 +371,7 @@ Pokazuje se da su rotacijske pogreške
 znatno manje od translacijskih.
 Zbog toga točnost postupaka za 
 procjenu relativne orijentacije
-tipično kvantificiramo translacijskom pogreškom $$\eps_T$$.
+tipično kvantificiramo translacijskom pogreškom $$\epsilon_T$$.
 
 ## Zadatci
 
