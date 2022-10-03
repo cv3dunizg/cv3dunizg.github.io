@@ -60,11 +60,11 @@ Pretpostavimo za trenutak da smo uspjeli izlučiti
 relativnu orijentaciju te da želimo rekonstruirati 
 trodimenzionalnu strukturu scene.
 Dakle, poznate su projekcijske matrice obje kamere, 
-$$\mathbf{P}_a = \left\lbrack \mathbf{I} | \mathbf{0} \right\rbrack$$
+$$\mathbf{P}_a$$
 i 
-$$\mathbf{P}_b = \left\lbrack \mathbf{R} | \mathbf{t} \right\rbrack$$
-kao i korespondentne točke $$mathbf{q}_{a}$$ i $$mathbf{q}_{a}$$,
-a naš zadatak je odrediti 3D položaj $$mathbf{Q}$$.
+$$\mathbf{P}_b$$
+kao i korespondentne točke $$\mathbf{q}_{a}$$ i $$\mathbf{q}_{a}$$,
+a naš zadatak je odrediti 3D položaj $$\mathbf{Q}$$.
 
 ![Triangulacija strukture kad je relativna orijentacija poznata](../assets/images/szeliski22book_triang2.png)
 
@@ -72,7 +72,7 @@ Problemu možemo pristupiti na način
 da primijetimo da su ograničenja
 linearna u svim nepoznanicama.
 Ako se točka $$mathbf{Q}$$ u koordinatnom sustavu svijeta
-preslikava u točke $$mathbf{q}_a$$ i $$mathbf{q}$$_b,
+preslikava u točke $$\mathbf{q}_a$$ i $$\mathbf{q}$$_b,
 onda vrijede sljedeće jednadžbe:
 
 $$\lambda_a\mathbf{q}_a=\mathbf{P}_a\mathbf{Q}$
