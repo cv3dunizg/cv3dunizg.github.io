@@ -357,7 +357,7 @@ Konačno, mjeru pogreške možemo procijeniti kao
 [rotacijski kut](https://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation) 
 koji odgovara korekcijskoj matrici:
 
-$$\epsilon_R = \arc cos \frac{\mathrm{Tr}(\mathbf{R}_e)-1}{2}$$.
+$$\epsilon_R = \arccos \frac{\mathrm{Tr}(\mathbf{R}_e)-1}{2}$$.
 
 Podsjetimo se, translaciju je moguće procijeniti
 samo do na nepoznati multiplikativni faktor.
