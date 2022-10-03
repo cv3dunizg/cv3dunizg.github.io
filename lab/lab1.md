@@ -95,7 +95,7 @@ svakoj projiciranoj točci dodajemo
 slučajan normalni šum varijance $$\sigma$$.
 Stoga valja zadati i sljedeće parametre eksperimentalnog postava:
 - `\alpha_H`: horizontalno vidno polje u stupnjevima,
-- `h`, `w`: dimenzije slike,
+- `w`, `h`: dimenzije slike,
 - $$\sigma$$: standardna devijacija šuma u pikselima.
 
 Eksperimentalni postav možemo instancirati
@@ -114,7 +114,7 @@ instancira postav na lijevoj slici:
 Navedeni primjer zadaje $$\theta=-5^\circ$$,
 $$\phi=90^\circ$$, $$D=10$$, $$d=5$$, $$\delta=0$$,
 $$N=10000$$, $$\alpha_H$$=$$45^\circ$$,
-`h`,`w`=384,288, $$\sigma=1.00$$.
+`w`,`h`=384,288, $$\sigma=1.00$$.
 Primijetite da zbog lakšeg parsanja,
 program zahtijeva da sve parametre upišemo
 kao cjelobrojne konstante te 
@@ -159,21 +159,6 @@ qas = np.array(list(makegen(f)))
 qbs = np.array(list(makegen(f)))
 ```
 
-U ovoj vježbi usredotočit ćemo se na sljedeće konfiguracije:
-- deset različitih pomaka: $$\theta \in$$ `range(0,91,10)` (stupnjevi)
-- konvergentni kutevi gledanja: $$\phi$$ = `'xx'`
-- D,d,$$\delta$$ = 10,5,0
-- N = 10000
-- uobičajena širina vidnog polja: $$\alpha_H$$ = $$45^\circ$$ 
-- h,w = 288, 384
-- standardna devijacija pogreške: jedan piksel, $$\sigma$$ = 1.00
-
-Ispitni program treba za svaki pomak provesti 
-nexp=100 eksperimenata nad uzorkom 
-od szSample=50 slučajnih parova točaka,
-te zabilježiti kutnu po grešku 
-rekonstruiranog vektora translacije.
-
 ## Algoritam s osam točaka
 
 ## Dekompozicija esencijalne matrice i procjena pogreške
@@ -186,3 +171,31 @@ rekonstruiranog vektora translacije.
 
 ## Rekonstrukcija 3D strukture (bonus)
 
+## Zadatci
+
+U ovoj vježbi usredotočit ćemo se na sljedeće konfiguracije:
+- deset različitih pomaka: $$\theta \in$$ `range(0,91,10)` (stupnjevi)
+- konvergentni kutevi gledanja: $$\phi$$ = `'xx'`
+- D,d,$$\delta$$ = 10,5,0
+- N = 10000
+- uobičajena širina vidnog polja: $$\alpha_H$$ = $$45^\circ$$ 
+- `w`,`h` = 384, 288
+- standardna devijacija pogreške: jedan piksel, $$\sigma$$ = 1.00
+
+### Nenormalizirani postupak
+
+Ispitni program treba za svaki pomak provesti 
+nexp=100 eksperimenata nad uzorkom 
+od szSample=50 slučajnih parova točaka,
+rekonstruirati relativnu orijentaciju 
+nenormaliziranim algoritmom s osam točaka
+te zabilježiti kutnu pogrešku 
+rekonstruiranog vektora translacije.
+
+### Normalizirani postupak
+
+U drugom dijelu vježbe potrebno je uključiti
+Hartleyevu normalizaciju te 
+usporediti dvije varijante postupka
+na grafu točnost - $$\theta$$ za 
+$$\theta \in$$ `range(0,91,10)` (stupnjevi).
