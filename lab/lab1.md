@@ -63,7 +63,7 @@ Dakle, poznate su projekcijske matrice obje kamere,
 $$\mathbf{P}$$<sub>a</sub>
 i 
 $$\mathbf{P}$$<sub>b</sub>
-kao i korespondentne točke $$\mathbf{q}_{a}$$ i $$\mathbf{q}_{a}$$,
+kao i korespondentne točke $$\mathbf{q}_{a}$$ i $$\mathbf{q}_{b}$$,
 a naš zadatak je odrediti 3D položaj $$\mathbf{Q}$$.
 
 ![Triangulacija strukture kad je relativna orijentacija poznata](../assets/images/szeliski22book_triang2.png)
