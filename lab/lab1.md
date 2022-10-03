@@ -60,9 +60,9 @@ Pretpostavimo za trenutak da smo uspjeli izlučiti
 relativnu orijentaciju te da želimo rekonstruirati 
 trodimenzionalnu strukturu scene.
 Dakle, poznate su projekcijske matrice obje kamere, 
-$$\mathbf{P}_a$$
+$$\mathbf{P}$$<sub>a</sub>
 i 
-$$\mathbf{P}_b$$
+$$\mathbf{P}$$<sub>b</sub>
 kao i korespondentne točke $$\mathbf{q}_{a}$$ i $$\mathbf{q}_{a}$$,
 a naš zadatak je odrediti 3D položaj $$\mathbf{Q}$$.
 
@@ -71,7 +71,7 @@ a naš zadatak je odrediti 3D položaj $$\mathbf{Q}$$.
 Problemu možemo pristupiti na način
 da primijetimo da su ograničenja
 linearna u svim nepoznanicama.
-Ako se točka $$mathbf{Q}$$ u koordinatnom sustavu svijeta
+Ako se točka $$\mathbf{Q}$$ u koordinatnom sustavu svijeta
 preslikava u točke $$\mathbf{q}_a$$ i $$\mathbf{q}$$_b,
 onda vrijede sljedeće jednadžbe:
 
