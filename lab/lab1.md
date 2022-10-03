@@ -71,10 +71,11 @@ a naš zadatak je odrediti 3D položaj $$\mathbf{Q}$$.
 Slika pokazuje da je općeniti slučaj triangulacije 
 znatno teži od stereoskopskog određivanja dubine.
 U prisustvu šuma, poluzrake koje odgovaraju 
-korespondentnim pikselima neće biti koplanarne.
+korespondentnim pikselima neće biti koplanarne 
+[(szeliski22book)](https://szeliski.org/Book/).
 Stoga tražimo rekonstrukciju koja se ne nalazi
 na niti jednoj od dviju zraka.
-Najmanje kriva bila bi rekonstrukcija  
+Najmanje kriva bila bi ona rekonstrukcija 
 čija reprojekcija bi bila najmanje udaljena
 od izmjerenih položaja korespondentnih točaka.
 Međutim, takav postupak zahtijevao bi 
