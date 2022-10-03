@@ -68,6 +68,23 @@ a naš zadatak je odrediti 3D položaj $$\mathbf{Q}$$.
 
 ![Triangulacija strukture kad je relativna orijentacija poznata](../assets/images/szeliski22book_triang2.png)
 
+Slika pokazuje da je općeniti slučaj triangulacije 
+znatno teži od stereoskopskog određivanja dubine.
+U prisustvu šuma, poluzrake koje odgovaraju 
+korespondentnim pikselima neće biti koplanarne.
+Stoga tražimo rekonstrukciju koja se ne nalazi
+na niti jednoj od dviju zraka.
+Najmanje kriva bila bi rekonstrukcija  
+čija reprojekcija bi bila najmanje udaljena
+od izmjerenih položaja korespondentnih točaka.
+Međutim, takav postupak zahtijevao bi 
+nelinearnu združenu optimizaciju 
+svih rekonstruiranih točaka
+zajedno s dvjema projekcijskim matricama 
+[(engels06isprs)](https://www.isprs.org/proceedings/XXXVI/part3/singlepapers/O_24.pdf).
+Za potrebe ove vježbe, zadovoljit ćemo se s 
+jednostavnijim rješenjem koje dobro funkcionira u praksi.
+
 Problemu možemo pristupiti na način
 da primijetimo da su ograničenja
 linearna u svim nepoznanicama.
