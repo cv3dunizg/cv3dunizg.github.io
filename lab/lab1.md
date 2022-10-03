@@ -279,11 +279,22 @@ $$\mathbf{E} \cdot \mathbf{e}_a =
   \mathbf{e}_b^\top \cdot \mathbf{E} = \mathbf{0}.$$
 
 Zbog toga ćemo izlučenu matricu "približiti"
-mnogostrukosti esencijalnih matrica na način 
-da i) provedemo singularnu dekompoziciju,
-matricu singularnih vrijednosti postavimo na
-$$\mathbf{D} = \mathrm{diag}(1,1,0)$$
-i rekombiniramo faktore kao što predlaže teorem 2 u 
+mnogostrukosti esencijalnih matrica kako slijedi.
+Prvo ćemo provesti singularnu dekompoziciju
+procijenjene esencijalne matrice:
+
+$$
+  \mathbf{E}=\mathbf{U}
+    \cdot
+    \mathbf{D}
+    \cdot
+    \mathrm{V}^\top
+$$
+
+Nakon toga, matricu singularnih vrijednosti 
+postavit ćemo na
+$$\mathbf{D}' = \mathrm{diag}(1,1,0)$$
+i rekombinirati faktore
 [(nister04pami)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.8769&rep=rep1&type=pdf).
 
 Sada možemo formulirati postupak 
@@ -297,6 +308,7 @@ $$
   \mathbf{E}=\mathbf{U}
     \cdot
     \mathrm{diag}(1,1,0) 
+    \cdot
     \mathrm{V}^\top
 $$
   
