@@ -72,12 +72,12 @@ Problemu možemo pristupiti na način
 da primijetimo da su ograničenja
 linearna u svim nepoznanicama.
 Ako se točka $$\mathbf{Q}$$ u koordinatnom sustavu svijeta
-preslikava u točke $$\mathbf{q}_a$$ i $$\mathbf{q}$$_b,
+preslikava u točke $$\mathbf{q}_a$$ i $$\mathbf{q}_b$$,
 onda vrijede sljedeće jednadžbe:
 
-$$\lambda_a\mathbf{q}_a=\mathbf{P}_a\mathbf{Q}$
+$$\lambda_a\mathbf{q}_a=\mathbf{P}_a\mathbf{Q}$$
 
-$$\lambda_b\mathbf{q}_b=\mathbf{P}_b\mathbf{Q}$
+$$\lambda_b\mathbf{q}_b=\mathbf{P}_b\mathbf{Q}$$
 
 Poznate vrijednosti su
 $$\mathbf{q}_a$$, 
