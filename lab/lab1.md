@@ -307,30 +307,8 @@ Odabir točne hipoteze provodimo trianguliranjem korespondencija.
 Pobjeđuje ona hipoteza za koju se najveći broj 
 rekonstrukcija nalazi _ispred_ obje kamere.
 
-## Poboljšanja osnovnog postupka
-
-### Normalizacija koordinata korespondencija
+## Poboljšanje osnovnog postupka normalizacijom koordinata korespondencija
   Literatura: [(hartley97pami)](https://www.cse.unr.edu/~bebis/CS485/Handouts/hartley.pdf)
-
-### Robusna estimacija (bonus)
-  Izmjeriti robusnost postava za $$\theta$$=$$90^\circ$$
-  tako da se prikaže grafička ovisnost točnosti
-  o udjelu uvedenih lažnih korespondencija.
-  Točke lažnih korespondencija valja nasumično uzorkovati
-  iz uniformne distribucije koja pokriva cijelu sliku.
-  
-  Izmjerenu točnost osnovne metode 
-  treba usporediti s robusnom metodom 
-  utemeljenoj na konsenzusu slučajnog uzorka (RANSAC).
-
-  Literatura: [(nister04pami)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.8769&rep=rep1&type=pdf).
-
-
-<!--
-## Rekonstrukcija 3D strukture (bonus)
-
-Izmjeriti točnost 3D rekonstrukcije  
--->
 
 
 ## Zadatci
@@ -361,3 +339,25 @@ Hartleyevu normalizaciju te
 usporediti dvije varijante postupka
 na grafu točnost - $$\theta$$ za 
 $$\theta \in$$ `range(0,91,10)` (stupnjevi).
+
+### Robusna estimacija (bonus)
+
+Izmjeriti robusnost postava za $$\theta$$ = $$90^\circ$$
+  tako da se prikaže grafička ovisnost točnosti
+  o udjelu uvedenih lažnih korespondencija.
+  Točke lažnih korespondencija valja nasumično uzorkovati
+  iz uniformne distribucije koja pokriva cijelu sliku.
+  
+  Izmjerenu točnost osnovne metode 
+  treba usporediti s robusnom metodom 
+  utemeljenoj na konsenzusu slučajnog uzorka (RANSAC).
+
+  Literatura: [(nister04pami)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.8769&rep=rep1&type=pdf).
+
+
+<!--
+## Rekonstrukcija 3D strukture (bonus)
+
+Izmjeriti točnost 3D rekonstrukcije  
+-->
+
