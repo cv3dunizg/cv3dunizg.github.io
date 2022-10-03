@@ -262,7 +262,7 @@ koji rješavamo standardnom metodom (SVD):
 
 $$\mathbf{M}_{n\times 9}\cdot \mathbf{e}_{9\times 1}=\mathbf{0}_{n\times 1}$$
 
-## Dekompozicija esencijalne matrice i procjena pogreške
+## Dekompozicija esencijalne matrice
 
 Esencijalna matrica koju smo dobili 
 rješavanjem homogenog linearnog sustava 
@@ -329,6 +329,38 @@ rekonstrukcija nalazi _ispred_ obje kamere.
 ## Poboljšanje osnovnog postupka normalizacijom koordinata korespondencija
   Literatura: [(hartley97pami)](https://www.cse.unr.edu/~bebis/CS485/Handouts/hartley.pdf)
 
+## Procjena pogreške
+
+Obično se u literaturi odvojeno prikazuju 
+pogreške u rotaciji i translaciji.
+Rotacijska pogreška odgovara rotacijskoj matrici
+koja ispravlja našu procjenu.
+Neka je $$\mathbf{R}$$ - točna rotacijska matrica,
+a $$\hat{\mathbf{R}}$$ - naša procjena.
+Tada korekcijsku matricu $$\mathbf{R}_e$$ 
+možemo izračunati kao:
+
+$$\mathbf{R}_e = \mathbf{R} \cdot \hat{\mathbf{R}}^\top$$.
+
+Konačno, mjeru pogreške možemo procijeniti kao
+[rotacijski kut](https://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation) 
+koji odgovara korekcijskoj matrici:
+
+$$\eps_R = \arc cos \frac{\mathrm{Tr}(\mathbf{R}_e)-1}{2}$$.
+
+Podsjetimo se, translaciju je moguće procijeniti
+samo do na nepoznati multiplikativni faktor.
+Zato translacijsku pogrešku tipično procjenjujemo
+kutem između normalizirane točne translacije 
+i normalizirane naše procjene:
+
+$$ \eps_T = \arccos(<\mathbf{t},\hat{\mathbf{t}}>)$$.
+
+Pokazuje se da su rotacijske pogreške
+znatno manje od translacijskih.
+Zbog toga točnost postupaka za 
+procjenu relativne orijentacije
+tipično kvantificiramo translacijskom pogreškom $$\eps_T$$.
 
 ## Zadatci
 
@@ -353,11 +385,13 @@ rekonstruiranog vektora translacije.
 
 ### Normalizirani postupak
 
-U drugom dijelu vježbe potrebno je uključiti
-Hartleyevu normalizaciju te 
+Procijeniti doprinos
+Hartleyeve normalizacije te 
 usporediti dvije varijante postupka
 na grafu točnost - $$\theta$$ za 
 $$\theta \in$$ `range(0,91,10)` (stupnjevi).
+
+Literatura: [(hartley97pami)](https://www.cse.unr.edu/~bebis/CS485/Handouts/hartley.pdf)
 
 ### Robusna estimacija (bonus)
 
@@ -372,6 +406,16 @@ Izmjeriti robusnost postava za $$\theta$$ = $$90^\circ$$
   utemeljenoj na konsenzusu slučajnog uzorka (RANSAC).
 
   Literatura: [(nister04pami)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.8769&rep=rep1&type=pdf).
+
+### Združena optimizacija (bonus)
+
+Procijeniti doprinos združene optimizacije
+relativne orijentacije kamera
+i strukture scene.
+
+Literatura: 
+[(engels06isprs)](https://www.isprs.org/proceedings/XXXVI/part3/singlepapers/O_24.pdf),
+[(jeong10cvpr)](http://szeliski.org/papers/Jeong_BundleAdjustment_CVPR10.pdf).
 
 
 <!--
