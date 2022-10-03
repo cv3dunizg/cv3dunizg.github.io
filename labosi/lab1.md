@@ -71,9 +71,10 @@ $$\eqalign{
 a_{11} q_{si1} + a_{12} q_{si2} + b_1 &= q_{di1}\\  
 a_{21} q_{si1} + a_{22} q_{si2} + b_2 &= q_{di2}}$$
 
-Ovu jednadžbu možemo prikazati
-kao sustav od dvije jednadžbe 
-sa šest nepoznanica:
+Ove dvije jednadžbe možemo presložiti
+tako da 6 parametara afine transformacije 
+istaknemo kao nepoznanice
+te ih zapisati u matričnom obliku kako slijedi:
 
 $$ {\left\lbrack \matrix{q_{si1} & q_{si2} & 0 & 0 & 1 & 0\cr 0 & 0 & q_{si1} & q_{si2} & 0 & 1} \right\rbrack} 
 \cdot \left\lbrack \matrix{a_{11} \cr a_{12} \cr a_{21} \cr a_{22} \cr b_{1} \cr b_{2}} \right\rbrack
