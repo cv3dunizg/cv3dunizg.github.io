@@ -95,12 +95,11 @@ onda vrijede sljedeće jednadžbe:
 
 $$\lambda_a\mathbf{q}_a=\mathbf{P}_a\mathbf{Q}$$
 
-$$\lambda_b\mathbf{q}_b=\mathbf{P}_b\mathbf{Q}$$
+$$\lambda_b\mathbf{q}_b=\mathbf{P}_b\mathbf{Q}$$.
 
 Poznate vrijednosti su
 $$\mathbf{q}_a$$, 
-$$\mathbf{q}_b$$,  
-$$\mathbf{P}_a$$ i 
+$$\mathbf{q}_b$$, $$\mathbf{P}_a$$ i 
 $$\mathbf{P}_b$$,
 a želimo naći $$\mathbf{Q}$$.
 Nepoznate multiplikativne faktore 
@@ -111,11 +110,11 @@ pomnožimo s odgovarajućom točkom slike.
 Dobivamo sljedeći linearni sustav u kojem 
 svaka kamera doprinosi dva 
 linearno nezavisna ograničenja:
-$$[\mathbf{q}_c]_\times \mathbf{P}_c \cdot \mathbf{Q}=0, c \in{a,b}$$
+$$[\mathbf{q}_c]_\times \mathbf{P}_c \cdot \mathbf{Q}=0, c \in{a,b}$$.
 Tako dobivamo homogeni linearni sustav
 s četiri jednadžbe i četiri nepoznanice:
 
-$$\mathbf{M}_{4\times 4} \cdot \mathbf{Q}_{4\times 1}=0$$
+$$\mathbf{M}_{4\times 4} \cdot \mathbf{Q}_{4\times 1}=0$$.
 
 Standardan pristup za rješavanje ovakvih sustava
 temelji se na [singularnoj dekompoziciji](https://en.wikipedia.org/wiki/System_of_linear_equations#Homogeneous_systems).
