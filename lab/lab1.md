@@ -8,12 +8,11 @@ nav_exclude: true
 
 # Prva laboratorijska vježba: geometrija dvaju pogleda
 
-Mnoge metode računalnog vida razmatraju scenarij 
+Mnoge metode računalnog vida razmatraju 
+rekonstrukciju geometrije više pogleda
 gdje je na temelju više pogleda na scenu 
 potrebno izlučiti relativnu orijentaciju kamera
 i rekonstruirati trodimenzionalnu strukturu scene.
-Sasvim općenito, možemo reći da te metode
-razmatraju rekonstrukciju geometrije više pogleda.
 Vrlo važan specijalni slučaj razmatra jednu kameru 
 koja se giba kroz scenu koja se sastoji 
 od pokretnih objekata i nepokretne pozadine. 
@@ -21,11 +20,14 @@ U tom slučaju možemo pričati o izlučivanju
 strukture iz kretanja (eng. structure from motion).
 
 Metode 3D rekonstrukcije možemo podijeliti 
-na kalibrirani i nekalibrirani slučaj.
-Kalibrirani slučaj imamo kada piksele
-možemo jednoznačno preslikati 
-na jediničnu sferu sa središtem u žarištu kamere.
-Nekalibrirani slučaj imamo kada naš program
+s obzirom na primjenjivost u slučaju 
+kad intrinsični parametri kamere nisu poznati.
+Metode koje pretpostavljaju kalibriranu kameru
+mogu se primijeniti samo kada piksele 
+možemo preslikati u orijentirane poluzrake 
+sa središtem u žarištu kamere.
+Metode koje ne pretpostavljaju kalibriranu kameru
+mogu se primijeniti i kada naš program
 ne zna s kojom kamerom je pribavljena slika.
 Radi jednostavnosti, u ovoj vježbi razmatrat ćemo
 samo kalibrirani slučaj koji je i najvažniji u praksi.
@@ -52,7 +54,7 @@ Drugim riječima, ako umjesto prave scene
 promatramo $$s\times$$ umanjenu maketu
 te s jednakim faktorom $$s$$ umanjimo 
 i pomak druge kamere -
-dobit ćemo iste slike kao i u originalnom slučaju. 
+dobit ćemo iste slike kao i u početnom slučaju. 
 
 ## Triangulacija strukture
 
@@ -63,15 +65,15 @@ Dakle, poznate su projekcijske matrice obje kamere,
 $$\mathbf{P}$$<sub>a</sub>
 i 
 $$\mathbf{P}$$<sub>b</sub>
-kao i korespondentne točke $$\mathbf{q}_{a}$$ i $$\mathbf{q}_{b}$$,
+te korespondentne točke $$\mathbf{q}_{a}$$ i $$\mathbf{q}_{b}$$,
 a naš zadatak je odrediti 3D položaj $$\mathbf{Q}$$.
 
 ![Triangulacija strukture kad je relativna orijentacija poznata](../assets/images/szeliski22book_triang2.png)
 
 Slika pokazuje da je općeniti slučaj triangulacije 
 znatno teži od stereoskopskog određivanja dubine.
-U prisustvu šuma, poluzrake koje odgovaraju 
-korespondentnim pikselima neće biti koplanarne 
+Poluzrake koje odgovaraju korespondentnim pikselima 
+u prisustvu šuma neće biti koplanarne 
 [(szeliski22book)](https://szeliski.org/Book/).
 Stoga tražimo rekonstrukciju koja se ne nalazi
 na niti jednoj od dviju zraka.
@@ -83,7 +85,7 @@ nelinearnu združenu optimizaciju
 svih rekonstruiranih točaka
 zajedno s dvjema projekcijskim matricama 
 [(engels06isprs)](https://www.isprs.org/proceedings/XXXVI/part3/singlepapers/O_24.pdf).
-Za potrebe ove vježbe, zadovoljit ćemo se s 
+Za potrebe ove vježbe zadovoljit ćemo se s 
 jednostavnijim rješenjem koje dobro funkcionira u praksi.
 
 Problemu možemo pristupiti na način
@@ -93,9 +95,9 @@ Ako se točka $$\mathbf{Q}$$ u koordinatnom sustavu svijeta
 preslikava u točke $$\mathbf{q}_a$$ i $$\mathbf{q}_b$$,
 onda vrijede sljedeće jednadžbe:
 
-$$\lambda_a\mathbf{q}_a=\mathbf{P}_a\mathbf{Q}$$
+$$\lambda_a\mathbf{q}_a=\mathbf{P}_a\cdot\mathbf{Q}$$
 
-$$\lambda_b\mathbf{q}_b=\mathbf{P}_b\mathbf{Q}$$
+$$\lambda_b\mathbf{q}_b=\mathbf{P}_b\cdot\mathbf{Q}$$
 
 Poznate vrijednosti su
 $$\mathbf{q}_a$$, 
@@ -107,11 +109,14 @@ $$\lambda_a$$ i $$\lambda_b$$
 možemo izbaciti iz igre 
 na način da obje strane vektorski
 pomnožimo s odgovarajućom točkom slike.
-Dobivamo sljedeći linearni sustav u kojem 
+Tako dobivamo linearni sustav u kojem 
 svaka kamera doprinosi dva 
 linearno nezavisna ograničenja:
+
 $$[\mathbf{q}_c]_\times \mathbf{P}_c \cdot \mathbf{Q}=0, c \in{a,b}$$.
-Tako dobivamo homogeni linearni sustav
+
+Kad raspišemo sve četiri jednadžbe,
+dobivamo homogeni linearni sustav
 s četiri jednadžbe i četiri nepoznanice:
 
 $$\mathbf{M}_{4\times 4} \cdot \mathbf{Q}_{4\times 1}=0$$
@@ -128,7 +133,7 @@ matrice $$\mathbf{M}$$ koji odgovara njenoj najmanjoj singularnoj vrijednosti.
 
 Metode relativne orijentacije kamera 
 teško je evaluirati na stvarnim slikama
-zbog teškog mjerenja stvarnih pomaka.
+zbog kompliciranog mjerenja stvarnih pomaka.
 Zbog toga ćemo ovu vježbu provoditi
 na sintetičkom eksperimentalnom postavu
 gdje dvije kamere promatraju 
@@ -150,6 +155,7 @@ zadajemo sljedećim parametrima:
 - $$d$$: dubina oblaka točaka,
 - $$\delta$$: nagib oblaka točaka,
 - $$N$$: broj točaka.
+
 Sljedeća slika ilustrira navedene parametre 
 i prikazuje tri konkretne konfiguracije:
 
@@ -165,7 +171,7 @@ Konačno, kako bismo izmjerili otpornost metode na šum,
 svakoj projiciranoj točci dodajemo
 slučajan normalni šum varijance $$\sigma$$.
 Stoga valja zadati i sljedeće parametre eksperimentalnog postava:
-- `\alpha_H`: horizontalno vidno polje u stupnjevima,
+- $$\alpha_H$$: horizontalno vidno polje u stupnjevima,
 - `w`, `h`: dimenzije slike,
 - $$\sigma$$: standardna devijacija šuma u pikselima.
 
@@ -184,8 +190,7 @@ instancira postav na lijevoj slici:
 ```
 Navedeni primjer zadaje $$\theta=-5^\circ$$,
 $$\phi=90^\circ$$, $$D=10$$, $$d=5$$, $$\delta=0$$,
-$$N=10000$$, $$\alpha_H$$=$$45^\circ$$,
-`w`,`h`=384,288, $$\sigma=1.00$$.
+$$N=10000$$, $$\alpha_H$$=$$45^\circ$$, `w`,`h`=384,288, $$\sigma=1.00$$.
 Primijetite da zbog lakšeg parsanja,
 program zahtijeva da sve parametre upišemo
 kao cjelobrojne konstante te 
@@ -261,9 +266,15 @@ koji rješavamo standardnom metodom (SVD):
 
 $$\mathbf{M}_{n\times 9}\cdot \mathbf{e}_{9\times 1}=\mathbf{0}_{n\times 1}$$
 
+Primijetimo da ovaj algoritam 
+ne bismo mogli prikazati
+u zatvorenom obliku 
+kad korespondencije ne bibile
+zapisane u homogenom prikazu.
+
 ## Dekompozicija esencijalne matrice
 
-Esencijalna matrica koju smo dobili 
+Matrica koju smo dobili 
 rješavanjem homogenog linearnog sustava 
 ima 8 stupnjeva slobode.
 Međutim, mi znamo da esencijalna matrica
@@ -298,7 +309,7 @@ i rekombinirati faktore
 
 Sada možemo formulirati postupak 
 dekompozicije esencijalne matrice
-na faktore pomaka druge kamere - 
+na faktore pomaka druge kamere
 $$\mathbf{R}$$ i $$\mathbf{t}$$.
 Neka je zadana singularna dekompozicija
 korigirane esencijalne matrice:  
@@ -351,7 +362,7 @@ a $$\hat{\mathbf{R}}$$ - naša procjena.
 Tada korekcijsku matricu $$\mathbf{R}_e$$ 
 možemo izračunati kao:
 
-$$\mathbf{R}_e = \mathbf{R} \cdot \hat{\mathbf{R}}^\top$$
+$$\mathbf{R}_e = \hat{\mathbf{R}}^\top$$ \cdot \mathbf{R} 
 
 Konačno, mjeru pogreške možemo procijeniti kao
 [rotacijski kut](https://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation) 
@@ -363,7 +374,7 @@ Podsjetimo se, translaciju je moguće procijeniti
 samo do na nepoznati multiplikativni faktor.
 Zato translacijsku pogrešku tipično procjenjujemo
 kutem između normalizirane točne translacije 
-i normalizirane naše procjene:
+i naše procjene svedene na jediničnu normu:
 
 $$ \epsilon_T = \arccos(<\mathbf{t},\hat{\mathbf{t}}>)$$
 
@@ -379,27 +390,27 @@ U ovoj vježbi usredotočit ćemo se na sljedeće konfiguracije:
 - deset različitih pomaka: $$\theta \in$$ `range(0,91,10)` (stupnjevi)
 - konvergentni kutevi gledanja: $$\phi$$ = `'xx'`
 - D,d,$$\delta$$ = 10,5,0
-- N = 10000
+- ukupni broj točaka volumena: N = 10000
 - uobičajena širina vidnog polja: $$\alpha_H$$ = $$45^\circ$$ 
 - `w`,`h` = 384, 288
 - standardna devijacija pogreške: jedan piksel, $$\sigma$$ = 1.00
 
-### Nenormalizirani postupak
+### Osnovni postupak
 
-Ispitni program treba za svaki pomak provesti 
-nexp=100 eksperimenata nad uzorkom 
-od szSample=50 slučajnih parova točaka,
+Ispitni program treba za svaki pomak $$\theta$$ provesti 
+`nexp` = 100 eksperimenata nad uzorkom 
+od `szSample` = 50 slučajnih parova točaka,
 rekonstruirati relativnu orijentaciju 
 nenormaliziranim algoritmom s osam točaka
 te zabilježiti kutnu pogrešku 
 rekonstruiranog vektora translacije.
 
-### Normalizirani postupak
+### Hartleyeva normalizacija
 
 Procijeniti doprinos
 Hartleyeve normalizacije te 
 usporediti dvije varijante postupka
-na grafu točnost - $$\theta$$ za 
+na grafu točnost - pomak za pomak
 $$\theta \in$$ `range(0,91,10)` (stupnjevi).
 
 Literatura: [(hartley97pami)](https://www.cse.unr.edu/~bebis/CS485/Handouts/hartley.pdf)
