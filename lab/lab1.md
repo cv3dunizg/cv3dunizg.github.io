@@ -149,8 +149,8 @@ Oblak točaka instanciramo u kvadru za kojeg zadajemo
 udaljenost od referentne kamere i dubinu.
 Stoga, eksperimentalni postav 
 zadajemo sljedećim parametrima:
-- $$\theta$$: smjer gledanja kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
-- $$\phi$$: smjer pomaka kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
+- $$\phi$$: smjer _gledanja_ kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
+- $$\theta$$: smjer _pomaka_ kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
 - $$D$$: udaljenost oblaka točaka,
 - $$d$$: dubina oblaka točaka,
 - $$\delta$$: nagib oblaka točaka,
