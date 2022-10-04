@@ -362,7 +362,7 @@ a $$\hat{\mathbf{R}}$$ - naša procjena.
 Tada korekcijsku matricu $$\mathbf{R}_e$$ 
 možemo izračunati kao:
 
-$$\mathbf{R}_e = \hat{\mathbf{R}}^\top$$ \cdot \mathbf{R} 
+$$\mathbf{R}_e = \hat{\mathbf{R}}^\top \cdot \mathbf{R}$$ 
 
 Konačno, mjeru pogreške možemo procijeniti kao
 [rotacijski kut](https://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation) 
