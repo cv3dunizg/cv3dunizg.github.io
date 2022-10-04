@@ -20,6 +20,11 @@ http://www.gnu.org/copyleft/gpl.html
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/normal_distribution.hpp>
 #include <boost/random/variate_generator.hpp>
+#include <boost/numeric/ublas/matrix.hpp>
+#include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/matrix_proxy.hpp>
+#include <boost/numeric/ublas/vector_proxy.hpp>
+#include <boost/numeric/ublas/io.hpp>
 
 #include <complex>
 #include <algorithm>
@@ -29,8 +34,177 @@ http://www.gnu.org/copyleft/gpl.html
 #include <iomanip>
 #include <sstream>
 
-using namespace ep;
 namespace ublas = boost::numeric::ublas;
+
+
+////////////////////////////////////////////
+// Point2D
+
+class Point2D: 
+  public std::complex<double>
+{
+public:
+  Point2D(){}
+  Point2D(double x, double y): 
+    std::complex<double>(x,y){}
+  Point2D(const std::complex<double>& c):
+    std::complex<double>(c) {}
+  const Point2D& operator=(const std::complex<double>& c){
+    *this=Point2D(c);return *this;}
+  double x() const {return real();}
+  double y() const {return imag();}
+};
+
+
+////////////////////////////////////////////
+// VectorN
+
+template <int N> 
+class VectorN : 
+  public boost::numeric::ublas::vector<
+    double, boost::numeric::ublas::bounded_array<double,N> >
+{
+  typedef boost::numeric::ublas::vector<
+    double, boost::numeric::ublas::bounded_array<double,N> > 
+    VectorNBase;
+public:
+	VectorN(): VectorNBase(3)	{}
+
+	// Construction and assignment from a uBLAS vector expression or copy assignment
+	template <class R> 
+  VectorN (const boost::numeric::ublas::vector_expression<R>& r) : 
+    VectorNBase(r)
+	{}
+	template <class R> 
+  void operator=(const boost::numeric::ublas::vector_expression<R>& r)
+	{
+		VectorNBase::operator=(r);
+	}
+	template <class R> 
+  void operator=(const VectorNBase& r)
+	{
+		VectorNBase::operator=(r);
+	}
+};
+class Vector3: public  VectorN<3>{
+public:
+	Vector3(){}
+	Vector3(double x, double y, double z){
+    (*this)[0]=x; (*this)[1]=y; (*this)[2]=z;}
+	template <class R> 
+  Vector3 (const boost::numeric::ublas::vector_expression<R>& r) : 
+    VectorN<3>(r)
+	{}
+};
+
+////////////////////////////////////////////
+// MatrixNM
+
+template <int N, int M>
+class MatrixNM : 
+  public boost::numeric::ublas::matrix<
+    double, boost::numeric::ublas::row_major, 
+            boost::numeric::ublas::bounded_array<double,N*M> >
+{
+  typedef boost::numeric::ublas::matrix<
+    double, boost::numeric::ublas::row_major, 
+            boost::numeric::ublas::bounded_array<double,N*M> > 
+    MatrixNMBase;
+public:
+	MatrixNM(): MatrixNMBase(N,M)	{}
+
+	// Construction and assignment from a uBLAS vector expression or copy assignment
+	template <class R> 
+  MatrixNM (const boost::numeric::ublas::matrix_expression<R>& r) : 
+    MatrixNMBase(r)
+	{}
+	template <class R> 
+  void operator=(const boost::numeric::ublas::matrix_expression<R>& r)
+	{
+		MatrixNMBase::operator=(r);
+	}
+	template <class R> 
+  void operator=(const MatrixNMBase& r)
+	{
+		MatrixNMBase::operator=(r);
+	}
+};
+typedef MatrixNM<3,3> Matrix3x3;
+typedef MatrixNM<3,4> Matrix3x4;
+typedef MatrixNM<9,9> Matrix9x9;
+
+
+////////////////////////////////////////////
+// functions
+
+inline Vector3 cross_prod(
+  const Vector3& v1,
+  const Vector3& v2)
+{
+  return Vector3(
+    v1(1)*v2(2)-v1(2)*v2(1),
+   -v1(0)*v2(2)+v1(2)*v2(0),
+    v1(0)*v2(1)-v1(1)*v2(0));
+}
+
+inline Matrix3x4 pmatrix(
+  const Matrix3x3& R, 
+  const Vector3& T)
+{
+  Matrix3x4 P;
+  subrange(P, 0,3, 0,3)=R;
+  column(P,3)=T;
+  return P;
+}
+
+inline Matrix3x3 skewsym(
+  const Vector3& T)
+{
+  Matrix3x3 St(boost::numeric::ublas::zero_matrix<double>(3,3));
+  St(0,1)=-T(2);
+  St(0,2)=T(1);
+  St(1,2)=-T(0);
+  St(1,0)=T(2);
+  St(2,0)=-T(1);
+  St(2,1)=T(0);
+  return St;
+}
+
+Matrix3x3 rotxz(double phi){
+  Matrix3x3 R(ublas::zero_matrix<double>(3,3));
+  R(0,0)=cos(phi);
+  R(0,2)=-sin(phi);
+  R(2,0)=sin(phi);
+  R(2,2)=cos(phi);
+  R(1,1)=1;
+  return R;
+}
+
+Matrix3x4 pmatrix(
+  double rotangle, double direction)
+{
+  Matrix3x3 Rrot  (rotxz(-rotangle));
+  Matrix3x3 Rtrans(rotxz(direction));
+  Vector3 T_1(prod(Rtrans,Vector3(0,0,1)));
+  Vector3 T_2(-prod(Rrot,T_1));
+  Matrix3x4 P;
+  subrange(P, 0,3, 0,3)=Rrot;
+  column(P, 3)=T_2;
+  return P;  
+}
+
+
+double rotDefault(double direction, 
+  double distance, double depth, 
+  double slant)
+{
+  double zCb=cos(direction);
+  double xCb=sin(direction);
+  double zTarget=distance+.5*depth/cos(slant);
+  double xTarget=0;
+  return atan((xTarget-xCb)/(zTarget-zCb));
+}
+
 
 ////////////////////////////////////////////
 // constants and small utils
@@ -71,48 +245,6 @@ namespace{
 }
 
 
-Matrix3x3 rotxz(double phi){
-  Matrix3x3 R(ublas::zero_matrix<double>(3,3));
-  R(0,0)=cos(phi);
-  R(0,2)=-sin(phi);
-  R(2,0)=sin(phi);
-  R(2,2)=cos(phi);
-  R(1,1)=1;
-  return R;
-}
-
-Matrix3x4 pmatrix(
-  double rotangle, double direction)
-{
-  Matrix3x3 Rrot  (rotxz(-rotangle));
-  Matrix3x3 Rtrans(rotxz(direction));
-  Vector3 T_1(prod(Rtrans,Vector3(0,0,1)));
-  Vector3 T_2(-prod(Rrot,T_1));
-  Matrix3x4 P;
-  subrange(P, 0,3, 0,3)=Rrot;
-  column(P, 3)=T_2;
-  return P;  
-}
-Matrix3x4 pmatrix(
-  const Matrix3x3& R, 
-  const Vector3& T)
-{
-  Matrix3x4 P;
-  subrange(P, 0,3, 0,3)=R;
-  column(P,3)=T;
-  return P;
-}
-
-double rotDefault(double direction, 
-  double distance, double depth, 
-  double slant)
-{
-  double zCb=cos(direction);
-  double xCb=sin(direction);
-  double zTarget=distance+.5*depth/cos(slant);
-  double xTarget=0;
-  return atan((xTarget-xCb)/(zTarget-zCb));
-}
 
 ////////////////////////////////////////////
 // World
