@@ -6,7 +6,7 @@ nav_exclude: true
 ---
 
 
-# Prva laboratorijska vježba: geometrijske deformacije slika
+# Prva vježba: geometrijske deformacije slika
 
 U računalnom vidu često trebamo modificirati slike 
 različitim geometrijskim deformacijama
@@ -15,6 +15,7 @@ Ova laboratorijska vježba razmatra _unatražne_ deformacije
 koje se najčešće koriste u praksi.
 Označimo ulaznu sliku s $$I_s$$, 
 izlaznu sliku s $$I_d$$,
+vektor cjelobrojinh pikselskih koordinata s $$q$$,
 te parametriziranu koordinatnu 
 transformaciju s $$\mathbf{T}_p$$.
 Tada unatražnu deformaciju slike 
@@ -37,14 +38,21 @@ udaljenost od ishodišta koordinatnog sustava.
 
 ## Afine transformacije
 
-Afine transformacije ravnine možemo prikazati sljedećom jednadžbom: 
+Označimo početni 2D vektor realnih koordinata s $$\mathbf{q}_s$$,
+konačni 2D vektor realnih koordinata s $$\mathbf{q}_d$$, 
+linearno ravninsko preslikavanje s $$A$$,    
+te 2D pomak s $$b$$.
+Tada afinu transformacijeu ravnine 
+možemo prikazati sljedećom jednadžbom: 
 
 $$\mathbf{q}_d = \mathbf{T}_p(\mathbf{q}_s) = \mathbf{A} \cdot \mathbf{q}_s + \mathbf{b} \ .$$
 
 Tablica prikazuje hijerarhijski popis 
 vrsta afinih transformacija 
 tako da svaka sljedeća vrsta 
-odgovara poopćenju prethodne: 
+odgovara poopćenju prethodne
+($$\mathbf{I}$$=$$\mathrm{diag}(1,1),
+ $$\mathbf{R}$$ je matrica rotacije 2D podataka): 
 
 | *transformacija*                | *stupnjevi slobode* | *invarijante* | *ograničenja* |
 | ----------------                | ------------------- | ------------- | --------- |
