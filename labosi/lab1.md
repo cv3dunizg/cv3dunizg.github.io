@@ -152,15 +152,16 @@ Primijetimo da koordinatna transformacija nije diskretna,
 tj. da 2D vektor $$\mathbf{T}_p(\mathbf{q})$$ ima realne koordinate.
 To znači da u odredišni piksel $$\mathbf{q}$$ valja upisati
 element izvorne slike koji se nalazi "između" njenih piksela.
-Ovaj problem nazivamo interpolacijom slike.
-Postoji više načina da se to napravi,
+Aproksimativno uzorkovanje diskretnih slika u realnim koordinatama 
+nazivamo interpolacijom.
+Postoji više interpolacijskih pristupa,
 a ovdje ćemo upoznati interpolaciju najbližim susjedom
 i bilinearnu interpolaciju.
 
 ### Interpolacija najbližim susjedom
 
 Interpolacija najbližim susjedom
-naprosto preuzme vrijednost najbližeg piksela.
+naprosto preuzima vrijednost najbližeg piksela.
 Koordinate najbližeg piksela dobivamo
 zaokruživanjem realnih koordinata
 na najbliže cjelobrojne vrijednosti:
@@ -170,10 +171,10 @@ $$I(r+\Delta r, c+\Delta c) \approx I(\lfloor r+\Delta r+0.5 \rfloor, \lfloor c+
 ### Bilinearna interpolacija
 
 Bilinearna interpolacija pretpostavlja 
-da se elementi slike na realnim koordinatama
+da elementi slike na realnim koordinatama
 linearno ovise o udaljenosti od poznatih diskretnih piksela.
-Slika pokazuje da se interpolirani slikovni element
-dobiva kao linearna kombinacija susjedna četiri piksela
+Slika pokazuje da interpolirani slikovni element
+dobivamo kao linearnu kombinaciju susjedna četiri piksela,
 pri čemu veću težinu dobivaju pikseli 
 koji su bliži realnim koordinatama.
 Tako interpolirani element dobivamo 
@@ -187,13 +188,13 @@ plus crvena površina puta I(r+1,c+1).
 Prikazani odnosi matematički se mogu prikazati sljedećom jednadžbom:
 $$I(r+\Delta r, c+\Delta c) \approx 
   I(r,c)     \cdot (1-\Delta r)(1-\Delta c) + 
-  I(r,c+1)   \cdot (1-\Delta r)(\Delta c) + 
-  I(r+1,c)   \cdot (\Delta r)(1-\Delta c) + 
-  I(r+1,c+1) \cdot (\Delta r)(\Delta c) 
+  I(r,c+1)   \cdot (1-\Delta r)\Delta c + 
+  I(r+1,c)   \cdot \Delta r(1-\Delta c) + 
+  I(r+1,c+1) \cdot \Delta r\Delta c 
 $$
 
 Detaljniji prikaz bilnearne interpolacije
-kao recept za učinkovitu implmentaciju
+kao i recept za učinkovitu implmentaciju
 mogu se pronaći u završnom radu 
 [Petre Bosilj](http://www.zemris.fer.hr/~ssegvic/project/pubs/bosilj10bs.pdf).
 
