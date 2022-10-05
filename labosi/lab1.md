@@ -15,7 +15,7 @@ Ova laboratorijska vježba razmatra _unatražne_ deformacije
 koje se najčešće koriste u praksi.
 Označimo ulaznu sliku s $$I_s$$, 
 izlaznu sliku s $$I_d$$,
-vektor cjelobrojinh pikselskih koordinata s $$\mathbf{q}$$,
+vektor cjelobrojnih pikselskih koordinata s $$\mathbf{q}$$
 te parametriziranu koordinatnu 
 transformaciju s $$\mathbf{T}_p$$.
 Tada unatražnu deformaciju slike 
@@ -96,22 +96,43 @@ Tražena deformacija biti će određena rješenjem tog sustava.
 ## Projekcijske transformacije
 
 Projekcijske transformacije ravnine 
-možemo prikazati sljedećom jednadžbom
-(primijetite da je brojnik vektor, a nazivnik skalar): 
+možemo prikazati sljedećom jednadžbom:
 
-$$\mathbf{q}_d = \mathbf{T}_p(\mathbf{q}_s) = \frac{\mathbf{A} \cdot \mathbf{q}_s + \mathbf{b}}{\mathbf{w}^\top\mathbf{x} + w_0} \ .$$
+$$\mathbf{q}_d = \mathbf{T}_p(\mathbf{q}_s) = 
+  \frac{\mathbf{A} \cdot \mathbf{q}_s + \mathbf{b}}
+       {\mathbf{w}^\top\mathbf{q}_s + w_0} \ .$$
 
-Projekcijske transformacije možemo odrediti iz korespondencija
-na vrlo sličan način kao što smo to pokazali za afine transformacije.
-Međutim, lako se vidi da su u ovom slučaju nepoznanice određene
-do proizvoljne multiplikativne konstante koja se u razlomku pokrati. 
-Ako prikupimo četiri korespondencije, dobit ćemo 
-homogeni sustav s devet nepoznanica oblika 
+Primijetite da je brojnik jednadžbe - vektor a nazivnik - skalar.
+Matrica $$\mathbf{A}$$, 
+vektori $$\mathbf{b}$$ i $$\mathbf{w}$$
+te skalar $$w_0$$ su parametri projekcijske transformacije.
+Parametre projekcijske transformacije 
+možemo odrediti iz korespondencija
+na vrlo sličan način kao i za afine transformacije.
+Međutim, u ovom slučaju svaka korespondencija
+doprinosi dva _homogena_ linearna ograničenja
+nad parametrima transformacije, do kojih dolazimo 
+prebacivanjem nazivnika na lijevu stranu jednadžbe.
+To možemo napraviti kad god su korespondencije konačne
+jer je tada nazivnik sigurno različit od nule.
+Ako prikupimo $$n$$ korespondencija, 
+dobit ćemo homogeni linearni sustav 
+s $$2n$$ jednadžbi i devet nepoznanica oblika 
 $$\mathbf{M}\mathbf{x}=\mathbf{0}$$.
-Pokazuje se da takav sustav 
-ima točno jedno netrivijalno rješenje
-ako niti jedna trojka korespondencija nije kolinearna.
-Rješenje odgovara 
+Za vježbu raspišite koeficijente linearnog sustava 
+za jednu korespondenciju!
+
+S obzirom na to da su naše jednadžbe homogene,
+parametre projekcijske parametre možemo odrediti 
+samo do proizvoljne multiplikativne konstante 
+$$\lambda\neq 0$$. 
+Odatle zaključujemo da projekcijska transformacija 
+ima samo osam stupnjeva slobode.
+Stoga ne čudi da će sustav $$\mathbf{M}$$ 
+imati točno jedno netrivijalno rješenje
+i ako prikupimo samo četiri korespondencije,
+pod pretpostavkom da niti jedna trojka korespondencija nije kolinearna.
+Rješenje sustava odgovara 
 [desnom singularnom vektoru](https://en.wikipedia.org/wiki/Singular_value_decomposition#Solving_homogeneous_linear_equations)
 matrice $$\mathbf{M}$$
 koji odgovara singularnoj vrijednosti nula.
