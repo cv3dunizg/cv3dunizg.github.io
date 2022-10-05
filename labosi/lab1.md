@@ -178,9 +178,9 @@ dobivamo kao linearnu kombinaciju susjedna četiri piksela,
 pri čemu veću težinu dobivaju pikseli 
 koji su bliži realnim koordinatama.
 Tako interpolirani element dobivamo 
-kao plava površina puta I(r,c),
-plus zelena površina puta I(r,c+1),
-plus narančasta površina puta I(r+1,c),
+kao plava površina puta I(r,c)
+plus zelena površina puta I(r,c+1)
+plus narančasta površina puta I(r+1,c)
 plus crvena površina puta I(r+1,c+1).
 
 ![Interpolacija slike u realnim koordinatama](../assets/images/bilin2.png)
