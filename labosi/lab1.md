@@ -141,7 +141,7 @@ optimalno rješenje u algebarskom smislu
 dobivamo kao desni singuarni vektor
 koji odgovara najmanjoj singularnoj vrijednosti matrice $$\mathbf{M}$$.
 
-## Interpolacija piksela
+## Interpolacija slike u realnim koordinatama
 
 Ranije smo najavili da unatražnu deformaciju slike 
 formuliramo sljedećim izrazom: 
@@ -151,7 +151,7 @@ $$I_d (\mathbf{q}) = I_s (\mathbf{T}_p(\mathbf{q})) \ .$$
 Primijetimo da koordinatna transformacija nije diskretna,
 tj. da 2D vektor $$\mathbf{T}_p(\mathbf{q})$$ ima realne koordinate.
 To znači da u odredišni piksel $$\mathbf{q}$$ valja upisati
-piksel koji se nalazi "između" piksela izvorne slike.
+element izvorne slike koji se nalazi "između" njenih piksela.
 Ovaj problem nazivamo interpolacijom slike.
 Postoji više načina da se to napravi,
 a ovdje ćemo upoznati interpolaciju najbližim susjedom
@@ -159,11 +159,43 @@ i bilinearnu interpolaciju.
 
 ### Interpolacija najbližim susjedom
 
+Interpolacija najbližim susjedom
+naprosto preuzme vrijednost najbližeg piksela.
+Koordinate najbližeg piksela dobivamo
+zaokruživanjem realnih koordinata
+na najbliže cjelobrojne vrijednosti:
+
+$$I(r+\Delta r, c+\Delta c) \approx I(\lfloor r+\Delta r+0.5 \rfloor, \lfloor c+\Delta c+0.5 \rfloor )$$
 
 ### Bilinearna interpolacija
 
-Bilinearna interpolacija
-[literatura](http://www.zemris.fer.hr/~ssegvic/project/pubs/bosilj10bs.pdf)
+Bilinearna interpolacija pretpostavlja 
+da se elementi slike na realnim koordinatama
+linearno ovise o udaljenosti od poznatih diskretnih piksela.
+Slika pokazuje da se interpolirani slikovni element
+dobiva kao linearna kombinacija susjedna četiri piksela
+pri čemu veću težinu dobivaju pikseli 
+koji su bliži realnim koordinatama.
+Tako interpolirani element dobivamo 
+kao plava površina puta I(r,c),
+plus zelena površina puta I(r,c+1),
+plus narančasta površina puta I(r+1,c),
+plus crvena površina puta I(r+1,c+1).
+
+![Interpolacija slike u realnim koordinatama](../assets/images/bilin2.png)
+
+Prikazani odnosi matematički se mogu prikazati sljedećom jednadžbom:
+$$I(r+\Delta r, c+\Delta c) \approx 
+  I(r,c)     \cdot (1-\Delta r)(1-\Delta c) + 
+  I(r,c+1)   \cdot (1-\Delta r)(\Delta c) + 
+  I(r+1,c)   \cdot (\Delta r)(1-\Delta c) + 
+  I(r+1,c+1) \cdot (\Delta r)(\Delta c) 
+$$
+
+Detaljniji prikaz bilnearne interpolacije
+kao recept za učinkovitu implmentaciju
+mogu se pronaći u završnom radu 
+[Petre Bosilj](http://www.zemris.fer.hr/~ssegvic/project/pubs/bosilj10bs.pdf).
 
 ## Zadatak 1: interpoliranje
 
@@ -178,7 +210,7 @@ Upute:
 - napišite funkciju `affine_nn(Is, A,b, Hd,Wd)` koja izvorišnu sliku `Is` deformira u skladu s parametrima `A` i `b` te odredišnu sliku rezolucije `Hd`$$\times$$`Wd` vraća u povratnoj vrijednosti; odredišni pikseli koji padaju izvan izvorišne slike trebaju biti crni; funkcija treba koristiti interpolaciju najbližim susjedom te funkcionirati i za sive slike i za slike u boji
 - napišite funkciju `affine_bilin(Is, A,b, Hd,Wd)` koja radi isto što i `affine_nn`, ali s bilinearnom interpolacijom 
 - neka odredišna rezolucija bude `Hd`$$\times$$`Wd` = 200$$\times$$200
-- ispišite standardnu devijaciju odstupanja odgovarajućih piksela u dvije slike
+- ispišite standardnu devijaciju odstupanja odgovarajućih linearno odnosno bilinearno interpoliranih piksela 
 - neka vaš glavni program odgovara sljedećem kodu: 
 
 ```
