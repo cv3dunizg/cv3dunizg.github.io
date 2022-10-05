@@ -15,7 +15,7 @@ Ova laboratorijska vježba razmatra _unatražne_ deformacije
 koje se najčešće koriste u praksi.
 Označimo ulaznu sliku s $$I_s$$, 
 izlaznu sliku s $$I_d$$,
-vektor cjelobrojinh pikselskih koordinata s $$q$$,
+vektor cjelobrojinh pikselskih koordinata s $$\mathbf{q}$$,
 te parametriziranu koordinatnu 
 transformaciju s $$\mathbf{T}_p$$.
 Tada unatražnu deformaciju slike 
