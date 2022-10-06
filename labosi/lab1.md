@@ -203,7 +203,7 @@ plus zelena površina puta I(r,c+1)
 plus narančasta površina puta I(r+1,c)
 plus crvena površina puta I(r+1,c+1).
 
-![Interpolacija slike u realnim koordinatama](../assets/images/bilin2.png)
+![Interpolacija slike u realnim koordinatama](../assets/images/bilin2a.svg)
 
 Prikazani odnosi matematički se mogu prikazati sljedećom jednadžbom:
 $$I_{BL}(r+\Delta r, c+\Delta c) \approx 
