@@ -267,7 +267,7 @@ for i,im in enumerate([Is, Id1, Id2]):
 plt.show()
 ```
 
-## Zadatak 2: određivanje parametara afine transformacije iz korespondencija
+## Zadatak 2: procjena afine transformacije iz korespondencija
 
 Napišite funkciju `recover_affine_diamond(Hs,Ws, Hd,Wd)` koja vraća parametre afine transformacije
 koja piksele _središta stranica_ izvorišne slike dimenzija Hs$$\times$$Hs 
@@ -280,7 +280,7 @@ Upute:
 
 ![Ulaz i željeni izlaz za zadatak 2.](../assets/images/face_warp_diamond.png)
 
-## Zadatak 3: određivanje parametara projekcijske transformacije iz korespondencija
+## Zadatak 3: procjena projekcijske transformacije iz korespondencija (bonus)
 
 Napišite funkciju `recover_projective(Qs, Qd)` koja vraća parametre projekcijske transformacije
 ako su zadane točke izvorišne slike `Qs` i točke odredišne slike `Qd`. 
