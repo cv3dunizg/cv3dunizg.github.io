@@ -6,17 +6,17 @@ description: Popis predavanja.
 
 # Predavanja
 1. Uvodno predavanje.
-2. TBD
-3. TBD
-4. TBD
+2. geometrijske deformacije slika 
+3. detekcija rubova i kuteva
+4. ključne točke u prostoru mjerila
 5. TBD
 6. TBD
 7. TBD
-8. ISPIT
-9. ISPIT
-10. TBD
-11. TBD
-12. TBD
-13. TBD
+8. (međuispit)
+9. (međuispit)
+10. diskriminativni modeli za klasifikaciju slika
+11. naučena detekcija i segmentacija
+12. generativni modeli slika
+13. transformeri
 14. TBD
 15. TBD
