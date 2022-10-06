@@ -186,7 +186,7 @@ Koordinate najbližeg piksela dobivamo
 zaokruživanjem realnih koordinata
 na najbliže cjelobrojne vrijednosti:
 
-$$I(r+\Delta r, c+\Delta c) \approx I(\lfloor r+\Delta r+0.5 \rfloor, \lfloor c+\Delta c+0.5 \rfloor )$$
+$$I(r+\Delta r, c+\Delta c)_{NN} \approx I(\lfloor r+\Delta r+0.5 \rfloor, \lfloor c+\Delta c+0.5 \rfloor )$$
 
 ### Bilinearna interpolacija
 
@@ -275,9 +275,14 @@ plt.show()
 
 Napišite funkciju `recover_affine_diamond(Hs,Ws, Hd,Wd)` koja vraća parametre afine transformacije
 koja piksele _središta stranica_ izvorišne slike dimenzija Hs$$\times$$Hs 
-preslikava u _kuteve_ odredišne slike dimenzija Hd$$\times$$Hd . 
+preslikava u _kuteve_ odredišne slike dimenzija Hd$$\times$$Hd.
+Istestirajte vaše parametre provođenjem deformacije iz prve vježbe.
+
 Upute:
 - za rješavanje sustava jednadžbi koristite `np.linalg.solve`
+- slika prikazuje ulaz i izlaz deformacijskog potprograma ako za izvorišnu sliku odaberemo `misc.face()`  
+
+![Ulaz i željeni izlaz za sliku `misc.face()`](../assets/images/face_warp_diamond.png)
 
 ## Zadatak 3: određivanje parametara projekcijske transformacije iz korespondencija
 
