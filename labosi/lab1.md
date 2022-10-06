@@ -51,7 +51,7 @@ Tablica prikazuje hijerarhijski popis
 vrsta afinih transformacija 
 tako da svaka sljedeća vrsta 
 odgovara poopćenju prethodne
-($$\mathbf{I}$$=$$\mathrm{diag}(1,1),
+($$\mathbf{I}$$=$$\mathrm{diag}(1,1)$$,
  $$\mathbf{R}$$ je matrica rotacije 2D podataka): 
 
 | *transformacija*                | *stupnjevi slobode* | *invarijante* | *ograničenja* |
