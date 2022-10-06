@@ -5,11 +5,11 @@ description: Popis predavanja.
 ---
 
 # Predavanja
-1. Uvodno predavanje.
+1. uvodno predavanje.
 2. geometrijske deformacije slika 
 3. detekcija rubova i kuteva
 4. ključne točke u prostoru mjerila
-5. TBD
+5. analiza kretanja u slikovnoj ravnini
 6. TBD
 7. TBD
 8. (međuispit)
