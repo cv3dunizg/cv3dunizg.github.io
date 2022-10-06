@@ -6,7 +6,7 @@ nav_exclude: true
 ---
 
 
-# Prva laboratorijska vježba: geometrija dvaju pogleda
+# Prva vježba: geometrija dvaju pogleda
 
 Mnoge metode računalnog vida razmatraju 
 rekonstrukciju geometrije više pogleda
