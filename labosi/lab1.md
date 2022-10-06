@@ -141,6 +141,26 @@ optimalno rješenje u algebarskom smislu
 dobivamo kao desni singuarni vektor
 koji odgovara najmanjoj singularnoj vrijednosti matrice $$\mathbf{M}$$.
 
+Napominjemo da ovom problemu možemo pristupiti
+i ako odaberemo projekcijski prikaz korespondencija.
+U tom slučaju pokazalo bi se da projekcijsko preslikavanje
+možemo izraziti linearnom transformacijom
+homogenih koordinata točaka projekcijske ravnine.
+Projekcijski prikaz doveo bi do tri jednadžbe 
+po svakoj korespondenciji, 
+a dvije od tih triju jednadžbi 
+bile bi jednake kao i gore.
+To nije veliki nedostatak 
+jer bismo i inače mogli koristiti
+samo dvije jednadžbe jer treća jednadžba
+odgovara linearnoj kombinaciji prve dvije.
+Jedna prednost projekcijskog pristupa
+jest mogućnost jednostavnog uklapanja 
+s korespondencijama u beskonačnosti (nedogledima),
+ali to nam nije presudno 
+jer ovdje pretpostavljamo 
+da su sve korespondencije unutar slike.
+
 ## Interpolacija slike u realnim koordinatama
 
 Ranije smo najavili da unatražnu deformaciju slike 
@@ -186,12 +206,26 @@ plus crvena površina puta I(r+1,c+1).
 ![Interpolacija slike u realnim koordinatama](../assets/images/bilin2.png)
 
 Prikazani odnosi matematički se mogu prikazati sljedećom jednadžbom:
-$$I(r+\Delta r, c+\Delta c) \approx 
+$$I_{BL}(r+\Delta r, c+\Delta c) \approx 
   I(r,c)     \cdot (1-\Delta r)(1-\Delta c) + 
   I(r,c+1)   \cdot (1-\Delta r)\Delta c + 
   I(r+1,c)   \cdot \Delta r(1-\Delta c) + 
   I(r+1,c+1) \cdot \Delta r\Delta c 
 $$
+
+Napominjemo da bi se ista jednadžba dobila 
+i kad bismo zrcalili vertikalnu koordinatu
+odnosno kad bi indeksi redaka rasli prema gore.
+Za usporedbu, interpolacija najbližim susjedom
+bila bi jednaka donjem lijevom pikselu
+jer je on najbliži zadanim realnim koordinatama:
+
+$$I_{NN}(r+\Delta r, c+\Delta c) \approx I(r+1,c)
+$$
+
+Takvo stanje stvari odražava i činjenica
+da je narančasti pravokutnik veći 
+i od plavog i od zelenog i od crvenog pravokutnika.  
 
 Detaljniji prikaz bilnearne interpolacije
 kao i recept za učinkovitu implmentaciju
