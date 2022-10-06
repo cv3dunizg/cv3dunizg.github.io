@@ -282,7 +282,7 @@ Upute:
 - za rješavanje sustava jednadžbi koristite `np.linalg.solve`
 - slika prikazuje ulaz i izlaz deformacijskog potprograma ako za izvorišnu sliku odaberemo `misc.face()`  
 
-![Ulaz i željeni izlaz za sliku `misc.face()`](../assets/images/face_warp_diamond.png)
+![Ulaz i željeni izlaz za zadatak 2.](../assets/images/face_warp_diamond.png)
 
 ## Zadatak 3: određivanje parametara projekcijske transformacije iz korespondencija
 
