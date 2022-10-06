@@ -186,7 +186,7 @@ Koordinate najbližeg piksela dobivamo
 zaokruživanjem realnih koordinata
 na najbliže cjelobrojne vrijednosti:
 
-$$I(r+\Delta r, c+\Delta c)_{NN} \approx I(\lfloor r+\Delta r+0.5 \rfloor, \lfloor c+\Delta c+0.5 \rfloor )$$
+$$I(r+\Delta r, c+\Delta c)_{NN} = I(\lfloor r+\Delta r+0.5 \rfloor, \lfloor c+\Delta c+0.5 \rfloor )$$
 
 ### Bilinearna interpolacija
 
@@ -206,7 +206,7 @@ plus crvena površina puta I(r+1,c+1).
 ![Interpolacija slike u realnim koordinatama](../assets/images/bilin2a.svg)
 
 Prikazani odnosi matematički se mogu prikazati sljedećom jednadžbom:
-$$I_{BL}(r+\Delta r, c+\Delta c) \approx 
+$$I_{BL}(r+\Delta r, c+\Delta c) = 
   I(r,c)     \cdot (1-\Delta r)(1-\Delta c) + 
   I(r,c+1)   \cdot (1-\Delta r)\Delta c + 
   I(r+1,c)   \cdot \Delta r(1-\Delta c) + 
@@ -218,11 +218,7 @@ i kad bismo zrcalili vertikalnu koordinatu
 odnosno kad bi indeksi redaka rasli prema gore.
 Za usporedbu, interpolacija najbližim susjedom
 bila bi jednaka donjem lijevom pikselu
-jer je on najbliži zadanim realnim koordinatama:
-
-$$I_{NN}(r+\Delta r, c+\Delta c) \approx I(r+1,c)
-$$
-
+jer je on najbliži zadanim realnim koordinatama.
 Takvo stanje stvari odražava i činjenica
 da je narančasti pravokutnik veći 
 i od plavog i od zelenog i od crvenog pravokutnika.  
