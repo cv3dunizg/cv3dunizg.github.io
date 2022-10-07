@@ -129,3 +129,16 @@ Parametri algoritma: sigma=1, prag=1e10, k=0.04, topk=100, veličina_prozora_za_
 Parametri algoritma: sigma=1.5, prag=1e9, k=0.04, topk=100, veličina_prozora_za_sumiranje=(5, 5), veličina_prozora_za_potiskivanje_nemaksimalnih_odziva=(32, 32)
 
 ## Cannyev detektor rubova
+
+Implementaciji Cannyevog algoritma za detekciju rubova ćemo također pristupiti kroz niz koraka.
+Prva tri koraka algoritma implementirajte jednako kao kod Harrisovog algoritma.
+
+### 1. Učitavanje slike
+### 2. Gaussovo zaglađivanje
+### 3. Izračun gradijenata
+
+### 4. Izračun magnitude i kuta gradijenta
+
+### 5. Potiskivanje nemaksimalnih odziva
+
+### 6. Histereza
