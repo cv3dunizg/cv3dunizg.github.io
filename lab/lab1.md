@@ -171,7 +171,7 @@ Tako dobivamo linearni sustav u kojem
 svaka kamera doprinosi dva 
 linearno nezavisna ograničenja:
 
-$$\mathbf{q}_c \times (\mathbf{P}_c \cdot \mathbf{Q})=0, c \in{a,b}$$.
+$$\mathbf{q}_c \times (\mathbf{P}_c \cdot \mathbf{Q})=\mathbf{0}, \quad c \in{a,b}$$.
 
 Kad raspišemo sve četiri jednadžbe,
 dobivamo homogeni linearni sustav
