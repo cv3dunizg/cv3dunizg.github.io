@@ -68,7 +68,7 @@ primjenom odgovarajuće transformacije krutog tijela
 definirane rotacijskom matricom $$\mathbf{R}$$
 te vektorom $$\mathbf{T}$$:
 
-$$\mathbf{Q} = $$\mathbf{R}\cdot\mathbf{Q}_W + \mathbf{T}$$
+$$\mathbf{Q} = \mathbf{R}\cdot\mathbf{Q}_W + \mathbf{T}$$
 
 Lako se pokaže da se projekcija točke \mathbf{Q}_W
 na slikovnu ravninu može opisati 
@@ -85,7 +85,7 @@ te 3D točke u sustavu kamere B s $$\mathbf{Q}_B$$.
 Tada postoje rotacijska matrica $$\mathbf{R}$$
 te vektor $$\mathbf{T}$$ za koje vrijedi:
 
-$$\mathbf{Q}_B = $$\mathbf{R}\cdot\mathbf{Q}_A + \mathbf{T}$$
+$$\mathbf{Q}_B = \mathbf{R}\cdot\mathbf{Q}_A + \mathbf{T}$$
 
 Kažemo da transformacija krutog tijela
 ($$\mathbf{R}$$, $$\mathbf{T}$$)
@@ -416,8 +416,9 @@ Obično se u literaturi odvojeno prikazuju
 pogreške u rotaciji i translaciji.
 Rotacijska pogreška odgovara rotacijskoj matrici
 koja ispravlja našu procjenu.
-Neka je $$\mathbf{R}$$ - točna rotacijska matrica,
-a $$\hat{\mathbf{R}}$$ - naša procjena.
+Neka je $$\mathbf{R}$$ - točna rotacijska matrica
+koju smo zadali u našem sintetičkom eksperimentalnom postavu
+te neka je $$\hat{\mathbf{R}}$$ - naša procjena.
 Tada korekcijsku matricu $$\mathbf{R}_e$$ 
 možemo izračunati kao:
 
