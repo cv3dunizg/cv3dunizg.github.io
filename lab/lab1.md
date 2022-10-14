@@ -19,31 +19,44 @@ od pokretnih objekata i nepokretne pozadine.
 U tom slučaju možemo pričati o izlučivanju 
 strukture iz kretanja (eng. structure from motion).
 
-## Stvaranje slike u kalibriranom slučaju
+Cilj ove vježbe je uhodati osnovni postupak 
+za procjenu relativne orijentacije kamera
+te procijeniti doprinos Hartleyeve normalizacije.
+Eksperimente ćemo provoditi 
+na sintetičkim podatcima
+kako bismo izbjegli potrebu 
+za mjerenjem točnog pomaka kamera.
+Započet ćemo s pregledom osnovnih pojmova,
+zatim uvesti eksperimentalni postav
+i opisati elemente postupka procjene,
+objasniti mjere točnosti 
+te na kraju opisati zadatke
+od kojih se ova vježba sastoji.
 
-Metode 3D rekonstrukcije možemo podijeliti 
-s obzirom na primjenjivost u slučaju 
-kad intrinsični parametri kamere nisu poznati.
-Metode koje pretpostavljaju kalibriranu kameru
-mogu se primijeniti samo kada piksele 
-možemo preslikati u orijentirane poluzrake 
-sa središtem u žarištu kamere.
-Metode koje ne pretpostavljaju kalibriranu kameru
-mogu se primijeniti i kada naš program
-ne zna intrinsične parametre kamere 
-kojom je pribavljena slika.
-Radi jednostavnosti, u ovoj vježbi razmatrat ćemo
-samo kalibrirani slučaj koji je i najvažniji u praksi.
+## Stvaranje slike
 
-U kalibriranom slučaju elemente slikovne ravnine
-predstavljamo u normaliziranim koordinatama.
+Složenost rekonstrukcijskih postupaka
+jako ovisi o dostupnosti intrinsičnih parametara kamere
+zato što ti parametri omogućavaju povezivanje piksela 
+s orijentiranim poluzrakama u koordinatnom sustavu kamere.
+Ako su intrinsični parametri poznati,
+geometriju više pogleda možemo rekonstruirati 
+sve do nepoznatog faktora globalnog mjerila. 
+U suprotnom, rekonstrukciju možemo provesti 
+samo do nepoznate projekcijske transformacije. 
+
+Radi jednostavnosti, u ovoj vježbi pretpostavit ćemo 
+da su intrinsični parametri poznati
+jer je taj slučaj najvažniji u praksi.
+U tom slučaju elemente slikovne ravnine
+možemo predstaviti u normaliziranim koordinatama.
 Neka se točka 3D prostora $$\mathbf{Q}=(X_Q, Y_Q, Z_Q)$$
 preslikava u slikovni element $$\mathbf{q}$$ 
 čije su normalizirane koordinate $$(x_q, y_q)$$.
-Ako je točka $$Q$$ izražena u koordinatama 
-koje su poravnate s koordinatnim sustavom kamere,
+Ako je točka $$Q$$ izražena u koordinatnom sustavu kamere,
 tada normalizirane slikovne koordinate odgovaraju
-tangensima kutova koji definiraju zraku ($$\mathbf{Q}, \mathbf{q}$$:
+tangensima kutova koji definiraju zraku 
+($$\mathbf{Q}, \mathbf{q}$$:
 
 $$x_q = X_Q/Z_Q$$
 
@@ -112,7 +125,16 @@ Drugim riječima, ako umjesto prave scene
 promatramo $$s\times$$ umanjenu maketu
 te s jednakim faktorom $$s$$ umanjimo 
 i pomak druge kamere -
-dobit ćemo iste slike kao i u početnom slučaju. 
+dobit ćemo iste slike kao i u početnom slučaju.
+Zbog toga translacijsku komponentu 
+relativne orijentacije
+obično izražavamo jediničnim vektorom
+te označavamo s $$\mathbf{t}$$.
+Ova činjenica često koristi pri snimanju filmova:
+puno je lakše izraditi minijaturnu repliku Hogwartsa 
+nego izgraditi dvorac u prirodnoj veličini!
+
+![Kako su snimani filmovi u Harryju Potteru](../assets/images/real-life-hogwarts-castle-scale-model-1.jpg)
 
 ## Triangulacija strukture
 
