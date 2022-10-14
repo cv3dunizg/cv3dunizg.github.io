@@ -120,9 +120,9 @@ Pretpostavimo za trenutak da smo uspjeli izlučiti
 relativnu orijentaciju te da želimo rekonstruirati 
 trodimenzionalnu strukturu scene.
 Dakle, poznate su projekcijske matrice obje kamere, 
-$$\mathbf{P}$$<sub>a</sub>
+$$\mathbf{P}_a$$
 i 
-$$\mathbf{P}$$<sub>b</sub>
+$$\mathbf{P}_b$$
 te korespondentne točke $$\mathbf{q}_{a}$$ i $$\mathbf{q}_{b}$$,
 a naš zadatak je odrediti 3D položaj $$\mathbf{Q}$$.
 
@@ -436,7 +436,7 @@ Zato translacijsku pogrešku tipično procjenjujemo
 kutem između normalizirane točne translacije 
 i naše procjene svedene na jediničnu normu:
 
-$$ \epsilon_T = \arccos(<\mathbf{t},\hat{\mathbf{t}}>)$$
+$$ \epsilon_T = \arccos(\langle \mathbf{t},\hat{\mathbf{t}} \rangle )$$
 
 Pokazuje se da su rotacijske pogreške
 znatno manje od translacijskih.
@@ -447,9 +447,9 @@ tipično kvantificiramo translacijskom pogreškom $$\epsilon_T$$.
 ## Zadatci
 
 U ovoj vježbi usredotočit ćemo se na sljedeće konfiguracije:
-- deset različitih pomaka: $$\theta \in$$ `range(0,91,10)` (stupnjevi)
+- deset različitih pomaka: $$\theta \in [0, 10, 20, ..., 90]$$  (stupnjevi)
 - konvergentni kutevi gledanja: $$\phi$$ = `'xx'`
-- D,d,$$\delta$$ = 10,5,0
+- (D,d,$$\delta$$) = (10,5,0)
 - ukupni broj točaka volumena: N = 10000
 - uobičajena širina vidnog polja: $$\alpha_H$$ = $$45^\circ$$ 
 - `w`,`h` = 384, 288
@@ -471,7 +471,7 @@ Procijeniti doprinos
 Hartleyeve normalizacije te 
 usporediti dvije varijante postupka
 na grafu točnost - pomak za pomak
-$$\theta \in$$ `range(0,91,10)` (stupnjevi).
+$$\theta \in [0, 10, 20, ..., 90]$$ (stupnjevi).
 
 Literatura: [(hartley97pami)](https://www.cse.unr.edu/~bebis/CS485/Handouts/hartley.pdf)
 
