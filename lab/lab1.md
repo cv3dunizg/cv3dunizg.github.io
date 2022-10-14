@@ -19,6 +19,8 @@ od pokretnih objekata i nepokretne pozadine.
 U tom slučaju možemo pričati o izlučivanju 
 strukture iz kretanja (eng. structure from motion).
 
+## Stvaranje slike u kalibriranom slučaju
+
 Metode 3D rekonstrukcije možemo podijeliti 
 s obzirom na primjenjivost u slučaju 
 kad intrinsični parametri kamere nisu poznati.
@@ -28,12 +30,68 @@ možemo preslikati u orijentirane poluzrake
 sa središtem u žarištu kamere.
 Metode koje ne pretpostavljaju kalibriranu kameru
 mogu se primijeniti i kada naš program
-ne zna s kojom kamerom je pribavljena slika.
+ne zna intrinsične parametre kamere 
+kojom je pribavljena slika.
 Radi jednostavnosti, u ovoj vježbi razmatrat ćemo
 samo kalibrirani slučaj koji je i najvažniji u praksi.
 
-Sve metode 3D rekonstrukcije u prvom koraku
-izlučuju relativnu orijentaciju (eng. relative orientation) dvaju kamera
+U kalibriranom slučaju elemente slikovne ravnine
+predstavljamo u normaliziranim koordinatama.
+Neka se točka 3D prostora $$\mathbf{Q}=(X_Q, Y_Q, Z_Q)$$
+preslikava u slikovni element $$\mathbf{q}$$ 
+čije su normalizirane koordinate $$(x_q, y_q)$$.
+Ako je točka $$Q$$ izražena u koordinatama 
+koje su poravnate s koordinatnim sustavom kamere,
+tada normalizirane slikovne koordinate odgovaraju
+tangensima kutova koji definiraju zraku ($$\mathbf{Q}, \mathbf{q}$$:
+
+$$x_q = X_Q/Z_Q$$
+
+$$y_q = Y_Q/Z_Q$$
+
+Ako obje točke predstavimo projekcijskim koordinatama,
+tada imamo $$\mathbf{Q}=(X_Q, Y_Q, Z_Q, 1)$$
+te $$\mathbf{q}=(x_q, y_q, 1)$$.
+Primijetite da koristimo iste nazive točaka 
+kao i u euklidskom slučaju 
+jer je značenje jasno iz konteksta.
+Stoga projekciju možemo opisati
+sljedećom linearnom jednadžbom:
+
+$$\mathbf{q} = [\mathbf{I}|\mathbf{0}] \cdot \mathbf{Q}$$
+
+Promotrimo 3D točku $$\mathbf{Q}_W$$
+zadane u proizvoljnom koordinatnom sustavu W.
+Sada tu točku možemo prikazati
+u koordinatnom sustavu kamere
+primjenom odgovarajuće transformacije krutog tijela
+definirane rotacijskom matricom $$\mathbf{R}$$
+te vektorom $$\mathbf{T}$$:
+
+$$\mathbf{Q} = $$\mathbf{R}\cdot\mathbf{Q}_W + \mathbf{T}$$
+
+Lako se pokaže da se projekcija točke \mathbf{Q}_W
+na slikovnu ravninu može opisati 
+sljedećom linearnom jednadžbom:
+
+$$\mathbf{q} = [\mathbf{R}|\mathbf{T}] \cdot \mathbf{Q}$$
+
+## Relativna orijentacija
+
+Pretpostavimo da su zadane kamere A i B 
+koje promatraju istu scenu.
+Označimo 3D točke u sustavu kamere A s $$\mathbf{Q}_A$$
+te 3D točke u sustavu kamere B s $$\mathbf{Q}_B$$.
+Tada postoje rotacijska matrica $$\mathbf{R}$$
+te vektor $$\mathbf{T}$$ za koje vrijedi:
+
+$$\mathbf{Q}_B = $$\mathbf{R}\cdot\mathbf{Q}_A + \mathbf{T}$$
+
+Kažemo da transformacija krutog tijela
+($$\mathbf{R}$$, $$\mathbf{T}$$)
+određuje _relativnu orijentaciju_ kamera A i B.
+Sve metode 3D rekonstrukcije u prvom koraku izlučuju 
+relativnu orijentaciju dvaju kamera
 pa ćemo upravo taj zadatak razmatrati i u ovoj vježbi.
 Zadatak ćemo rješavati pod pretpostavkom 
 da je koordinatni sustav svijeta poravnat 
