@@ -171,7 +171,7 @@ Tako dobivamo linearni sustav u kojem
 svaka kamera doprinosi dva 
 linearno nezavisna ograničenja:
 
-$$[\mathbf{q}_c]_\times \mathbf{P}_c \cdot \mathbf{Q}=0, c \in{a,b}$$.
+$$\mathbf{q}_c \times (\mathbf{P}_c \cdot \mathbf{Q})=0, c \in{a,b}$$.
 
 Kad raspišemo sve četiri jednadžbe,
 dobivamo homogeni linearni sustav
@@ -299,11 +299,11 @@ qbs = np.array(list(makegen(f)))
 Algoritam s osam točaka temelji se na epipolarnom ograničenju
 koje možemo zapisati kao bilinearnu formu
 nad homogenim prikazima korespondentnih točkaka 
-$$\mathbf{q_{ia}} = (x_{ia}, y_{ia}, 1)$$ i 
-$$\mathbf{q_{ib}} = (x_{ib}, y_{ib}, 1)$$ 
+$$\mathbf{q}_{ia} = (x_{ia}, y_{ia}, 1)$$ i 
+$$\mathbf{q}_{ib} = (x_{ib}, y_{ib}, 1)$$ 
 te nepoznatom esencijalnom matricom $$\mathbf{E}$$:
 
-$$\mathbf{q_{ib}}^\top \cdot \mathbf{E} \cdot \mathbf{q_{ia}} = 0$$
+$$\mathbf{q_{ib}}^\top \cdot \mathbf{E} \cdot \mathbf{q}_{ia} = 0$$
 
 Podsjetimo se, epipolarno ograničenje 
 kaže da su prikazi točke $$\mathbf{Q}$$ 
