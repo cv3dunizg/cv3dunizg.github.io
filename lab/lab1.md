@@ -157,7 +157,7 @@ u prisustvu šuma neće biti koplanarne
 [(szeliski22book, 11.2.4)](https://szeliski.org/Book/).
 Stoga tražimo rekonstrukciju koja se ne nalazi
 na niti jednoj od dviju zraka.
-Najmanje kriva bila bi ona rekonstrukcija 
+Najmanje netočna bila bi ona rekonstrukcija 
 čija reprojekcija bi bila najmanje udaljena
 od izmjerenih položaja korespondentnih točaka.
 Međutim, takav postupak zahtijevao bi 
@@ -211,9 +211,10 @@ matrice $$\mathbf{M}$$ koji odgovara njenoj najmanjoj singularnoj vrijednosti.
 
 ## Sintetički eksperimentalni postav
 
-Metode relativne orijentacije kamera 
-teško je evaluirati na stvarnim slikama
-zbog kompliciranog mjerenja stvarnih pomaka.
+Metode relativne orijentacije 
+teško je vrednovati na stvarnim slikama
+zbog kompliciranog mjerenja 
+stvarnog pomaka između dvije kamere.
 Zbog toga ćemo ovu vježbu provoditi
 na sintetičkom eksperimentalnom postavu
 gdje dvije kamere promatraju 
