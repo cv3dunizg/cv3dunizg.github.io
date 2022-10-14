@@ -126,13 +126,13 @@ $$\mathbf{P}$$<sub>b</sub>
 te korespondentne točke $$\mathbf{q}_{a}$$ i $$\mathbf{q}_{b}$$,
 a naš zadatak je odrediti 3D položaj $$\mathbf{Q}$$.
 
-![Triangulacija strukture kad je relativna orijentacija poznata](../assets/images/szeliski22book_triang2.png)
+![Triangulacija strukture kad je relativna orijentacija poznata](../assets/images/szeliski22triang3.png)
 
 Slika pokazuje da je općeniti slučaj triangulacije 
 znatno teži od stereoskopskog određivanja dubine.
 Poluzrake koje odgovaraju korespondentnim pikselima 
 u prisustvu šuma neće biti koplanarne 
-[(szeliski22book)](https://szeliski.org/Book/).
+[(szeliski22book, 11.2.4)](https://szeliski.org/Book/).
 Stoga tražimo rekonstrukciju koja se ne nalazi
 na niti jednoj od dviju zraka.
 Najmanje kriva bila bi ona rekonstrukcija 
@@ -205,15 +205,6 @@ pomakom smjera gledanja druge kamere
 te orijentacijom spojnice dvaju ishodišta.
 Oblak točaka instanciramo u kvadru za kojeg zadajemo
 udaljenost od referentne kamere i dubinu.
-Stoga, eksperimentalni postav 
-zadajemo sljedećim parametrima:
-- $$\phi$$: smjer _gledanja_ kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
-- $$\theta$$: smjer _pomaka_ kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
-- $$D$$: udaljenost oblaka točaka,
-- $$d$$: dubina oblaka točaka,
-- $$\delta$$: nagib oblaka točaka,
-- $$N$$: broj točaka.
-
 Sljedeća slika ilustrira navedene parametre 
 i prikazuje tri konkretne konfiguracije:
 
@@ -228,7 +219,15 @@ intrinsični parametri kamera
 Konačno, kako bismo izmjerili otpornost metode na šum,
 svakoj projiciranoj točci dodajemo
 slučajan normalni šum varijance $$\sigma$$.
-Stoga valja zadati i sljedeće parametre eksperimentalnog postava:
+
+Eksperimentalni postav 
+zadajemo sljedećim parametrima:
+- $$\phi$$: smjer _gledanja_ kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
+- $$\theta$$: smjer _pomaka_ kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
+- $$D$$: udaljenost oblaka točaka,
+- $$d$$: dubina oblaka točaka,
+- $$\delta$$: nagib oblaka točaka,
+- $$N$$: broj točaka.
 - $$\alpha_H$$: horizontalno vidno polje u stupnjevima,
 - `w`, `h`: dimenzije slike,
 - $$\sigma$$: standardna devijacija šuma u pikselima.
