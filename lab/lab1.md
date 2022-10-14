@@ -221,7 +221,9 @@ svakoj projiciranoj točci dodajemo
 slučajan normalni šum varijance $$\sigma$$.
 
 Eksperimentalni postav 
-zadajemo sljedećim parametrima:
+zadajemo sljedećim parametrima
+od kojih su mnogi označeni
+i na prethodnoj slici:
 - $$\phi$$: smjer _gledanja_ kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
 - $$\theta$$: smjer _pomaka_ kamere C<sub>B</sub> u odnosu na referentnu kameru C<sub>A</sub> (stupnjevi)
 - $$D$$: udaljenost oblaka točaka,
