@@ -432,8 +432,55 @@ Odabir točne hipoteze provodimo trianguliranjem korespondencija.
 Pobjeđuje ona hipoteza za koju se najveći broj 
 rekonstrukcija nalazi _ispred_ obje kamere.
 
-## Poboljšanje osnovnog postupka normalizacijom koordinata korespondencija
-  Literatura: [(hartley97pami)](https://www.cse.unr.edu/~bebis/CS485/Handouts/hartley.pdf)
+## Normalizacija koordinata korespondencija
+
+Kod tipičnih kamera, širina vidnog polja 
+manja je od $$\pi$$/2, a to znači 
+da normalizirane koordinate vidljivih točaka manje od 1.
+Stoga će linearni stupci homogenog sustava
+algoritma s osam točaka
+imati znatno veći šum od kvadratnih.
+Posljedično, optimizacija će biti sklona
+smanjiti elemente esencijalne matrice
+koji odgovaraju linearnim elementima (pinz07bencos).
+Ovom problemu možemo doskočiti ako primijetimo
+da se linearne transformacije korespondencija
+mogu povratiti nakon estimacije esencijalne matrice.
+Označimo transformirane korespondencije
+s $$\mathbf{q}'_{ia}$$ i $$\mathbf{q}'_{ib}$$
+tako da vrijedi:
+
+$$ \mathbf{q}'_{ia} = \mathbf{T}_a \cdot \mathbf{q}_{ia} $$
+
+$$ \mathbf{q}'_{ib} = \mathbf{T}_b \cdot \mathbf{q}_{ib} $$
+
+Matrice $$\mathbf{T}_a$$ i $$\mathbf{T}_b$$
+u obje slike konstruiramo po istom receptu, 
+tako da težište transformiranih točaka bude u ishodištu 
+te da njihova prosječna udaljenost od ishodišta bude $$\sqrt{2}$$
+(hartley97pami).
+
+Pretpostavimo da smo za transformirane korespondencije
+riješili epipolarnu geometriju algoritmom s osam točaka
+odnosno da smo izlučili matricu 
+$$\mathbf{F}$$ za koju vrijedi:
+
+$$ \mathbf{q}'_{ib}^\top \mathbf{F} \mathbf{q}_{ia} = 0 $$
+
+Napominjemo da $$\mathbf{F}$$ nije esencijalna matrica
+jer transformirane korespondencije nisu izražene
+u normaliziranom koordinatnom sustavu slike.
+Sada uvrštanjem izraza za $$\mathbf{q}'_{ia}$$ i $$\mathbf{q}'_{ib}$$ dobivamo:
+
+$$ \mathbf{q}_{ib}^\top \mathbf{T}_b^\top \mathbf{F} \mathbf{T}_b \mathbf{q}_{ia} = 0 $$
+
+Odavde je jasno da traženu esencijalnu matricu 
+dobivamo jednostavnom transformacijom matrice
+koju smo dobili za transformirane korespondencije:
+
+$$ \mathbf{E} = \mathbf{T}_b^\top \mathbf{F} \mathbf{T}_b $$
+
+Literatura: [(hartley97pami)](https://www.cse.unr.edu/~bebis/CS485/Handouts/hartley.pdf)
 
 ## Procjena pogreške
 
