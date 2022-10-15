@@ -437,12 +437,13 @@ rekonstrukcija nalazi _ispred_ obje kamere.
 Kod tipičnih kamera, širina vidnog polja 
 manja je od $$\pi$$/2, a to znači 
 da normalizirane koordinate vidljivih točaka manje od 1.
-Stoga će linearni stupci homogenog sustava
+Stoga će linearni članovi homogenog sustava
 algoritma s osam točaka
 imati znatno veći šum od kvadratnih.
 Posljedično, optimizacija će biti sklona
 smanjiti elemente esencijalne matrice
-koji odgovaraju linearnim elementima (pinz07bencos).
+koji odgovaraju linearnim članovima 
+[(pinz07bencos)](https://vision.middlebury.edu/conferences/bencos2007/pdf/segvic.pdf).
 Ovom problemu možemo doskočiti ako primijetimo
 da epipolarnu estimaciju možemo provesti
 i nad linearno transformiranim korespondencijama.
@@ -477,8 +478,8 @@ Sada uvrštanjem izraza za $$\mathbf{q}'_{ia}$$ i $$\mathbf{q}'_{ib}$$ dobivamo:
 $$ \mathbf{q}_{ib}^\top \mathbf{T}_b^\top \mathbf{F} \mathbf{T}_b \mathbf{q}_{ia} = 0 $$
 
 Odavde je jasno da traženu esencijalnu matricu 
-dobivamo jednostavnom transformacijom matrice
-koju smo dobili za transformirane korespondencije:
+dobivamo jednostavnom transformacijom matrice $$\mathbf{F}$$
+koju smo izlučili iz transformiranih korespondencija:
 
 $$ \mathbf{E} = \mathbf{T}_b^\top \mathbf{F} \mathbf{T}_b $$
 
