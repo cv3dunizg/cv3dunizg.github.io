@@ -475,15 +475,21 @@ jer transformirane korespondencije nisu izražene
 u normaliziranom koordinatnom sustavu slike.
 Sada uvrštanjem izraza za $$\mathbf{q}'_{ia}$$ i $$\mathbf{q}'_{ib}$$ dobivamo:
 
-$$ \mathbf{q}_{ib}^\top \mathbf{T}_b^\top \mathbf{F} \mathbf{T}_b \mathbf{q}_{ia} = 0 $$
+$$ (\mathbf{q}_{ib}^\top \mathbf{T}_b^\top) \mathbf{F} (\mathbf{T}_a \mathbf{q}_{ia}) = 0 $$
 
-Odavde je jasno da traženu esencijalnu matricu 
-dobivamo jednostavnom transformacijom matrice $$\mathbf{F}$$
-koju smo izlučili iz transformiranih korespondencija:
+$$ \mathbf{q}_{ib}^\top (\mathbf{T}_b^\top \mathbf{F} \mathbf{T}_a) \mathbf{q}_{ia}) = 0 $$
 
-$$ \mathbf{E} = \mathbf{T}_b^\top \mathbf{F} \mathbf{T}_b $$
+Druga jednakost vrijedi zbog asocijativnosti matričnog množenja.
+Sada je jasno da tražena esencijalna matrica odgovara 
+jednostavnoj transformaciji matrice $$\mathbf{F}$$
+koja je rješenje prikladno kondicioniranog homogenog sustava
+dobivenog iz transformiranih korespondencija:
 
+$$ \mathbf{E} = \mathbf{T}_b^\top \mathbf{F} \mathbf{T}_a $$
+
+<!--
 Literatura: [(hartley97pami)](https://www.cse.unr.edu/~bebis/CS485/Handouts/hartley.pdf)
+-->
 
 ## Procjena pogreške
 
