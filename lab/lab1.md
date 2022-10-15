@@ -444,8 +444,8 @@ Posljedično, optimizacija će biti sklona
 smanjiti elemente esencijalne matrice
 koji odgovaraju linearnim elementima (pinz07bencos).
 Ovom problemu možemo doskočiti ako primijetimo
-da se linearne transformacije korespondencija
-mogu povratiti nakon estimacije esencijalne matrice.
+da epipolarnu estimaciju možemo provesti
+i nad linearno transformiranim korespondencijama.
 Označimo transformirane korespondencije
 s $$\mathbf{q}'_{ia}$$ i $$\mathbf{q}'_{ib}$$
 tako da vrijedi:
@@ -454,9 +454,11 @@ $$ \mathbf{q}'_{ia} = \mathbf{T}_a \cdot \mathbf{q}_{ia} $$
 
 $$ \mathbf{q}'_{ib} = \mathbf{T}_b \cdot \mathbf{q}_{ib} $$
 
-Matrice $$\mathbf{T}_a$$ i $$\mathbf{T}_b$$
-u obje slike konstruiramo po istom receptu, 
-tako da težište transformiranih točaka bude u ishodištu 
+Prikladno kondicioniranje linearnog sustava možemo postići 
+na način da matrice $$\mathbf{T}_a$$ i $$\mathbf{T}_b$$
+u obje slike postavimo prema sljedećem kriteriju.
+Transformacijske matrice treba konstruirati tako 
+da težište transformiranih točaka bude u ishodištu 
 te da njihova prosječna udaljenost od ishodišta bude $$\sqrt{2}$$
 (hartley97pami).
 
@@ -465,7 +467,7 @@ riješili epipolarnu geometriju algoritmom s osam točaka
 odnosno da smo izlučili matricu 
 $$\mathbf{F}$$ za koju vrijedi:
 
-$$ \mathbf{q}'_{ib}^\top \mathbf{F} \mathbf{q}_{ia} = 0 $$
+$$ \mathbf{q}_{ib}^{'\top} \mathbf{F} \mathbf{q}'_{ia} = 0 $$
 
 Napominjemo da $$\mathbf{F}$$ nije esencijalna matrica
 jer transformirane korespondencije nisu izražene
