@@ -435,13 +435,13 @@ rekonstrukcija nalazi _ispred_ obje kamere.
 ## Normalizacija koordinata korespondencija
 
 Kod tipičnih kamera, širina vidnog polja 
-manja je od $$\pi$$/2, a to znači 
-da normalizirane koordinate vidljivih točaka manje od 1.
+manja je od $$\pi$$/2, a to znači da su 
+normalizirane koordinate vidljivih točaka manje od 1.
 Stoga će linearni članovi homogenog sustava
 algoritma s osam točaka
 imati znatno veći šum od kvadratnih.
 Posljedično, optimizacija će biti sklona
-smanjiti elemente esencijalne matrice
+"smanjiti" elemente esencijalne matrice
 koji odgovaraju linearnim članovima 
 [(pinz07bencos)](https://vision.middlebury.edu/conferences/bencos2007/pdf/segvic.pdf).
 Ovom problemu možemo doskočiti ako primijetimo
