@@ -133,7 +133,7 @@ te označavamo s $$\mathbf{t}$$.
 Ova činjenica često koristi pri snimanju filmova.
 Slika pokazuje minijaturnu repliku Hogwartsa
 koja je korištena za snimanje filmova o Harryju Potteru.
-Jasno je da su takve minijature puno jeftinije  
+Jasno je da su takve minijature puno jeftinije
 od odgovarajuće scenografije u prirodnoj veličini!
 
 ![Kako su snimani filmovi u Harryju Potteru](../assets/images/real-life-hogwarts-castle-scale-model-1.jpg)
