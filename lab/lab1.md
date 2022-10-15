@@ -237,7 +237,7 @@ i prikazuje tri konkretne konfiguracije:
 
 Slika ilustrira i kako se oblak točaka instancira
 samo u dijelovima scene koji su vidljivi u obje kamere
-[(segvic07bencos)](https://vision.middlebury.edu/conferences/bencos2007/pdf/segvic.pdf).
+[(pinz07bencos)](https://vision.middlebury.edu/conferences/bencos2007/pdf/segvic.pdf).
 Da bismo to mogli provesti, potrebni su nam 
 intrinsični parametri kamera
 (pretpostavljamo da obje kamere imaju iste parametre).
