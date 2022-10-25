@@ -236,7 +236,7 @@ primjenom i) interpolacije najbližim susjedom
 te ii) bilinearnom interpolacijom. 
 Upute:
 - poslužite se slikama `scipy.misc.ascent()` i `scipy.misc.face()`
-- matricu $$\mathbf{A}$$ slučajne afine transformacije zadajte ovako: `A = .25*np.eye(2) + np.random.normal([2,2])`
+- matricu $$\mathbf{A}$$ slučajne afine transformacije zadajte ovako: `A = .25*np.eye(2) + np.random.normal(size=(2, 2))`
 - vektor $$\mathbf{b}$$ slučajne afine transformacije zadajte tako da se središnji piksel izvorišne slike preslika u središnji piksel odredišne slike
 - napišite funkciju `affine_nn(Is, A,b, Hd,Wd)` koja izvorišnu sliku `Is` deformira u skladu s parametrima `A` i `b` te odredišnu sliku rezolucije `Hd`$$\times$$`Wd` vraća u povratnoj vrijednosti; odredišni pikseli koji padaju izvan izvorišne slike trebaju biti crni; funkcija treba koristiti interpolaciju najbližim susjedom te funkcionirati i za sive slike i za slike u boji
 - napišite funkciju `affine_bilin(Is, A,b, Hd,Wd)` koja radi isto što i `affine_nn`, ali s bilinearnom interpolacijom 
@@ -270,8 +270,8 @@ plt.show()
 ## Zadatak 2: procjena afine transformacije iz korespondencija
 
 Napišite funkciju `recover_affine_diamond(Hs,Ws, Hd,Wd)` koja vraća parametre afine transformacije
-koja piksele _središta stranica_ izvorišne slike dimenzija Hs$$\times$$Hs 
-preslikava u _kuteve_ odredišne slike dimenzija Hd$$\times$$Hd.
+koja piksele _središta stranica_ izvorišne slike dimenzija Hs$$\times$$Ws 
+preslikava u _kuteve_ odredišne slike dimenzija Hd$$\times$$Wd.
 Istestirajte vaše parametre provođenjem deformacije iz prve vježbe.
 
 Upute:
