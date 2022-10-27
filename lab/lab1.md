@@ -272,8 +272,8 @@ instancira postav na lijevoj slici:
 ```
 ./create_2vg_setup -5_90_10_5_0_10000 45_384_288_100 >exp.data
 ```
-Navedeni primjer zadaje $$\theta=-5^\circ$$,
-$$\phi=90^\circ$$, $$D=10$$, $$d=5$$, $$\delta=0$$,
+Navedeni primjer zadaje $$\phi=-5^\circ$$,
+$$\theta=90^\circ$$, $$D=10$$, $$d=5$$, $$\delta=0$$,
 $$N=10000$$, $$\alpha_H$$=$$45^\circ$$, `w`,`h`=384,288, $$\sigma=1.00$$.
 Primijetite da zbog lakšeg parsanja,
 program zahtijeva da sve parametre upišemo
@@ -353,7 +353,7 @@ $$\mathbf{M}_{n\times 9}\cdot \mathbf{e}_{9\times 1}=\mathbf{0}_{n\times 1}$$
 Primijetimo da ovaj algoritam 
 ne bismo mogli prikazati
 u zatvorenom obliku 
-kad korespondencije ne bibile
+kad korespondencije ne bi bile
 zapisane u homogenom prikazu.
 
 ## Dekompozicija esencijalne matrice
@@ -385,11 +385,22 @@ $$
     \mathrm{V}^\top
 $$
 
-Nakon toga, matricu singularnih vrijednosti 
-postavit ćemo na
+Nakon toga, po potrebi ćemo 
+matrice U i V pomnožiti s -1 
+tako da njihova determinanta
+bude pozitivna i jednaka 1.
+To možemo provesti 
+bez smanjenja općenitosti 
+jer matrice 
+$$\mathbf{E}$$ i
+$$-\mathbf{E}$$
+odgovaraju istoj epipolarnoj geometriji.
+Nastavak postupka implicitno će
+matricu singularnih vrijednosti 
+postaviti na
 $$\mathbf{D}' = \mathrm{diag}(1,1,0)$$
 i rekombinirati faktore
-[(nister04pami)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.8769&rep=rep1&type=pdf).
+[(nister04pami)](https://www.semanticscholar.org/paper/An-efficient-solution-to-the-five-point-relative-Nist%C3%A9r/26f47782d667a3b4cd6061a844dbfac601306fed).
 
 Sada možemo formulirati postupak 
 dekompozicije esencijalne matrice
@@ -403,7 +414,8 @@ $$
     \cdot
     \mathrm{diag}(1,1,0) 
     \cdot
-    \mathrm{V}^\top
+    \mathrm{V}^\top, 
+    \mathrm{det}{U} = \mathrm{det}{V} = 1
 $$
   
 Tada pomak druge kamere odgovara trećem lijevom singularnom vektoru:
