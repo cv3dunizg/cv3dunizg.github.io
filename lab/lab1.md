@@ -223,7 +223,7 @@ Takvo stanje stvari odražava i činjenica
 da je narančasti pravokutnik veći 
 i od plavog i od zelenog i od crvenog pravokutnika.  
 
-Detaljniji prikaz bilnearne interpolacije
+Detaljniji prikaz bilinearne interpolacije
 kao i recept za učinkovitu implmentaciju
 mogu se pronaći u završnom radu 
 [Petre Bosilj](http://www.zemris.fer.hr/~ssegvic/project/pubs/bosilj10bs.pdf).
