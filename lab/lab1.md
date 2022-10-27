@@ -555,7 +555,7 @@ Ispitni program treba za svaki pomak $$\theta$$ provesti
 od `szSample` = 50 slučajnih parova točaka,
 rekonstruirati relativnu orijentaciju 
 nenormaliziranim algoritmom s osam točaka
-te zabilježiti kutnu pogrešku 
+te zabilježiti srednju kutnu pogrešku 
 rekonstruiranog vektora translacije.
 
 ### Hartleyeva normalizacija
