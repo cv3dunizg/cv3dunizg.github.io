@@ -241,7 +241,7 @@ Upute:
 - napišite funkciju `affine_nn(Is, A,b, Hd,Wd)` koja izvorišnu sliku `Is` deformira u skladu s parametrima `A` i `b` te odredišnu sliku rezolucije `Hd`$$\times$$`Wd` vraća u povratnoj vrijednosti; odredišni pikseli koji padaju izvan izvorišne slike trebaju biti crni; funkcija treba koristiti interpolaciju najbližim susjedom te funkcionirati i za sive slike i za slike u boji
 - napišite funkciju `affine_bilin(Is, A,b, Hd,Wd)` koja radi isto što i `affine_nn`, ali s bilinearnom interpolacijom 
 - neka odredišna rezolucija bude `Hd`$$\times$$`Wd` = 200$$\times$$200
-- ispišite standardnu devijaciju odstupanja odgovarajućih linearno odnosno bilinearno interpoliranih piksela 
+- karakterizirajte odstupanje odgovarajućih piksela dobivenih s `affine_bilin` i `affine_nn` (uputa: ispišite korijen srednjeg kvadratnog odstupanja piksela dvaju slika) 
 - neka vaš glavni program odgovara sljedećem kodu: 
 
 ```
