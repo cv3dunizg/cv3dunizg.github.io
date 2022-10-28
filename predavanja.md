@@ -8,7 +8,7 @@ description: Popis predavanja.
 1. Geometrija jednog, dvaju i više pogleda 1 [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv3d_mvg.pdf)
 2. Geometrija jednog, dvaju i više pogleda 2
 2. Geometrija jednog, dvaju i više pogleda 3
-4. Rektificirana stereoskopija [pdf] (http://www.zemris.fer.hr/~ssegvic/vision/cv3d_stereo.pdf)
+4. Rektificirana stereoskopija [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv3d_stereo.pdf)
 5. TBD
 6. TBD
 7. TBD
