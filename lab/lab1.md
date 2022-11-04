@@ -56,7 +56,7 @@ preslikava u slikovni element $$\mathbf{q}$$
 Ako je točka $$Q$$ izražena u koordinatnom sustavu kamere,
 tada normalizirane slikovne koordinate odgovaraju
 tangensima kutova koji definiraju zraku 
-($$\mathbf{Q}, \mathbf{q}$$:
+($$\mathbf{Q}, \mathbf{q}$$):
 
 $$x_q = X_Q/Z_Q$$
 
@@ -442,7 +442,17 @@ pa konačno dobivamo četiri hipoteze:
 
 Odabir točne hipoteze provodimo trianguliranjem korespondencija.
 Pobjeđuje ona hipoteza za koju se najveći broj 
-rekonstrukcija nalazi _ispred_ obje kamere.
+rekonstrukcija nalazi ispred _obje_ kamere.
+Potrebno je formirati dvije projekcijske matrice,
+$$\mathbf{P}_a = [\mathbf{I}|\mathbf{0}]$$
+i $$\mathbf{P}_b$$ prema hipotezi,
+triangulirati strukturu $$\mathbf{Q}_{ia}$$,
+prebaciti je u koordinate druge kamere ($$\mathbf{Q}_{ib}$$),
+odrediti Euklidski prikaz 
+($$\mathbf{Q}^E_{ia}$$ i $$\mathbf{Q}^E_{ib}$$),
+te pobrojati broj korespondencija 
+za koje je i $$Q^E_{iaz}>0$$ 
+i $$Q^E_{ibz}>0$$.
 
 ## Normalizacija koordinata korespondencija
 
