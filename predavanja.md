@@ -10,7 +10,7 @@ description: Popis predavanja.
 3. Detekcija rubova i kuteva [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_gradients.pdf)
 4. Ključne točke u prostoru mjerila [pdf](https://github.com/cvunizg/cvunizg.github.io/blob/main/racvid04.pdf)
 5. Analiza kretanja u slikovnoj ravnini [pdf](https://github.com/cvunizg/cvunizg.github.io/blob/main/RacVid_P5_motion.pdf)
-6. TBD
+6. Diskusija 1: Paul Viola, Michael J. Jones. Robust Real-Time Face Detection. [pdf](https://link.springer.com/content/pdf/10.1023/B:VISI.0000013087.49260.fb.pdf)
 7. TBD
 8. (međuispit)
 9. (međuispit)
