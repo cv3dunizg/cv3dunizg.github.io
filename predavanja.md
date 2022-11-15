@@ -10,7 +10,7 @@ description: Popis predavanja.
 2. Geometrija jednog, dvaju i više pogleda 3
 4. Rektificirana stereoskopija [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv3d_stereo.pdf)
 5. TOF Kamera - 3D rekonstrukcija mjerenjem vremena leta [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_1[26].pdf)
-6. TBD
+6. 3D rekonstrukcija strukturiranim svjetlom [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_2[21].pdf)
 7. TBD
 8. ISPIT
 9. ISPIT
