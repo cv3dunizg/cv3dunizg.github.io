@@ -9,7 +9,7 @@ description: Popis predavanja.
 2. Geometrijske deformacije slika [pdf](https://github.com/cvunizg/cvunizg.github.io/blob/main/P2.pdf)
 3. Detekcija rubova i kuteva [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_gradients.pdf)
 4. Ključne točke u prostoru mjerila [pdf](https://github.com/cvunizg/cvunizg.github.io/blob/main/racvid04.pdf)
-5. Analiza kretanja u slikovnoj ravnini
+5. Analiza kretanja u slikovnoj ravnini [pdf](https://github.com/cvunizg/cvunizg.github.io/blob/main/RacVid_P5_motion.pdf)
 6. TBD
 7. TBD
 8. (međuispit)
