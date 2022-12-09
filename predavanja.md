@@ -14,8 +14,8 @@ description: Popis predavanja.
 7. Praznik
 8. (međuispit)
 9. (međuispit)
-10. Diskriminativni modeli za klasifikaciju slika
-11. Naučena detekcija i segmentacija
+10. Konvolucijski modeli za klasifikaciju slika
+11. Detekcija objekata i semantička segmentacija
 12. Generativni modeli slika
 13. Transformeri
 14. TBD
