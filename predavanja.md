@@ -14,7 +14,7 @@ description: Popis predavanja.
 7. Praznik
 8. (međuispit)
 9. (međuispit)
-10. Konvolucijski modeli za klasifikaciju slika [pdf](https://link.springer.com/content/pdf/10.1023/B:VISI.0000013087.49260.fb.pdf), [he15cvpr](https://arxiv.org/abs/1512.03385), [he16eccv](https://arxiv.org/abs/1603.05027)
+10. Konvolucijski modeli za klasifikaciju slika [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_gradients.pdf), [he15cvpr](https://arxiv.org/abs/1512.03385), [he16eccv](https://arxiv.org/abs/1603.05027)
 11. Detekcija objekata i semantička segmentacija
 12. Generativni modeli slika
 13. Transformeri
