@@ -12,7 +12,7 @@ description: Popis predavanja.
 5. TOF Kamera - 3D rekonstrukcija mjerenjem vremena leta [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_1[26].pdf)
 6. 3D rekonstrukcija strukturiranim svjetlom [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_2[21].pdf)
 7. 3D registracija oblaka točaka [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_3[18].pdf) 
-8. ISPIT
+8. Kratki uvod u 3D registraciju oblaka točaka korištenjem modela dubokog učenja [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_4[25].pdf) 
 9. ISPIT
 10. TBD
 11. TBD
