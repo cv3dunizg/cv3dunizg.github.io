@@ -20,7 +20,5 @@ description: Popis predavanja.
 10. TBD
 11. TBD
 12. TBD
-13. TBD
-14. TBD
 
 (završni ispit)
