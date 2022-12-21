@@ -16,9 +16,10 @@ description: Popis predavanja.
 
 7. 3D registracija oblaka točaka [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_3[18].pdf) 
 8. Kratki uvod u 3D registraciju oblaka točaka korištenjem modela dubokog učenja [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_4[25].pdf) 
-9. TBD
+9. Uvod u odometriju [pdf](https://github.com/cv3dunizg/cv3dunizg.github.io/files/10277001/3dcv-l01-vo-primer.pdf)
 10. TBD
 11. TBD
 12. TBD
 
 (završni ispit)
+
