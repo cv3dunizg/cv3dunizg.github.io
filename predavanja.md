@@ -16,7 +16,7 @@ description: Popis predavanja.
 9. (međuispit)
 10. Konvolucijski modeli za klasifikaciju slika [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_convnet.pdf), [he15cvpr](https://arxiv.org/abs/1512.03385), [he16eccv](https://arxiv.org/abs/1603.05027)
 11. Detekcija objekata i semantička segmentacija
-12. Generativni modeli slika
+12. Generativni modeli slika [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_genmod.pdf)
 13. Transformeri
 14. TBD
 15. TBD
