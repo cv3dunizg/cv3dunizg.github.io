@@ -7,4 +7,4 @@ nav_exclude: true
 
 # Treća laboratorijska vježba
 
-TODO
+Upute i podatci za treću laboratorijsku vježbu nalaze se na FERovim stranicama predmeta pod karticom materijali.
