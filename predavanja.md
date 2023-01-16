@@ -18,9 +18,11 @@ description: Popis predavanja.
 8. Kratki uvod u 3D registraciju oblaka točaka korištenjem modela dubokog učenja [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_4[25].pdf) 
 9. Uvod u odometriju [pdf](https://github.com/cv3dunizg/cv3dunizg.github.io/files/10277001/3dcv-l01-vo-primer.pdf)
 10. Vizualna estimacija gibanja [pdf](https://github.com/cv3dunizg/cv3dunizg.github.io/files/10384491/3dcv-l02-motion-estimation.pdf)
-11. Robusna vizualna odometrija [pdf](https://github.com/cv3dunizg/cv3dunizg.github.io/files/10384497/3dcv-l03-robust-vo.pdf)
-12. TBD
+11. Robusna vizualna odometrija [pdf](https://github.com/cv3dunizg/cv3dunizg.github.io/files/10425307/3dcv-l03-robust-vo_merged.pdf)
+12. Lokalna optimizacija i stanje tehnike [pdf](https://github.com/cv3dunizg/cv3dunizg.github.io/files/10425312/3dcv-l04-local-optimization.pdf)
 
 (završni ispit)
+
+
 
 
