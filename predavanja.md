@@ -17,6 +17,6 @@ description: Popis predavanja.
 10. Konvolucijski modeli za klasifikaciju slika [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_convnet.pdf), [he15cvpr](https://arxiv.org/abs/1512.03385), [he16eccv](https://arxiv.org/abs/1603.05027)
 11. Detekcija objekata i semantička segmentacija [pdf](https://github.com/cvunizg/cvunizg.github.io/blob/main/detection_and_segmentation.pdf)
 12. Generativni modeli slika [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_genmod.pdf)
-13. Duboki modeli utemeljeni na pažnji [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_transformers.pdf)
-14. TBD
-15. TBD
+13. Praznik
+14. Duboki modeli utemeljeni na pažnji [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_transformers.pdf)
+15. Diskusija: [he22cvpr] Masked Autoencoders Are Scalable Vision Learners [pdf](https://arxiv.org/abs/2111.06377)
