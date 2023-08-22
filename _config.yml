@@ -17,8 +17,8 @@ title: Računalni vid
 tagline: Računalni vid
 description: Službene stranice kolegija Računalni vid koji se izvodi na Fakultetu elektrotehnike i računarstva, Sveučilišta u Zagrebu.
 author: Josip Šarić
-baseurl: '' # the subpath of your site, e.g. /blog
-url: 'https://unizg-fer-d307.github.io/compvis' # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: '/compvis/' # the subpath of your site, e.g. /blog
+url: 'https://unizg-fer-d307.github.io/compvis/' # the base hostname & protocol for your site, e.g. http://example.com
 exclude: ["Gemfile", "Gemfile.lock", "LICENSE"]
 
 # Theme settings
