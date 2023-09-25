@@ -19,8 +19,8 @@ Ove upute fokusirane su na programsku implementaciju u Pythonu, a za pripremu i 
 
 Prilikom razvoja, naše algoritme testirat ćemo na jednostavnijoj slici koja prikazuje logo FER-a, te u svijetu računalnog vida popularnoj slici kuće.
 
-<img src="../../assets/images/fer_logo.jpg" alt="house" width="400"/>
-<img src="../../assets/images/house.jpg" alt="house" width="300"/>
+<img src="../../assets/images/lab2/fer_logo.jpg" alt="house" width="400"/>
+<img src="../../assets/images/lab2/house.jpg" alt="house" width="300"/>
 
 Preuzmite obje slike i pohranite ih lokalno na Vaše računalo.
 Nakon što ste implementirali oba algoritma, demonstrirajte njihov rad na obje zadane slike.
@@ -53,7 +53,7 @@ Zadaci:
 
 Primjer gaussovog zaglađivanja za `sigma=5`:
 
-<img src="../../assets/images/fer_logo_sigma5.jpg" alt="FER logo zaglađane sa sigma=5." width="400"/>
+<img src="../../assets/images/lab2/fer_logo_sigma5.jpg" alt="FER logo zaglađane sa sigma=5." width="400"/>
 
 ### 3. Izračun gradijenata
 
@@ -66,8 +66,8 @@ Zadaci:
 
 Primjer gradijenata po osima $$\mathrm{I}_x$$ i $$\mathrm{I}_y$$:
 
-<img src="../../assets/images/fer_grad_x.jpg" alt="FER logo gradijent po x-u." width="300"/>
-<img src="../../assets/images/fer_grad_y.jpg" alt="FER logo gradijent po y-u." width="300"/>
+<img src="../../assets/images/lab2/fer_grad_x.jpg" alt="FER logo gradijent po x-u." width="300"/>
+<img src="../../assets/images/lab2/fer_grad_y.jpg" alt="FER logo gradijent po y-u." width="300"/>
 
 
 ### 4. Sumiranje gradijenata u lokalnom susjedstvu
@@ -109,7 +109,7 @@ Zadaci:
 
 Primjer Harrisovih odziva:
 
-<img src="../../assets/images/fer_logo_harris_odziv.jpg" alt="FER logo harrisov odziv." width="400"/>
+<img src="../../assets/images/lab2/fer_logo_harris_odziv.jpg" alt="FER logo harrisov odziv." width="400"/>
 
 
 ### 6. Potiskivanje nemaksimalnih odziva
@@ -140,12 +140,12 @@ Zadaci:
 
 Primjer detektiranih Harrisovih kutova:
 
-<img src="../../assets/images/fer_logo_harris_corners.jpg" alt="FER logo Harrisovi kutovi." width="500"/>
+<img src="../../assets/images/lab2/fer_logo_harris_corners.jpg" alt="FER logo Harrisovi kutovi." width="500"/>
 
 Parametri algoritma: sigma=1, prag=1e10, k=0.04, topk=100, veličina_prozora_za_sumiranje=(5, 5), veličina_prozora_za_potiskivanje_nemaksimalnih_odziva=(14, 14)
 
 
-<img src="../../assets/images/house_harris_corners.jpg" alt="House Harrisovi kutovi." width="400"/>
+<img src="../../assets/images/lab2/house_harris_corners.jpg" alt="House Harrisovi kutovi." width="400"/>
 
 Parametri algoritma: sigma=1.5, prag=1e9, k=0.04, topk=100, veličina_prozora_za_sumiranje=(5, 5), veličina_prozora_za_potiskivanje_nemaksimalnih_odziva=(32, 32)
 
@@ -169,7 +169,7 @@ Zadaci:
 
 Primjer vizualizacije magnituda gradijenta:
 
-<img src="../../assets/images/house_magnitudes.jpg" alt="House Canny gradient magnitudes." width="400"/>
+<img src="../../assets/images/lab2/house_magnitudes.jpg" alt="House Canny gradient magnitudes." width="400"/>
 
 
 ### 5. Potiskivanje nemaksimalnih odziva
@@ -186,7 +186,7 @@ Pri programskoj implementaciji vrijedi obratiti pažnju na
 područje vrijednosti koje vraća funkcija inverznog tangensa,
 te na činjenicu da indeksi redaka u polju rastu od gore prema dolje.
 
-<img src="../../assets/images/canny_angles.jpg" alt="House Canny gradient magnitudes." width="400"/>
+<img src="../../assets/images/lab2/canny_angles.jpg" alt="House Canny gradient magnitudes." width="400"/>
 
 Konačno, razmatrani piksel će "preživjeti" samo ako je njegova magnituda veća od oba susjedna piksela.
 Inače, iznos njegove magnitude se postavlja na nulu.
@@ -200,7 +200,7 @@ Zadaci:
 
 Primjer vizualizacije magnituda gradijenta nakon potiskivanja nemaksimalnih odziva:
 
-<img src="../../assets/images/house_magnitudes_nms.jpg" alt="House Canny gradient magnitudes after NMS." width="400"/>
+<img src="../../assets/images/lab2/house_magnitudes_nms.jpg" alt="House Canny gradient magnitudes after NMS." width="400"/>
 
 ### 6. Uspoređivanje s dva praga - histereza
 
@@ -224,10 +224,10 @@ Zadaci:
 
 Primjer samo jakih rubova:
 
-<img src="../../assets/images/house_strong_edges.jpg" alt="House Canny strong edges." width="400"/>
+<img src="../../assets/images/lab2/house_strong_edges.jpg" alt="House Canny strong edges." width="400"/>
 
 Primjer rezultata detekcije rubova Cannyevim algoritmom:
 
-<img src="../../assets/images/house_edges.jpg" alt="House Canny edges." width="400"/>
+<img src="../../assets/images/lab2/house_edges.jpg" alt="House Canny edges." width="400"/>
 
 Ovi rezultati postignuti su sa sljedećim vrijednostima parametara algoritma: sigma=1.5, min_val=10, max_val=90
