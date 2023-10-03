@@ -7,4 +7,3 @@ website: https://www.fer.unizg.hr/tomislav.pribanic
 photo: 01tomislav.jpg
 ---
 
-Computer Vision Master
