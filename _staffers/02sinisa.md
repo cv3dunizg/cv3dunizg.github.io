@@ -7,4 +7,3 @@ website: http://www.zemris.fer.hr/~ssegvic/
 photo: sinisa.jpg
 ---
 
-Computer Vision Master
