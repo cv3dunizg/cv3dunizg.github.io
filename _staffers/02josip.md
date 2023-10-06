@@ -7,4 +7,3 @@ website: https://jsaric.github.io/
 photo: josip.jpg
 ---
 
-Computer Vision Padawan
