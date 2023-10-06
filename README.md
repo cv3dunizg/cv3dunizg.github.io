@@ -10,5 +10,5 @@ seo:
 
 # O predmetu
 
-Računalni vid je predmet diplomskog studija.
+Računalni vid je predmet diplomskog studija računarstva na UniZg-FER.
 
