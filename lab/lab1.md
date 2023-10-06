@@ -280,9 +280,11 @@ Upute:
 
 ![Ulaz i željeni izlaz za zadatak 2.](../assets/images/face_warp_diamond.png)
 
-## Zadatak 3: procjena projekcijske transformacije iz korespondencija (bonus)
+## Zadatak 3: procjena projekcijske transformacije iz korespondencija
 
 Napišite funkciju `recover_projective(Qs, Qd)` koja vraća parametre projekcijske transformacije
 ako su zadane točke izvorišne slike `Qs` i točke odredišne slike `Qd`. 
 Upute:
 - za rješavanje homogenog sustava koristite `np.linalg.svd`
+- odredišne točke postavite na kuteve odredišne slike
+- prikažite rezultate obrade za više slučajno odabranih točaka izvorišne slike
