@@ -7,4 +7,3 @@ website: https://www.fer.unizg.hr/tomislav.hrkac
 photo: tomislav.jpg
 ---
 
-Computer Vision Master
