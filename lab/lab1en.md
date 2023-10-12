@@ -64,9 +64,9 @@ can be described by an affine deformation,
 then the parameters of the coordinate transformation
 can be extracted from correspondences.
 Let's have the source image $$I_s$$ 
-with given points $$\mathbf{q}_{di}$$.
-In the destination image $$I_d$$,
-we have corresponding points $$\mathbf{q}$$<sub>si</sub>.
+with given points $$\mathbf{q}_{si}$$.
+In the target image $$I_d$$,
+we have corresponding points $$\mathbf{q}_{di}$$.
 Then, for each correspondence pair,
 the following holds:
 
@@ -252,7 +252,7 @@ Instructions:
 
 - use images `scipy.misc.ascent()` and `scipy.misc.face()`
 - define the matrix $$\mathbf{A}$$ for the random affine transformation as follows: `A = .25*np.eye(2) + np.random.normal(size=(2, 2))`
-- define the vector $$\mathbf{b}$$ for the random affine transformation so that the central pixel of the source image maps to the central pixel of the destination image
+- define the vector $$\mathbf{b}$$ for the random affine transformation so that the central pixel of the source image maps to the central pixel of the target image
 - write a function `affine_nn(Is, A,b, Hd,Wd)` that deforms the source image `Is` according to parameters `A` and `b` and returns a target image with resolutioin `Hd`$$\times$$`Wd`; destination pixels falling outside the source image should be black; the function should use nearest-neighbor interpolation and work for grayscale and color images
 - write a function `affine_bilin(Is, A,b, Hd,Wd)` that does the same as `affine_nn`, but with bilinear interpolation 
 - set the target resolution to `Hd`$$\times$$`Wd` = 200$$\times$$200
