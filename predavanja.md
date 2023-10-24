@@ -6,7 +6,7 @@ description: Popis predavanja.
 
 # Predavanja
 1. Uvodno predavanje [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_intro.pdf)
-2. Geometrijske deformacije slika [pdf](https://github.com/UNIZG-FER-D307/compvis/blob/main/assets/lectures/02_geotransform.pdf)
+2. Geometrijske transformacije slika [pdf](https://github.com/UNIZG-FER-D307/compvis/blob/main/assets/lectures/02_geotransform.pdf)
 3. Detekcija rubova i kuteva [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv_gradients.pdf)
 4. Ključne točke u prostoru mjerila [pdf](https://github.com/UNIZG-FER-D307/compvis/blob/main/assets/lectures/04_sift.pdf)
 5. Analiza kretanja u slikovnoj ravnini [pdf](https://github.com/UNIZG-FER-D307/compvis/blob/main/assets/lectures/05_motion.pdf)
