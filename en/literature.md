@@ -1,3 +1,9 @@
+---
+layout: page
+title: Literature
+nav_exclude: true
+---
+
 # Literature
 * [Geometric transformations](https://szeliski.org/Book/) (§ 3.6)
 * [Canny edge detector](https://canvas.stanford.edu/files/4183084/download?download_frd=1)
