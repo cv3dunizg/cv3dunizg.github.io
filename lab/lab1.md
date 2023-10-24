@@ -85,9 +85,11 @@ tako da 6 parametara afine transformacije
 istaknemo kao nepoznanice
 te ih zapisati u matričnom obliku kako slijedi:
 
-$$ {\left\lbrack \matrix{q_{si1} & q_{si2} & 0 & 0 & 1 & 0\cr 0 & 0 & q_{si1} & q_{si2} & 0 & 1} \right\rbrack} 
-\cdot \left\lbrack \matrix{a_{11} \cr a_{12} \cr a_{21} \cr a_{22} \cr b_{1} \cr b_{2}} \right\rbrack
-= \left\lbrack \matrix{q_{di1} \cr q_{di2}} \right\rbrack
+$$ 
+\left\lbrack \matrix{q_{si1} \cr q_{si2}} \right\rbrack =
+  \left\lbrack \matrix{q_{di1} & q_{di2} & 0 & 0 & 1 & 0\cr 0 & 0 & q_{di1} & q_{di2} & 0 & 1} \right\rbrack
+  \cdot 
+  \left\lbrack \matrix{a_{11} \cr a_{12} \cr a_{21} \cr a_{22} \cr b_{1} \cr b_{2}} \right\rbrack
 $$
 
 Ako dodamo još dvije korespondencije, dobit ćemo sustav $$6\times 6$$
