@@ -42,10 +42,10 @@ Označimo početni 2D vektor realnih koordinata s $$\mathbf{q}_s$$,
 konačni 2D vektor realnih koordinata s $$\mathbf{q}_d$$, 
 linearno ravninsko preslikavanje s $$A$$,    
 te 2D pomak s $$b$$.
-Tada afinu transformacijeu ravnine 
+Tada afinu transformaciju ravnine 
 možemo prikazati sljedećom jednadžbom: 
 
-$$\mathbf{q}_d = \mathbf{T}_p(\mathbf{q}_s) = \mathbf{A} \cdot \mathbf{q}_s + \mathbf{b} \ .$$
+$$\mathbf{q}_s = \mathbf{T}_p(\mathbf{q}_d) = \mathbf{A} \cdot \mathbf{q}_d + \mathbf{b} \ .$$
 
 Tablica prikazuje hijerarhijski popis 
 vrsta afinih transformacija 
@@ -76,8 +76,9 @@ $$\mathbf{q}_{di}$$.
 Tada za svaki par korespondencija vrijedi:
 
 $$\eqalign{
-a_{11} q_{si1} + a_{12} q_{si2} + b_1 &= q_{di1}\\  
-a_{21} q_{si1} + a_{22} q_{si2} + b_2 &= q_{di2}}$$
+q_{si1} &= a_{11} q_{di1} + a_{12} q_{di2} + b_1\\  
+q_{si2} &= a_{21} q_{di1} + a_{22} q_{di2} + b_2}
+$$
 
 Ove dvije jednadžbe možemo presložiti
 tako da 6 parametara afine transformacije 
@@ -98,9 +99,9 @@ Tražena deformacija biti će određena rješenjem tog sustava.
 Projekcijske transformacije ravnine 
 možemo prikazati sljedećom jednadžbom:
 
-$$\mathbf{q}_d = \mathbf{T}_p(\mathbf{q}_s) = 
-  \frac{\mathbf{A} \cdot \mathbf{q}_s + \mathbf{b}}
-       {\mathbf{w}^\top\mathbf{q}_s + w_0} \ .$$
+$$\mathbf{q}_s = \mathbf{T}_p(\mathbf{q}_d) = 
+  \frac{\mathbf{A} \cdot \mathbf{q}_d + \mathbf{b}}
+       {\mathbf{w}^\top\mathbf{q}_d + w_0} \ .$$
 
 Primijetite da je brojnik jednadžbe - vektor a nazivnik - skalar.
 Matrica $$\mathbf{A}$$, 
