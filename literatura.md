@@ -1,4 +1,4 @@
-#Literatura
+# Literatura
 * [Geometrijske transformacije](https://szeliski.org/Book/) (§ 3.6)
 * [Cannyjev detektor rubova](https://canvas.stanford.edu/files/4183084/download?download_frd=1)
 * [Harrisov detektor kuteva](https://citeseerx.ist.psu.edu/document?doi=88cdfbeb78058e0eb2613e79d1818c567f0920e2)
