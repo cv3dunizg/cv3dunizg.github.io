@@ -240,7 +240,7 @@ te ii) bilinearnom interpolacijom.
 Upute:
 - poslužite se slikama `scipy.misc.ascent()` i `scipy.misc.face()`
 - matricu $$\mathbf{A}$$ slučajne afine transformacije zadajte ovako: `A = .25*np.eye(2) + np.random.normal(size=(2, 2))`
-- vektor $$\mathbf{b}$$ slučajne afine transformacije zadajte tako da se središnji piksel izvorišne slike preslika u središnji piksel odredišne slike
+- vektor $$\mathbf{b}$$ slučajne afine transformacije zadajte tako da se središnji piksel odredišne slike preslika u središnji piksel izvorišne slike
 - napišite funkciju `affine_nn(Is, A,b, Hd,Wd)` koja izvorišnu sliku `Is` deformira u skladu s parametrima `A` i `b` te odredišnu sliku rezolucije `Hd`$$\times$$`Wd` vraća u povratnoj vrijednosti; odredišni pikseli koji padaju izvan izvorišne slike trebaju biti crni; funkcija treba koristiti interpolaciju najbližim susjedom te funkcionirati i za sive slike i za slike u boji
 - napišite funkciju `affine_bilin(Is, A,b, Hd,Wd)` koja radi isto što i `affine_nn`, ali s bilinearnom interpolacijom 
 - neka odredišna rezolucija bude `Hd`$$\times$$`Wd` = 200$$\times$$200
