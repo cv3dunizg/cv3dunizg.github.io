@@ -114,7 +114,7 @@ Primjer Harrisovih odziva:
 
 ### 6. Potiskivanje nemaksimalnih odziva
 
-U ovome koraku cilj je potisnuti odzive koji bi mogli uzrokovati lažno pozitive detekcije.
+U ovome koraku cilj je potisnuti odzive koji bi mogli uzrokovati lažno pozitivne detekcije.
 To ćemo napraviti u dva koraka. 
 
 Prvo ćemo sve odzive koji su manji od zadanog praga (eng. threshold) postaviti na nulu.
