@@ -158,16 +158,16 @@ Prva tri koraka algoritma implementirajte jednako kao kod Harrisovog algoritma.
 ### 2. Gaussovo zaglađivanje
 ### 3. Izračun gradijenata
 
-### 4. Izračun magnitude i kuta gradijenta
-U ovome koraku ćemo u svakome pikselu izračunati magnitudu gradijenta $$|G| = \sqrt{I_x^2 + I_y^2}$$ te kut gradijenta $$\theta = \arctan(I_y/I_x)$$.
+### 4. Izračun iznosa i smjera gradijenta
+U ovome koraku ćemo u svakome pikselu izračunati iznos gradijenta $$|G| = \sqrt{I_x^2 + I_y^2}$$ te smjer gradijenta $$\theta = \arctan(I_y/I_x)$$.
 
 Zadaci:
-- Izračunajte magnitudu i kut gradijenta u svakom pikselu prema zadanoj formuli.
-- Normalizirajte polje magnituda na interval $$[0-255]$$. To možete napraviti na način da ga podijelite s maksimalnom vrijednosti prisutnom u polju i pomnožite s 255.
-- Vizualizirajte normalizirane magnitude na slici.
+- Izračunajte iznos i smjer gradijenta u svakom pikselu prema zadanoj formuli.
+- Normalizirajte polje iznosa gradijenta na interval $$[0-255]$$. To možete napraviti na način da ga podijelite s maksimalnom vrijednosti prisutnom u polju i pomnožite s 255.
+- Vizualizirajte normalizirane iznose gradijenta.
 
 
-Primjer vizualizacije magnituda gradijenta:
+Primjer vizualizacije iznosa gradijenta:
 
 <img src="../../assets/images/lab2/house_magnitudes.jpg" alt="House Canny gradient magnitudes." width="400"/>
 
@@ -188,17 +188,17 @@ te na činjenicu da indeksi redaka u polju rastu od gore prema dolje.
 
 <img src="../../assets/images/lab2/canny_angles.jpg" alt="House Canny gradient magnitudes." width="400"/>
 
-Konačno, razmatrani piksel će "preživjeti" samo ako je njegova magnituda veća od oba susjedna piksela.
-Inače, iznos njegove magnitude se postavlja na nulu.
+Konačno, razmatrani piksel će "preživjeti" samo ako je njegov smjer veći od oba susjedna piksela.
+Inače, njegov iznos se postavlja na nulu.
 
 Ovakav postupak potiskivanja nemaksimalnih odziva za posljedicu ima tkz. stanjivanje rubova.
 
 Zadaci:
 - Implementirajte opisani postupak potiskivanja nemaksimalnih odziva.
-- Vizualizirajte magnitude gradijenata nakon postupka potiskivanja nemaksimalnih odziva.
+- Vizualizirajte iznose gradijenata nakon postupka potiskivanja nemaksimalnih odziva.
 
 
-Primjer vizualizacije magnituda gradijenta nakon potiskivanja nemaksimalnih odziva:
+Primjer vizualizacije iznosa gradijenta nakon potiskivanja nemaksimalnih odziva:
 
 <img src="../../assets/images/lab2/house_magnitudes_nms.jpg" alt="House Canny gradient magnitudes after NMS." width="400"/>
 
@@ -208,11 +208,11 @@ U posljednjem koraku algoritam donosi konačnu odluku koji od piksela zaista jes
 To činimo uspoređivanjem s dva praga, odnosno histerezom. 
 Razlikujemo gornji prag kojeg ćemo označiti s max_val, te donji prag kojeg ćemo označiti s min_val.
 
-Svi pikseli čija je magnituda veća od gornjeg praga čine tkz. jake rubove. 
+Svi pikseli čiji je iznos veći od gornjeg praga čine tkz. jake rubove. 
 
-Sve piksele čija je magnituda manja od donjeg praga odbacujemo, te smatramo da nisu rubovi.
+Sve piksele čija je iznos manji od donjeg praga odbacujemo, te smatramo da nisu rubovi.
 
-Piksele čija se vrijednost magnitude nalazi između dva praga smatramo slabim rubovima.
+Piksele čiji se iznosi gradijenta nalaze između dva praga smatramo slabim rubovima.
 Odluku za njih donosimo na temelju njihove povezanosti. 
 Ako se nalaze u susjedstvu nekog od jakih rubova, onda oni također čine rub.
 Ako to nije slučaj, odbacujemo ih i smatramo da nisu rubovi.
