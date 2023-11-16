@@ -41,7 +41,7 @@ Zadaci:
 - Provjerite koje su dimenzije tenzora `img`. Koja je visina, a koja širina slike?
 - Ako je slika u formatu RGB, pretvorite je u sivu sliku uprosječivanjem po kanalima.
 - Koja je minimalna, a koja maksimalna vrijednost intenziteta u slici?
-- Ispišite na ekran intenzitete gornjeg lijevog isječka iz slike veličine $$10\times10$$ piksela. Umjesto for petlje, koristite *slicing*.
+- Ispišite na ekran intenzitete gornjeg lijevog isječka iz slike veličine $$10\times10$$ piksela. Umjesto for petlje, koristite izrezivanje (*eng. slicing*).
 - Izvršite naredbu `print(img.dtype)`. Koji je tip podataka u polju `img`? Kako bismo izbjegli preljev u budućim operacijama, prebacite `img` u `float` (upute: koristite [ndarray.astype](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.astype.html)). Još jednom provjerite koji je tip podataka u polju `img`.
 
 ### 2. Gaussovo zaglađivanje
