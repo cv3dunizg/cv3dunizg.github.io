@@ -84,6 +84,7 @@ Our version of the Faster R-CNN model also utilizes FPN. In Figure 1, the upsamp
 The task of a region proposal network is to extract rectangular regions within which an object might be located. This task is simplified to binary classification of anchor boxes into positives and negatives. Negatives are rejected because they are boxes that do not contain objects, while positives are refined through a parameterized transformation to more accurately encapsulate the target object.
 
 It is important to note that the region proposal network does not differentiate between semantic object classes (commonly referred to as class-agnostic in the literature). Its sole task is to assess whether an object might be present within the considered anchor box or not. Positive boxes are transformed by parameters $$t_x, t_y$$ controlling the horizontal and vertical shift of the box's center, as well as parameters $$t_w, t_h$$ controlling the horizontal and vertical scaling of the box. The following equations apply to these parameters:
+
 $$
 \begin{align}
 t_x &= \frac{x - x_a}{w_a} \\
