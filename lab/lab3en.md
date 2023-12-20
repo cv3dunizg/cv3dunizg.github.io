@@ -24,7 +24,7 @@ The key components of the Faster R-CNN model that we will study are:
 - The region proposal network (RPN) for proposing regions of interest,
 - The region of interest (RoI) pooling layer,
 - And the final layer for region classification and fine-tuning of bounding boxes.
-<img src="../../assets/images/lab3/faster_arch.jpg" alt="faster" width="800"/>
+<img src="../assets/images/lab3/faster_arch.jpg" alt="faster" width="800"/>
 <em>Image 1. The architecture of the Faster R-CNN model based on the feature pyramid.</em>
 
 In Figure 1, a detailed inference path of the Faster R-CNN model is presented, illustrating the interaction among the mentioned components.
@@ -40,156 +40,47 @@ For the purposes of this exercise, we will use Python 3 along with the following
 - [NumPy](https://numpy.org/)
 
 After ensuring that you have all the required packages, download the exercise skeleton from [GitHub](https://github.com/cvunizg/cvunizg-lab3-faster). Then, within the repository, create a new directory named `data` and unpack the contents of this [directory](https://www.dropbox.com/sh/wbybqchx98wg8ci/AAA_2KlewTokFc2OY-fC0_wna?dl=0) into it. The downloaded file contains saved intermediate results of the forward pass of the considered model, which will be used during the tests.
-## 2. Okosnica
-Put zaključivanja modela Faster R-CNN započinje 
-izlučivanjem značajki uz pomoć okosnice.
-Okosnicu obično čini klasifikacijski model
-bez globalnog sažimanja i potpuno povezanog sloja,
-a koji je prethodno treniran na ImageNetu.
-Inicijalizacijom okosnice s ImageNet parametrima
-pospješujemo proces treniranja modela za ciljani zadatak
-te smanjujemo potrebnu količinu gusto označenih slika.
-U slučaju ograničenih računalnih resursa,
-tijekom učenja detekcijskog modela 
-parametri okosnice se mogu i smrznuti.
-Ipak, češći je slučaj da se oni tijekom treniranja
-fino ugađaju za detekciju objekata.
+## 2. Backbone
+The process of building the Faster R-CNN model begins with feature extraction using the backbone. The backbone typically consists of a classification model without global pooling and a fully connected layer, which has been pre-trained on ImageNet. By initializing the backbone with ImageNet parameters, we expedite the training process for the specific task and reduce the amount of densely labeled images required. In cases of limited computational resources, during the training of the detection model, backbone parameters can be frozen. Nevertheless, it is more common for these parameters to be fine-tuned during training for object detection.
 
-Naš azmatrani model za okosnicu 
-koristi model ResNet-50
-koji pripada obitelji modela 
-s rezidualnim vezama.
-Osnovna gradivna jedinica modela ResNet-50
-i njegove veće braće (ResNet-101, ResNet-152)
-prikazana je na slici 2.
-Za ovakvu rezidualnu jedinicu kažemo da ima usko grlo (engl. bottleneck)
-jer prva 1x1 konvolucija smanjuje broj kanala.
-To značajno smanjuje memorijski i računski otisak
-jer nakon nje slijedi skuplja 3x3 konvolucija.
-Konačno, broj kanala se ponovno napuhuje
-uz pomoć druge 1x1 konvolucije.
-Na slici se može primijetiti i preskočna veza
-koja ulaz u rezidualnu jedinicu
-pribraja rezultatu obrade 
-iz konvolucijskih slojeva.
-Ona omogućuje modelu bolji protok 
-gradijenata do ranijih slojeva
-te učenje jednostavnijeg 
-rezidualnog mapiranja
-koje odgovara razlici između ulaza
-i "željenog" izlaza.
+Our considered model utilizes the ResNet-50 model as a backbone, which belongs to the family of models with residual connections. The basic building block of the ResNet-50 model and its larger siblings (ResNet-101, ResNet-152) is depicted in Figure 2. For such a residual unit, we say it has a bottleneck because the initial 1x1 convolution reduces the number of channels. This significantly reduces the memory and computational footprint, as a more expensive 3x3 convolution follows. Finally, the number of channels is inflated again with the help of a second 1x1 convolution. In the figure, you can observe the skip connection that adds the input to the residual unit to the result of the processing from the convolutional layers. This enables the model to have better gradient flow to earlier layers and learn simpler residual mappings that correspond to the difference between the input and the "desired" output.
 
-<img src="../../assets/images/lab3/resnet_bb.jpg" alt="faster" width="400"/>
+<img src="../assets/images/lab3/resnet_bb.jpg" alt="faster" width="400"/>
 
-<em>Slika 2. Rezidualna konvolucijska jedinica s uskim grlom.</em>
+<em>Figure 2. Residual Convolutional Unit with Bottleneck.</em>
 
-Na slici 1 okosnica je prikazana nijansama zelene boje
-i sastoji se od četiri rezidualna bloka.
-Jednim blokom označavamo skup rezidualnih jedinica
-koje se izvršavaju nad značajkama iste prostorne rezolucije.
-Tako prvi rezidualni blok na svome izlazu daje značajke
-koje su četiri puta poduzorkovane u odnosu na ulaznu sliku.
-Na slici 1 je to označeno s "/4" na odgovarajućim strelicama. 
-Slično, drugi rezidualni blok daje značajke 
-koje su 8 puta poduzorkovane, treći 16, a četvrti 32 puta.
-U literaturi se često ove značajke referira s prefiksom "res"
-i brojem koji odgovara eksponentu potencije broja 2 koja 
-označava razinu poduzorkovanja.
-Na primjer, izlazi prvog rezidualnog bloka označavaju se kao "res**2**",
-jer su 2^**2** = 4 puta poduzorkovani u odnosu na ulaznu sliku.
-Izlazi drugog rezidualnog bloka označavaju se kao "res**3**",
-jer su 2^**3** = 8 puta poduzorkovani u odnosu na ulaznu sliku.
-Slično, značajke preostala dva bloka označavat ćemo kao "res**4**" i "res**5**".
+In Figure 1, the backbone is depicted in shades of green and consists of four residual blocks. By a block, we denote a set of residual units operating on features with the same spatial resolution. Thus, the first residual block outputs features that are subsampled by a factor of four compared to the input image, as indicated by "/4" on the corresponding arrows in Figure 1. Similarly, the second residual block produces features subsampled by a factor of 8, the third by 16, and the fourth by 32. In the literature, these features are often referred to with the prefix "res" and a number corresponding to the exponent of the power of 2 that denotes the subsampling level. For instance, the outputs of the first residual block are labeled as "res**2**" because they are subsampled by a factor of 2^**2** = 4 compared to the input image. The outputs of the second residual block are labeled as "res**3**" since they are subsampled by a factor of 2^**3** = 8. Similarly, we will denote the features of the remaining two blocks as "res**4**" and "res**5**".
 
-### Zadaci
-1. Obzirom da korištena okosnica očekuje normaliziranu sliku na ulazu, vaš prvi zadatak je implementirati funkciju 
-   za normalizaciju slike. Deklaraciju funkcije `normalize_img` pronaći ćete u datoteci `utils.py`. Funkcija na 
-   ulazu prima tenzor `img` koji je oblika (H, W, 3) gdje su H i W dimenzije slike. Funkcija treba vratiti 
-   normalizirani tenzor oblika (3, H, W). Normalizacija se sastoji od skaliranja na interval [0-1], oduzimanja 
-   srednje vrijednosti `image_mean` i dijeljenja sa standardnom devijacijom `image_std`. Srednja vrijednost i 
-   standardna devijacija oblika su (3). Ispravnost vaše implementacije možete provjeriti pozivom testne skripte 
-   "test_backbone.py". Pozicionirajte se u korjenski direktorij projekta te pozovite `python3 -m  tests.test_backbone`.
-   
-2. Dopunite implementaciju modela ResNet u datoteci `resnet.py`. Prvo, prema slici 2 dopunite metodu `Bottleneck.forward` koja implementira unaprijedni prolaz kroz rezidualnu jedinicu s uskim grlom. Zatim, u metodi `ResNet._forward_impl` spremite izlaze iz rezidualnih blokova u rječnik `out_dict` pod ključevima "res2", "res3", "res4" 
-   i "res5". Primijetite da se u kodu prvi rezidualni blok označava s `layer1`, drugi s `layer2`, itd. Provjerite 
-   ispravnost vaše implementacije pokretanjem iste testne skripte kao u prethodnom zadatku.
+### Problems
 
-3. Koliko kanala imaju izlazi iz pojedinog rezidualnog bloka? Značajke kojeg rezidualnog bloka su semantički 
-   najbogatije, a koje prostorno najpreciznije?
+1. Considering that the utilized backbone expects a normalized image as input, your first task is to implement a function for image normalization. Find the declaration of the function `normalize_img` in the file `utils.py`. The function takes a tensor `img` as input, which has the shape (H, W, 3) where H and W are the dimensions of the image. The function should return a normalized tensor of shape (3, H, W). Normalization involves scaling to the range [0-1], subtracting the mean value `image_mean`, and dividing by the standard deviation `image_std`. The mean value and standard deviation have a shape of (3). You can verify the correctness of your implementation by running the test script "test_backbone.py." Navigate to the root directory of the project and execute `python3 -m  tests.test_backbone` in the terminal.
 
-## 3. Put za naduzorkovanje
+2. Complete the implementation of the ResNet model in the file `resnet.py`. First, according to Figure 2, complete the `Bottleneck.forward` method, which implements the forward pass through the bottleneck residual unit. Then, in the `ResNet._forward_impl` method, save the outputs from the residual blocks in the dictionary `out_dict` with keys "res2," "res3," "res4," and "res5." Note that in the code, the first residual block is labeled as `layer1`, the second as `layer2`, and so on. Check the correctness of your implementation by running the same test script as in the previous task.
 
-Općenito, zadaća puta za naduzorkovanje (engl. upsampling path)
-je izgradnja semantički bogate reprezentacije 
-koja je istovremeno i prostorno precizna.
-Primijetite da niti jedan od izlaza okosnice ne zadovoljava oba spomenuta kriterija.
-Značajke iz kasnijih blokova okosnice su semantički bogatije,
-ali je njihova prostorna rezolucija manja.
-S druge strane, značajke iz ranijih blokova okosnice
-imaju finiju rezoluciju i zbog toga su prostorno preciznije,
-ali su semantički manje bogate.
-Stoga, ljestvičasti put za naduzorkovanje 
-postupno gradi željenu reprezentaciju
-naduzorkovanjem semantički bogate reprezentacije
-i kombiniranjem s prostorno preciznijim značajkama.
-Različite inačice ove ideje prisutne su u mnogim modelima za gustu predikciju.
+3. How many channels do the outputs from each residual block have? Which residual block's features are semantically richest, and which are spatially most precise?
 
-Posebne varijante puta naduzorkovanja 
-prisutne su u detekciji objekata
-koji umjesto reprezentacije na jednoj razini
-grade rezolucijsku piramidu značajki.
-Razlog tomu je što bi oslanjanje na 
-značajke isključivo jedne razine
-teško rezultiralo invarijantnosti na mjerilo.
-Primjerice, značajke niže rezolucije su dobre
-za detekciju velikih objekata, 
-ali loše za detekciju malih jer 
-bi se informacija o njihovoj prisutnosti
-mogla sasvim izgubiti uslijed poduzorkovanja.
-S druge strane, na većim rezolucijama
-bismo vjerojatno imali problema 
-s detekcijom velikih objekata
-zbog ograničenog receptivnog polja
-konvolucijskih modela.
+## 3. Upsampling path
 
-Stoga, već i prvi duboki modeli za detekciju objekata poput [SSD-a](https://arxiv.org/pdf/1512.02325.pdf) razmatraju 
-piramidu značajki (engl. feature pyramid). Oni izravno regresiraju opisujuće okvire iz značajki okosnice različitih 
-rezolucija. Međutim, problem s takvim pristupom je u tome što značajke iz različitih faza okosnice se također nalaze 
-na različitim semantičkim razinama. Tim problemom bavi se [FPN](https://arxiv.org/pdf/1612.03144.pdf) koji 
-koristi dodatni put za naduzorkovanje za izgradnju semantički bogate i ujednačene 
-rezolucijske piramide značajki.
+Generally, the task of the upsampling path is to construct a semantically rich representation that is simultaneously spatially precise. Notice that none of the outputs from the backbone satisfies both of these criteria. Features from later blocks in the backbone are more semantically rich, but their spatial resolution is lower. On the other hand, features from earlier blocks in the backbone have finer resolution and, as a result, are spatially more precise, but they are less semantically rich. Therefore, the upsampling path gradually builds the desired representation by upsampling a semantically rich representation and combining it with spatially more precise features. Different versions of this idea are present in many models for dense prediction.
 
-Naša inačica modela Faster R-CNN također koristi FPN. 
-Na slici 1 put naduzorkovanja označen je crvenom bojom.
-Različite nijanse crvene boje ukazuju na činjenicu da
-moduli za svaku razinu piramide 
-koriste različite parametre. 
-Svaki modul za naduzorkovanje ima dvije konvolucijske jedinice.
-Jednu koja se primjenjuje na odgovarajuće značajke iz okosnice 
-(često nazivane preskočnim ili lateralnim vezama)
-kako bi se izjednačio broj kanala s putem naduzorkovanja.
-U literaturi se ove konvolucije stoga često zovu i 
-kanalnim projekcijama (engl. channel projection).
-Druga konvolucijska jedinica se primjenjuje na zbroj 
-preskočne veze i naduzorkovane sume iz prethodne razine
-za izračun konačne reprezentacije na toj razini piramide.
-Detaljniji prikaz razmatranog puta nadozorkovanja 
-nalazi se na slici 3.
+Special variations of the upsampling path are present in object detection, where instead of a representation at a single level, a feature resolution pyramid is built. The reason for this is that relying solely on features from a single level would likely result in a lack of scale invariance. For instance, lower-resolution features are good for detecting large objects but may perform poorly in detecting small ones, as information about their presence could be lost due to downsampling. On the other hand, at higher resolutions, there might be challenges in detecting large objects due to the limited receptive field of convolutional models.
 
-<img src="../../assets/images/lab3/fpn.jpg" alt="faster" width="800"/>
-<em>Slika 3. Detaljniji prikaz puta naduzorkovanja koji gradi piramidu značajki.</em>
-### Zadaci
-1. U datoteci `utils.py` implementirajte modul `ConvNormActBlock` čiji se unaprijedni prolaz sastoji redom od 
-   konvolucijskog sloja, te opcionalno aktivacijske funkcije i opcionalno normalizirajućeg sloja. Primijetite da modul 
-   nasljeđuje razred `nn.Sequential` koji redom provodi zadanu listu slojeva. Za dodavanje sloja u listu možete 
-   koristiti metodu `self.append`. Argument `padding` koji kontrolira nadopunjavanje prilikom konvolucije potrebno 
-   je postaviti tako da se očuvaju prostorne dimenzije ulaza.
+Therefore, even the earliest deep models for object detection, such as [SSD](https://arxiv.org/pdf/1512.02325.pdf), consider a feature pyramid. They directly regress descriptive bounding boxes from features at different resolutions in the backbone. However, the challenge with such an approach is that features from different stages of the backbone are also at different semantic levels. This issue is addressed by [FPN](https://arxiv.org/pdf/1612.03144.pdf), which employs an additional upsampling path to construct a semantically rich and uniform resolution feature pyramid.
 
-2. U datoteci `fpn.py` implementirajte unaprijedni prolaz puta za naduzorkovanje u metodi `FeaturePyramidNetwork.forward`. Unaprijedni prolaz implementirajte prema slici 3. Pripazite na komentare napisane u kodu.
+Our version of the Faster R-CNN model also utilizes FPN. In Figure 1, the upsampling path is marked in red. Different shades of red indicate that modules for each level of the pyramid use different parameters. Each upsampling module consists of two convolutional units. One is applied to the corresponding features from the backbone (often called skip or lateral connections) to equalize the number of channels with the upsampling path. In the literature, these convolutions are often referred to as channel projections. The second convolutional unit is applied to the sum of the skip connection and the upsampled feature map from the previous level to compute the final representation at that level of the pyramid. For a more detailed illustration of the considered upsampling path, refer to Figure 3.
 
-3. Testirajte svoju implementaciju puta nadozurkovanja pokretanjem naredbe `python3 -m tests.test_fpn`.
+<img src="../assets/images/lab3/fpn.jpg" alt="faster" width="800"/>
+<em>Image 3. A more detailed depiction of the upsampling path that constructs the feature pyramid.</em>
 
-## 4. Mreža za predlaganje regija od interesa (RPN)
+### Problems
+
+1. In the file `utils.py`, implement the `ConvNormActBlock` module, whose forward pass consists sequentially of a convolutional layer, optionally an activation function, and optionally a normalization layer. Note that the module inherits from the `nn.Sequential` class, which sequentially applies the specified list of layers. To add a layer to the list, you can use the `self.append` method. Set the `padding` argument that controls padding during convolution to preserve the spatial dimensions of the input.
+
+2. In the file `fpn.py`, implement the forward pass of the upsampling path in the `FeaturePyramidNetwork.forward` method. Implement the forward pass according to Figure 3. Pay attention to the comments written in the code.
+
+3. Test your implementation of the upsampling path by running the command `python3 -m tests.test_fpn`.
+
+## 4. Region Proposal Network (RPN)
 Zadaća mreže za predlaganje regija od interesa 
 je izdvojiti pravokutne regije unutar kojih bi 
 se mogao nalaziti neki objekt.
@@ -263,7 +154,7 @@ Na slici ispod prikazani su sidreni okviri
 s okvirom igrača na slici
 veći od 0.65.
 
-<img src="../../assets/images/lab3/bb44_anchors.jpg" alt="bb44 anchors" width="600"/>
+<img src="../assets/images/lab3/bb44_anchors.jpg" alt="bb44 anchors" width="600"/>
 <br/><em>Slika 4. Pretpostavljeni sidreni okviri koji se s okvirom košarkaša na slici preklapaju s omjerom presjeka i 
 unije većim od 0.65</em>
 
@@ -282,16 +173,16 @@ Na slici ispod prikazani su okviri koje je predložio RPN,
 a imaju omjer presjeka i unije s okvirom igrača na slici
 veći od 0.65.
 
-<img src="../../assets/images/lab3//bb44_rpn_proposals.jpg" alt="rpn" width="600"/>
+<img src="../assets/images/lab3//bb44_rpn_proposals.jpg" alt="rpn" width="600"/>
 <br/><em>Slika 5. Regije od interesa predložene od strane RPN-a koje se s okvirom košarkaša na slici preklapaju s 
 omjerom presjeka i unije većim od 0.65.</em>
 
-### Zadaci
+### Problems
 1. U datoteci `rpn.py` dovršite inicijalizaciju klasifikatora i regresora RPN-a u modulu RPNHead.
 2. U datoteci `utils.py` dovršite implementaciju funkcije `decode_boxes` koja primjenjuje predviđenu transformaciju 
    na sidrene okvire. Implementaciju testirajte naredbom `python3 -m tests.test_decode_boxes`.
 
-## 5. Sažimanje po regijama (ROIPool)
+## 5. Region Of Interest Pooling
 Sažimanje po regijama (engl. Region of Interest Pooling, ROIPool)
 izlučuje reprezentaciju fiksne veličine 
 za sve regije od interesa koje predlaže RPN.
@@ -363,7 +254,7 @@ a drugi za regresiju
 semantički ovisnih 
 parametara transformacije.
 
-### Zadaci
+### Problems
 1. U datoteci `faster.py` dovršite implementaciju funkcije `forward` u modulu `TwoMLPHead`.
 2. U datoteci `faster.py` dovršite inicijalizaciju klasifikacijske i regresijske glave u modulu `FastRCNNPredictor`.
 3. U datoteci `run_faster.py` implementirajte iscrtavanje rezultate detekcije za sve okvire čija je pouzdanost veća od 
@@ -372,5 +263,5 @@ parametara transformacije.
 
 Očekivani rezultat izvođenja programa `run_faster.py` prikazan je na slici ispod.
 
-<img src="../../assets/images/lab3/bb44_preds.jpg" alt="bb44 preds" width="600"/>
+<img src="../assets/images/lab3/bb44_preds.jpg" alt="bb44 preds" width="600"/>
 <br/><em>Slika 7. Rezultat izvođenja modela Faster R-CNN treniranog na skupu COCO.</em>
