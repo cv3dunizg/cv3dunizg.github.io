@@ -115,38 +115,12 @@ Let's also mention that the RPN does not pass all positive boxes through the for
 2. In the file `utils.py`, complete the implementation of the `decode_boxes` function, which applies the predicted transformation to anchor boxes. Test the implementation with the command `python3 -m tests.test_decode_boxes`.
 
 ## 5. Region Of Interest Pooling
-Sažimanje po regijama (engl. Region of Interest Pooling, ROIPool)
-izlučuje reprezentaciju fiksne veličine 
-za sve regije od interesa koje predlaže RPN.
-Sažimanje po regijama prvo odredi
-područje u razmatranom tenzoru značajki
-koje odgovara regiji od interesa.
-Zatim se to područje dijeli
-na manja podpodručja 
-približno jednake veličine,
-a njihov broj određen je parametrom modela.
-Zatim se iz značajke svakoga područja
-sažimlju prema zadanoj funkciji (npr. maksimumom).
-Ovaj proces ilustriran je na gif-u ispod
-za tenzor značajki sa samo jednim kanalom
-i zadanom veličinom izlaza 2x2.
+Region of Interest Pooling (ROIPool) extracts a fixed-size representation for all proposed regions of interest suggested by the RPN. ROIPooling first determines the region in the considered feature tensor corresponding to the region of interest. Then, this region is divided into smaller sub-regions of approximately equal size, and their number is determined by a model parameter. Next, the features of each sub-region are pooled according to a specified function (e.g., maximum pooling). This process is illustrated in the gif below for a feature tensor with only one channel and an output size of 2x2.
 
 <img src="https://deepsense.ai/wp-content/uploads/2017/02/roi_pooling-1.gif" alt="rpn" width="600"/>
-<br/><em>Slika 6. Ilustracija operacije sažimanja po regijama od interesa. Izvor: Deepsense.ai.</em>
+<br/><em>Image 6. Illustration of the Region of Interest Pooling operation. Source: Deepsense.ai.</em>
 
-U našem razmatranom modelu 
-veličina izlaza ROIPool-a je 7x7,
-ali to ne znači da se svaki 
-okvir predstavlja sa samo 49 značajki.
-Taj broj treba još pomnožiti s brojem kanala 
-razmatranog tenzora značajki
-što odgovara broju kanala FPN-a, 
-a to je 256.
-Dakle, svaki okvir predstavljen je s 7x7x256=12544 značajki.
-Spomenimo još da novije inačice dvoprolaznih modela
-obično koriste napredniji algoritam ROIAlign koji 
-koristi interpolaciju umjesto kvantizacije
-za određivanje rubnih vrijednosti.
+In our considered model, the output size of ROIPool is 7x7, but it doesn't mean that each frame is represented with only 49 features. This number needs to be multiplied by the number of channels in the considered feature tensor, which corresponds to the number of FPN channels, and that is 256. Therefore, each frame is represented with 7x7x256 = 12544 features. It is worth mentioning that newer versions of two-stage models typically use a more advanced algorithm called ROIAlign, which utilizes interpolation instead of quantization to determine boundary values.
 
 ## 6. Semantička klasifikacija i fino ugađanje okvira
 Završni modul našeg razmatranog modela 
