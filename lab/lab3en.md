@@ -122,52 +122,20 @@ Region of Interest Pooling (ROIPool) extracts a fixed-size representation for al
 
 In our considered model, the output size of ROIPool is 7x7, but it doesn't mean that each frame is represented with only 49 features. This number needs to be multiplied by the number of channels in the considered feature tensor, which corresponds to the number of FPN channels, and that is 256. Therefore, each frame is represented with 7x7x256 = 12544 features. It is worth mentioning that newer versions of two-stage models typically use a more advanced algorithm called ROIAlign, which utilizes interpolation instead of quantization to determine boundary values.
 
-## 6. Semantička klasifikacija i fino ugađanje okvira
-Završni modul našeg razmatranog modela 
-na ulazu prima sažetu reprezentaciju i koordinate
-svih regija od interesa koje je predložio RPN.
-Zadaća ovog modula 
-je semantička klasifikacija
-pristiglih okvira
-i predviđanje paramatera 
-još jedne transformacije
-za fino ugađanje okvira 
-na željene objekte.
-Razlika u odnosu na RPN je što ovaj modul
-klasificira okvire u 
-jedan od semantičkih razreda ili pozadinu.
-Postojanje razreda koji predstavlja pozadinu
-omogućuje modelu da i u ovome koraku
-odbaci neke okvire koje smatra negativima.
+## 6. Semantic Classification and Fine-Tuning of Boxes
+The final module of our considered model takes the compressed representation and coordinates of all proposed regions of interest (ROIs) by the Region Proposal Network (RPN) as input. The task of this module is semantic classification of incoming bounding boxes and predicting parameters for another transformation to finely adjust the boxes to the desired objects. Unlike the RPN, this module classifies the boxes into one of the semantic classes or background. The existence of a background class allows the model to reject some boxes as negatives in this step as well.
 
-Zanimljiv detalj je da se za svaki okvir
-predviđaju odvojeni parametri transformacije
-za svaki od semantičkih razreda.
-Možemo zamisliti kao da svaki okvir
-umnožimo onoliko puta koliko imamo razreda
-i za svaki od njih predvidimo 
-parametre transformacije.
-Ovo omogućuje detekciju 
-preklapajućih objekata različitih razreda.
+An interesting detail is that, for each box, separate transformation parameters are predicted for each of the semantic classes. We can imagine that each box is multiplied by the number of classes, and transformation parameters are predicted for each of them. This enables the detection of overlapping objects of different classes.
 
-Ovaj modul prvo računa dijeljenu reprezentaciju
-za klasifikacijsku i regresijsku glavu
-uz pomoć dva potpuno povezana sloja.
-Zatim se na tu reprerzentaciju primjenjuju
-još dva potpuno povezana sloja:
-jedan za klasfikaciju,
-a drugi za regresiju 
-semantički ovisnih 
-parametara transformacije.
+This module first calculates a shared representation for the classification and regression heads using two fully connected layers. Then, two additional fully connected layers are applied to this representation: one for classification and the other for the regression of semantically dependent transformation parameters.
 
 ### Problems
-1. U datoteci `faster.py` dovršite implementaciju funkcije `forward` u modulu `TwoMLPHead`.
-2. U datoteci `faster.py` dovršite inicijalizaciju klasifikacijske i regresijske glave u modulu `FastRCNNPredictor`.
-3. U datoteci `run_faster.py` implementirajte iscrtavanje rezultate detekcije za sve okvire čija je pouzdanost veća od 
-   0.95.
-4. Pokrenite program naredbom `python3 run_faster.py` i provjerite je li detekcija uspješna.
+1. In the file `faster.py`, complete the implementation of the `forward` function in the `TwoMLPHead` module.
+2. In the file `faster.py`, complete the initialization of the classification and regression heads in the `FastRCNNPredictor` module.
+3. In the file `run_faster.py`, implement the visualization of detection results for all boxes with a confidence greater than 0.95.
+4. Run the program with the command `python3 run_faster.py` and check if the detection is successful.
 
-Očekivani rezultat izvođenja programa `run_faster.py` prikazan je na slici ispod.
+The expected result of running the `run_faster.py` program is shown in the image below.
 
 <img src="../assets/images/lab3/bb44_preds.jpg" alt="bb44 preds" width="600"/>
-<br/><em>Slika 7. Rezultat izvođenja modela Faster R-CNN treniranog na skupu COCO.</em>
+<br/><em>Image 7. Result of executing the Faster R-CNN model trained on the COCO dataset.</em>
