@@ -81,26 +81,9 @@ Our version of the Faster R-CNN model also utilizes FPN. In Figure 1, the upsamp
 3. Test your implementation of the upsampling path by running the command `python3 -m tests.test_fpn`.
 
 ## 4. Region Proposal Network (RPN)
-Zadaća mreže za predlaganje regija od interesa 
-je izdvojiti pravokutne regije unutar kojih bi 
-se mogao nalaziti neki objekt.
-Taj zadatak sveden je na binarnu klasifikaciju
-sidrenih okvira u pozitive i negative.
-Negativi se odbacuju jer su to okviri koji ne sadrže objekte,
-dok se pozitivi parametriziranom transformacijom
-mijenjaju na način da preciznije uokviruju ciljani objekt.
-Primijetite da mreža za predlaganje regija od interesa
-ne razlikuje semantičke razrede objekata 
-(u literaturi se često koristi engl. izraz class-agnostic).
-Njena zadaća je samo procijeniti
-bi li se neki objekt mogao nalaziti
-unutar razmatranog sidrenog okvira ili ne.
-Pozitivni okviri se transformiraju parametrima $$t_x, t_y$$
-koji kontroliraju horizontalni i vertikalni pomak centra okvira
-te parametrima $$t_w, t_h$$ koji kontroliraju 
-horizontalno i vertikalno skaliranje okvira.
-Za spomenute parametre vrijede sljedeće jednadžbe:
+The task of a region proposal network is to extract rectangular regions within which an object might be located. This task is simplified to binary classification of anchor boxes into positives and negatives. Negatives are rejected because they are boxes that do not contain objects, while positives are refined through a parameterized transformation to more accurately encapsulate the target object.
 
+It is important to note that the region proposal network does not differentiate between semantic object classes (commonly referred to as class-agnostic in the literature). Its sole task is to assess whether an object might be present within the considered anchor box or not. Positive boxes are transformed by parameters $$t_x, t_y$$ controlling the horizontal and vertical shift of the box's center, as well as parameters $$t_w, t_h$$ controlling the horizontal and vertical scaling of the box. The following equations apply to these parameters:
 $$
 \begin{align}
 t_x &= \frac{x - x_a}{w_a} \\
@@ -110,77 +93,25 @@ t_h &= \log \frac{h}{h_a}
 \end{align}
 $$
 
-gdje $$x_a, y_a, w_a, h_a$$ predstavljaju koordinate centra, širinu i visinu sidrenog okvira,
-a $$x, y, w, h$$ predstavljaju koordinate centra, širinu i visinu ciljanog objekta.
+where $$x_a, y_a, w_a, h_a$$ represent the coordinates of the anchor box center, its width, and height, and $$x, y, w, h$$ represent the coordinates of the target object center, its width, and height.
 
-Iz slike 1 vidljivo je da se mreža 
-za predlaganje regija od interesa
-primjenjuje na svaku razinu piramide značajki.
-Jednaka nijansa plave boje za svaku razinu piramide
-sugerira dijeljenje parametara.
-Pored značajki ulaz u RPN čine i sidreni okviri
-koji se također generiraju ovisno o razini piramide.
-Konkretno, generator sidrenih okvira
-smješta okvire u svakom pikselu
-razmatranog tenzora značajki,
-a njihova veličina ovisi o razini piramide.
-Tako se na razini piramide najveće rezolucije
-pretpostavljaju sidreni okviri najmanje osnovne veličine
-jer na toj razini želimo detektirati male objekte.
-Obrnuto, na razini piramide najmanje rezolucije
-nalaze se sidreni okviri najveće osnovne veličine
-jer na toj razini želimo detektirati velike objekte.
-Važan detalj je da generator sidrenih okvira
-ne pretpostavlja samo jedan okvir po lokaciji,
-nego više njih, a razlikuju se po omjeru visine i širine
-kako bi se mogli detektirati objekti različitih oblika.
-Konkretno, u modelu kojeg mi razmatramo
-osnovne veličine sidrenih okvira su [32, 64, 128, 256, 512]
-za redom razine piramide [fpn2, fpn3, fpn4, fpn5, fpn6],
-a razlikuju se omjeri visine i širine [1:1, 1:2, 2:1].
-RPN također zasebno razmatra
-svaki od pretpostavljenih sidrenih okvira
-na nekoj lokaciji.
-To znači da RPN klasifikator
-predviđa onoliko mapa značajki
-koliko ima pretpostavljenih sidrenih okvira
-u svakoj lokaciji.
-Slično tome, RPN regresor parametara transformacije
-predviđa 4 puta više mapa značajki
-negoli ima pretpostavljenih sidrenih okvira
-u svakoj lokaciji.
-Na slici ispod prikazani su sidreni okviri
-čiji je omjer presjeka i unije
-s okvirom igrača na slici
-veći od 0.65.
+From Figure 1, it is evident that the region proposal network (RPN) is applied to each level of the feature pyramid. The uniform shade of blue for each pyramid level suggests parameter sharing. In addition to feature maps, the input to the RPN consists of anchor boxes, which are also generated depending on the pyramid level. Specifically, the anchor box generator places boxes at each pixel of the considered feature tensor, and their size depends on the pyramid level. Thus, at the highest resolution level of the pyramid, anchor boxes of the smallest base size are assumed because this level is intended for detecting small objects. Conversely, at the lowest resolution level of the pyramid, anchor boxes of the largest base size are located since this level is designed for detecting large objects.
+
+An important detail is that the anchor box generator does not assume only one box per location but several, differing in aspect ratio, to detect objects of various shapes. In the model under consideration, the base sizes of anchor boxes are [32, 64, 128, 256, 512] in sequence for the pyramid levels [fpn2, fpn3, fpn4, fpn5, fpn6], and they vary in aspect ratios [1:1, 1:2, 2:1].
+
+The RPN separately considers each assumed anchor box at a location. This means that the RPN classifier predicts as many feature maps as there are assumed anchor boxes at each location. Similarly, the RPN regressor of transformation parameters predicts four times more feature maps than the number of assumed anchor boxes at each location. The image below shows anchor boxes with an intersection over union (IoU) ratio with the player's bounding box on the image greater than 0.65.
 
 <img src="../assets/images/lab3/bb44_anchors.jpg" alt="bb44 anchors" width="600"/>
-<br/><em>Slika 4. Pretpostavljeni sidreni okviri koji se s okvirom košarkaša na slici preklapaju s omjerom presjeka i 
-unije većim od 0.65</em>
+<br/><em>Image 4. Assumed anchor boxes that overlap with the bounding box of the basketball player in the image with an intersection over union ratio greater than 0.65.</em>
 
-Spomenimo još da RPN ne propušta sve pozitivne okvira kroz unaprijedni prolaz.
-Nakon što se odbace negativi i na 
-pozitive primjeni predviđena transformacija,
-pristupa se filtriranju.
-Prvo se odbacuju okviri čija je površina manja od zadane, 
-a zatim i oni koji imaju vjerojatnost prisutnosti objekta
-nižu od zadanog praga.
-Nakon toga se potiskuju nemaksimalni odzivi,
-odnosno okviri koji imaju visoko preklapanje s nekim drugim pouzdanim okvirom.
-Konačno, propušta se samo 1000 okvira s najvećom vjerojatnošću.
-Ovo filtriranje značajno ubrzava unaprijedni prolaz kroz mrežu.
-Na slici ispod prikazani su okviri koje je predložio RPN,
-a imaju omjer presjeka i unije s okvirom igrača na slici
-veći od 0.65.
+Let's also mention that the RPN does not pass all positive boxes through the forward pass. After discarding negatives and applying the predicted transformation to positives, filtering takes place. First, boxes with an area smaller than a specified value are discarded, and then those with object presence probability below a set threshold. Afterward, non-maximum suppression is applied, i.e., boxes with high overlap with another reliable box are suppressed. Finally, only 1000 boxes with the highest probability are kept. This filtering significantly speeds up the forward pass through the network. The image below shows the boxes proposed by the RPN with an intersection over union ratio with the player's bounding box on the image greater than 0.65.
 
 <img src="../assets/images/lab3//bb44_rpn_proposals.jpg" alt="rpn" width="600"/>
-<br/><em>Slika 5. Regije od interesa predložene od strane RPN-a koje se s okvirom košarkaša na slici preklapaju s 
-omjerom presjeka i unije većim od 0.65.</em>
+<br/><em>Image 5. Regions of interest proposed by the RPN that overlap with the bounding box of the basketball player in the image with an intersection over union ratio greater than 0.65.</em>
 
 ### Problems
-1. U datoteci `rpn.py` dovršite inicijalizaciju klasifikatora i regresora RPN-a u modulu RPNHead.
-2. U datoteci `utils.py` dovršite implementaciju funkcije `decode_boxes` koja primjenjuje predviđenu transformaciju 
-   na sidrene okvire. Implementaciju testirajte naredbom `python3 -m tests.test_decode_boxes`.
+1. In the file `rpn.py`, complete the initialization of the RPN classifier and regressor in the RPNHead module.
+2. In the file `utils.py`, complete the implementation of the `decode_boxes` function, which applies the predicted transformation to anchor boxes. Test the implementation with the command `python3 -m tests.test_decode_boxes`.
 
 ## 5. Region Of Interest Pooling
 Sažimanje po regijama (engl. Region of Interest Pooling, ROIPool)
