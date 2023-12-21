@@ -24,7 +24,7 @@ The key components of the Faster R-CNN model that we will study are:
 - The region proposal network (RPN) for proposing regions of interest,
 - The region of interest (RoI) pooling layer,
 - And the final layer for region classification and fine-tuning of bounding boxes.
-<img src="../assets/images/lab3/faster_arch.jpg" alt="faster" width="800"/>
+<img src="../../assets/images/lab3/faster_arch.jpg" alt="faster" width="800"/>
 <em>Image 1. The architecture of the Faster R-CNN model based on the feature pyramid.</em>
 
 In Figure 1, a detailed inference path of the Faster R-CNN model is presented, illustrating the interaction among the mentioned components.
@@ -39,13 +39,13 @@ For the purposes of this exercise, we will use Python 3 along with the following
 - [Matplotlib](https://matplotlib.org/)
 - [NumPy](https://numpy.org/)
 
-After ensuring that you have all the required packages, download the exercise skeleton from [GitHub](https://github.com/cvunizg/cvunizg-lab3-faster). Then, within the repository, create a new directory named `data` and unpack the contents of this [directory](https://www.dropbox.com/sh/wbybqchx98wg8ci/AAA_2KlewTokFc2OY-fC0_wna?dl=0) into it. The downloaded file contains saved intermediate results of the forward pass of the considered model, which will be used during the tests.
+After ensuring that you have all the required packages, download the exercise skeleton from [GitHub](https://github.com/UNIZG-FER-D307/compvis-lab3-faster). Then, within the repository, create a new directory named `data` and unpack the contents of this [directory](https://www.dropbox.com/sh/wbybqchx98wg8ci/AAA_2KlewTokFc2OY-fC0_wna?dl=0) into it. The downloaded file contains saved intermediate results of the forward pass of the considered model, which will be used during the tests.
 ## 2. Backbone
 The process of building the Faster R-CNN model begins with feature extraction using the backbone. The backbone typically consists of a classification model without global pooling and a fully connected layer, which has been pre-trained on ImageNet. By initializing the backbone with ImageNet parameters, we expedite the training process for the specific task and reduce the amount of densely labeled images required. In cases of limited computational resources, during the training of the detection model, backbone parameters can be frozen. Nevertheless, it is more common for these parameters to be fine-tuned during training for object detection.
 
 Our considered model utilizes the ResNet-50 model as a backbone, which belongs to the family of models with residual connections. The basic building block of the ResNet-50 model and its larger siblings (ResNet-101, ResNet-152) is depicted in Figure 2. For such a residual unit, we say it has a bottleneck because the initial 1x1 convolution reduces the number of channels. This significantly reduces the memory and computational footprint, as a more expensive 3x3 convolution follows. Finally, the number of channels is inflated again with the help of a second 1x1 convolution. In the figure, you can observe the skip connection that adds the input to the residual unit to the result of the processing from the convolutional layers. This enables the model to have better gradient flow to earlier layers and learn simpler residual mappings that correspond to the difference between the input and the "desired" output.
 
-<img src="../assets/images/lab3/resnet_bb.jpg" alt="faster" width="400"/>
+<img src="../../assets/images/lab3/resnet_bb.jpg" alt="faster" width="400"/>
 
 <em>Figure 2. Residual Convolutional Unit with Bottleneck.</em>
 
@@ -69,7 +69,7 @@ Therefore, even the earliest deep models for object detection, such as [SSD](htt
 
 Our version of the Faster R-CNN model also utilizes FPN. In Figure 1, the upsampling path is marked in red. Different shades of red indicate that modules for each level of the pyramid use different parameters. Each upsampling module consists of two convolutional units. One is applied to the corresponding features from the backbone (often called skip or lateral connections) to equalize the number of channels with the upsampling path. In the literature, these convolutions are often referred to as channel projections. The second convolutional unit is applied to the sum of the skip connection and the upsampled feature map from the previous level to compute the final representation at that level of the pyramid. For a more detailed illustration of the considered upsampling path, refer to Figure 3.
 
-<img src="../assets/images/lab3/fpn.jpg" alt="faster" width="800"/>
+<img src="../../assets/images/lab3/fpn.jpg" alt="faster" width="800"/>
 <em>Image 3. A more detailed depiction of the upsampling path that constructs the feature pyramid.</em>
 
 ### Problems
@@ -102,12 +102,12 @@ An important detail is that the anchor box generator does not assume only one bo
 
 The RPN separately considers each assumed anchor box at a location. This means that the RPN classifier predicts as many feature maps as there are assumed anchor boxes at each location. Similarly, the RPN regressor of transformation parameters predicts four times more feature maps than the number of assumed anchor boxes at each location. The image below shows anchor boxes with an intersection over union (IoU) ratio with the player's bounding box on the image greater than 0.65.
 
-<img src="../assets/images/lab3/bb44_anchors.jpg" alt="bb44 anchors" width="600"/>
+<img src="../../assets/images/lab3/bb44_anchors.jpg" alt="bb44 anchors" width="600"/>
 <br/><em>Image 4. Assumed anchor boxes that overlap with the bounding box of the basketball player in the image with an intersection over union ratio greater than 0.65.</em>
 
 Let's also mention that the RPN does not pass all positive boxes through the forward pass. After discarding negatives and applying the predicted transformation to positives, filtering takes place. First, boxes with an area smaller than a specified value are discarded, and then those with object presence probability below a set threshold. Afterward, non-maximum suppression is applied, i.e., boxes with high overlap with another reliable box are suppressed. Finally, only 1000 boxes with the highest probability are kept. This filtering significantly speeds up the forward pass through the network. The image below shows the boxes proposed by the RPN with an intersection over union ratio with the player's bounding box on the image greater than 0.65.
 
-<img src="../assets/images/lab3//bb44_rpn_proposals.jpg" alt="rpn" width="600"/>
+<img src="../../assets/images/lab3//bb44_rpn_proposals.jpg" alt="rpn" width="600"/>
 <br/><em>Image 5. Regions of interest proposed by the RPN that overlap with the bounding box of the basketball player in the image with an intersection over union ratio greater than 0.65.</em>
 
 ### Problems
@@ -137,5 +137,5 @@ This module first calculates a shared representation for the classification and 
 
 The expected result of running the `run_faster.py` program is shown in the image below.
 
-<img src="../assets/images/lab3/bb44_preds.jpg" alt="bb44 preds" width="600"/>
+<img src="../../assets/images/lab3/bb44_preds.jpg" alt="bb44 preds" width="600"/>
 <br/><em>Image 7. Result of executing the Faster R-CNN model trained on the COCO dataset.</em>
