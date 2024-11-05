@@ -8,9 +8,13 @@ description: Popis predavanja.
 1. Geometrija jednog, dvaju i više pogleda 1 [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv3d_mvg.pdf)
 2. Geometrija jednog, dvaju i više pogleda 2
 2. Geometrija jednog, dvaju i više pogleda 3
-4. Rektificirana stereoskopija [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv3d_stereo.pdf)
-5. TOF Kamera - 3D rekonstrukcija mjerenjem vremena leta [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_1[26].pdf)
-6. 3D rekonstrukcija strukturiranim svjetlom [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_2[21].pdf)
+4. Uvod u rektificiranu stereoskopiju [pdf](http://www.zemris.fer.hr/~ssegvic/vision/cv3d_stereo.pdf)
+5. Stereoskopija rektificiranog para dubokim modelima [pdf](https://www.zemris.fer.hr/~ssegvic/vision/orsic24stereo.pdf)
+6. Diskusija o članku PointNet [pdf](https://openaccess.thecvf.com/content_cvpr_2017/papers/Qi_PointNet_Deep_Learning_CVPR_2017_paper.pdf)
+
+
+[//]: # (5. TOF Kamera - 3D rekonstrukcija mjerenjem vremena leta [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_1[26].pdf))
+[//]: # (6. 3D rekonstrukcija strukturiranim svjetlom [pdf](https://www.fer.unizg.hr/_download/repository/Predavanje_2[21].pdf))
 
 (međuispit)
 
@@ -22,8 +26,4 @@ description: Popis predavanja.
 12. Lokalna optimizacija i stanje tehnike [pdf](https://github.com/cv3dunizg/cv3dunizg.github.io/files/10425312/3dcv-l04-local-optimization.pdf)
 
 (završni ispit)
-
-
-
-
 
