@@ -14,17 +14,17 @@ Ova vježba razmatra problem stereoskopske rekonstrukcije.
 Naš cilj je razviti algoritam koji će za svaki piksel lijeve slike pronaći odgovarajući (ili korespondentni) piksel desne slike.
 Naš pristup temelji se na ugrađivanju slikovnih okana u apstraktni vektorski prostor.
 
-Neka postupak za slikovno ugrađivanje $$h(\mathbf{x}) = \mathbf{y}$$ 
-preslikava slikovno okno $$\mathbf{x} \equiv x_{cij} \in \mathbb{R}^{C \times H \times W}$$
-u metrički prostor $$\mathbf{y} \equiv y_f \in \mathbb{R}^{f}$$.
+Neka postupak za slikovno ugrađivanje $h(\mathbf{x}) = \mathbf{y}$ 
+preslikava slikovno okno $\mathbf{x} \equiv x_{cij} \in \mathbb{R}^{C \times H \times W}$
+u metrički prostor $\mathbf{y} \equiv y_f \in \mathbb{R}^{f}$.
 Koristimo tzv. [Einsteinov zapis](https://www.continuummechanics.org/tensornotationbasic.html)
 koji omogućava izražavanje dimenzionalnosti proizvoljnih tenzora i osi redukcije operatora.
-Položaje u slici predstavljamo kao indekse piksela u matrici dimenzija $$H W$$.
-Domena para koordinata je $$(i, j) \in [0, H\rangle \times [0, W\rangle$$.
+Položaje u slici predstavljamo kao indekse piksela u matrici dimenzija $H W$.
+Domena para koordinata je $(i, j) \in [0, H\rangle \times [0, W\rangle$.
 
-Neka je $$a_ib_i \equiv \mathbf{a}^{T}\mathbf{b}$$ skalarni umnožak vektora $$\mathbf{a}$$ i $$\mathbf{b}$$.
-Želimo naučiti slikovno ugrađivanje takvo da vektori korespondentnih okana $$r_f$$ i $$p_f$$
-budu bliže jedan drugome od vektora nekorespondentnih okana $$q_f$$.
+Neka je $a_ib_i \equiv \mathbf{a}^{T}\mathbf{b}$ skalarni umnožak vektora $\mathbf{a}$ i $\mathbf{b}$.
+Želimo naučiti slikovno ugrađivanje takvo da vektori korespondentnih okana $r_f$ i $p_f$
+budu bliže jedan drugome od vektora nekorespondentnih okana $q_f$.
 Radi jednostavnosti i brzine, blizinu ćemo mjeriti skalarnim umnoškom.
 Naš kriterij možemo izraziti sljedećom jednadžbom:
 $$
@@ -32,43 +32,43 @@ r_f p_f > r_f q_f
 $$
 
 U zadatku guste stereoskopske rekonstrukcije, traženo ugrađivanje možemo koristiti za izgradnju volumena cijene.
-Volumen cijene $$\mathbf{V} \equiv V_{dij} \in \mathbb{R}^{D \times H \times W}$$ 
+Volumen cijene $\mathbf{V} \equiv V_{dij} \in \mathbb{R}^{D \times H \times W}$ 
 je trodimenzionalna struktura koja definira negativnu sličnost
-referentnog slikovnog okna oko slikovne koordinate $$(i, j)$$ i slikovnog okna pomaknutog za disparitet $$d$$.
-Drugim riječima, za ugrađivanja $$r_{fij}$$ i $$p_{fij}$$ volumen cijene definiramo kao:
+referentnog slikovnog okna oko slikovne koordinate $(i, j)$ i slikovnog okna pomaknutog za disparitet $d$.
+Drugim riječima, za ugrađivanja $r_{fij}$ i $p_{fij}$ volumen cijene definiramo kao:
 
 $$
 V_{dij} = -r_{fij} p_{fi(j-d)}
 $$
 
-Na ovaj način smo za svaki piksel $$(i, j)$$ definirali cijenu uparivanja okna referentne slike s oknom druge slike na položaju $$(i, j-d)$$.
-U praksi, pretraživanje radimo za $$d \in [0, D\rangle$$.
-$$D$$ postavljamo sukladno parametrima rektificiranog stereoskopskog para kamera.
+Na ovaj način smo za svaki piksel $(i, j)$ definirali cijenu uparivanja okna referentne slike s oknom druge slike na položaju $(i, j-d)$.
+U praksi, pretraživanje radimo za $d \in [0, D\rangle$.
+$D$ postavljamo sukladno parametrima rektificiranog stereoskopskog para kamera.
 
 ### Arhitektura MC-CNN
-U okviru ove vježbe, postupak za ugrađivanje izrazit ćemo dubokim konvolucijskim modelom $$h_{\mathbf{\theta}}$$,
-a parametre modela $$\mathbf{\theta}$$ ćemo pronaći učenjem na prikladno definiranim podacima.
+U okviru ove vježbe, postupak za ugrađivanje izrazit ćemo dubokim konvolucijskim modelom $h_{\mathbf{\theta}}$,
+a parametre modela $\mathbf{\theta}$ ćemo pronaći učenjem na prikladno definiranim podacima.
 
 Naučit ćemo `fast` inačicu modela za korespondencijsku metriku [1](https://www.jmlr.org/papers/volume17/15-535/15-535.pdf).
 Model _matching cost convolutional neural network_ (MC-CNN) uvodi prikladan okvir za učenje.
 Arhitektura dubokog modela je sekvencijalna i sastoji se od 4 konvolucijska sloja.
-Nakon prve tri konvolucije slijedi $$ReLU$$ aktivacijska funkcija.
+Nakon prve tri konvolucije slijedi $ReLU$ aktivacijska funkcija.
 Izlazni, četvrti konvolucijski sloj, nema nelinearnost.
-Sve konvolucije proizvode 64 mape značajki, a sve jezgre su veličine $$3 \times 3$$.
+Sve konvolucije proizvode 64 mape značajki, a sve jezgre su veličine $3 \times 3$.
 Značajke posljednjeg sloja su normalizirane, nezavisno za svaki prostorni položaj u mapi značajki.
 
 Bitno je naglasiti kako operacija konvolucije sadrži parametar koji definira ponašanje na rubovima.
-Naime, ako u konvoluciji $$k \times k$$ želimo zadržati prostornu dimenzionalnost,
-potrebno je nadopuniti ulaznu mapu nulama, i to$$\lfloor\frac{k}{2}\rfloor$$ elemenata na svakom rubu.
+Naime, ako u konvoluciji $k \times k$ želimo zadržati prostornu dimenzionalnost,
+potrebno je nadopuniti ulaznu mapu nulama, i to$\lfloor\frac{k}{2}\rfloor$ elemenata na svakom rubu.
 Međutim, u našem je slučaju korisno ugasiti nadopunjavanje nulama prilikom učenja modela.
-Za spomenutu četveroslojnu arhitekturu, ako obrađujemo okno prostorne veličine  $$9 \times 9$$, bez nadopunjavanja
-ćemo proizvesti f-dimenzionalni vektor (prostorna dimenzionalnost je $$1 \times 1$$).
+Za spomenutu četveroslojnu arhitekturu, ako obrađujemo okno prostorne veličine  $9 \times 9$, bez nadopunjavanja
+ćemo proizvesti f-dimenzionalni vektor (prostorna dimenzionalnost je $1 \times 1$).
 Ovo svojstvo će nam pomoći prilikom izražavanja gubitka.
 
 Model se uči trojnim gubitkom. Za ugrađivanja referentnog, pozitivnog i negativnog okna, redom
-$$r_f = h_\theta(\mathbf{x}^{ref})$$,
-$$p_f = h_\theta(\mathbf{x}^{pos})$$ i 
-$$q_f = h_\theta(\mathbf{x}^{neg})$$,
+$r_f = h_\theta(\mathbf{x}^{ref})$,
+$p_f = h_\theta(\mathbf{x}^{pos})$ i 
+$q_f = h_\theta(\mathbf{x}^{neg})$,
 gubitak izražavamo kao:
 
 $$
@@ -76,14 +76,14 @@ L(r_f, p_f, q_f) = max(0, r_f p_f - r_f q_f + m)
 $$
 
 Dakle, gubitak na skupu za učenje je minimalan kad je sličnost svih pozitivnih i referetnih ugrađivanja
-veći od sličnosti referentnih i negativnih ugrađivanja za najmanje $$m$$. Hiperparametar $$m$$ se naziva margina.
+veći od sličnosti referentnih i negativnih ugrađivanja za najmanje $m$. Hiperparametar $m$ se naziva margina.
 
-Za izražavanje trojnog gubitka, potrebno je izračunati ugrađivanja $$r_f$$, $$p_f$$ i $$q_f$$
+Za izražavanje trojnog gubitka, potrebno je izračunati ugrađivanja $r_f$, $p_f$ i $q_f$
 na odgovarajućim položajima stereoskopskog para slika.
 Podatkovni skup koji koristimo sadrži precizne mape dispariteta dobivene tehnikama koje koriste strukturirano svjetlo.
-Ove mape dispariteta $$d_{ij} \in \mathbb{R}^{+}$$ koristimo kako bismo pronašli položaje korespondentnih slikovnih okana.
-Za neki položaj u referentnoj slici, $$(i, j)$$, odgovarajući položaj pozitivnog okna u drugoj slici je $$(i, j - d_{ij} * s)$$,
-gdje je $$s$$ indikator smjera:
+Ove mape dispariteta $d_{ij} \in \mathbb{R}^{+}$ koristimo kako bismo pronašli položaje korespondentnih slikovnih okana.
+Za neki položaj u referentnoj slici, $(i, j)$, odgovarajući položaj pozitivnog okna u drugoj slici je $(i, j - d_{ij} * s)$,
+gdje je $s$ indikator smjera:
 
 $$
 s = 
@@ -102,6 +102,10 @@ git clone https://gitlab.com/FER-D307/Nastava/3d-racvid/3drv-lab2.git
 ```
 Većina zadataka ove vježbe svodi se na dopunjavanje implementacija razreda i metoda čija su sučelja već definirana.
 Zbog jednostavnosti integracije, predlažemo da sučelja u vašoj implementaciji ostanu nepromijenjena.
+
+Ako koristite okolinu Google Colab, Marko Peroš je pripremio [ovu IPython bilježnicu](assets/notebook.ipynb) koja postavlja okolinu.
+Ovdje se pretpostavlja da preuzeti kostur vježbe leži u direktoriju `3drv-lab2`.
+Iako vam bilježnica može pomoći u postavljanju okoline, vodite računa da tekst upute u ovoj bilježnici nije ažuran.
 
 Repozitorij prati tzv. [src layout](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/)
 organizaciju koda, stoga na početku rada omogućite Python interpreteru pronalazak pozivom:
@@ -131,7 +135,7 @@ python3 scripts/download_middlebury.py --data-dir <putanja/za/spremanje>
 ```
 Očekivana veličina preuzetih podataka je 2.7GB.
 
-### Zadatak 1: priprema trojki za učenje
+### Zadatak 1: priprema trojki za učenje i validaciju (25% bodova)
 
 Preuzete podatke iz skupa Middlebury je potrebno učitati u odgovarajuće `torch.Tensor` strukture.
 Koristite apstrakciju `torch.utils.data.Dataset` i napišite odgovarajuće implementacije za učitavanje podataka.
@@ -155,12 +159,12 @@ Primjerice, za izdanje 2001, `disp2.pgm` sadrži disparitete za lijevu referentn
 no vrijedi i obrnuto (referentna desna `im6.ppm`, uz disparitet `disp6.pgm`, prema `im2.ppm`).
 Potrebno je odrediti odgovarajući indikator smjera `s`.
 
-Za učitavanje slika i dispariteta, potrebno je implementirati metode u modulu `src/data/disparity.py`.
+Za učitavanje slika i dispariteta, potrebno je implementirati metode u modulu `src/data/datasets/middlebury/disparity.py`.
 Koristite biblioteku [Pillow](https://pillow.readthedocs.io/en/stable/) koja može učitati formate `ppm` i `pfm`.
 
 Ispravnost svih sučelja možete provjeriti pozivom:
 ```bash
-python3 -m unittest tests/test_data/test_disparity.py
+python3 -m unittest test_data/test_datasets/test_middlebury/test_disparity.py
 ```
 
 Konkretne podrazreda razreda `data.dataset.middlebury.middlebury.MiddleburyDataset` implementirajte koristeći metode
@@ -173,18 +177,18 @@ python3 -m unittest tests/test_data/test_datasets/test_middlebury/test_middlebur
 Jednom kad implementirate podrazrede, potrebno je pripremiti slikovna okna za učenje trojnim gubitkom.
 
 Modul `src/data/triplets.py` sadrži metodu `extract_triplets` koja prima učitani par slika, disparitet,
-prostorne dimenzije izrezanih okana te indikator smjera $$s$$ (`direction`),
+prostorne dimenzije izrezanih okana te indikator smjera $s$ (`direction`),
 a vraća sve trojke za učenje za ulazne parove slika.
 Trojke se dobivaju ovako:
-- za svaki valjani disparitet referentne slike, izrežite okno prostorne veličine $$p \times p$$.
+- za svaki valjani disparitet referentne slike, izrežite okno prostorne veličine $p \times p$.
 - Oko položaja pomaknutog za iznos dispariteta, izrežite pozitivno okno u drugoj slici.
 - Negativno okno izrežite na isti način kao i pozitivno,
-no pomaknite iznos dispariteta za nasumičan iznos iz $$[o_l, o_h]$$ u bilo kojem smjeru.
+no pomaknite iznos dispariteta za nasumičan iznos iz $[o_l, o_h]$ u bilo kojem smjeru.
 
-$$[o_l, o_h]$$ je smisleno postaviti na vrijednosti blizu $$[4, 20]$$.
-Za učenje modela MC-CNN, veličinu okna valja postaviti na $$p=9$$.
+$[o_l, o_h]$ je smisleno postaviti na vrijednosti blizu $[4, 20]$.
+Za učenje modela MC-CNN, veličinu okna valja postaviti na $p=9$.
 Vodite računa kako mape dispariteta sadrže vrijednosti koje nisu validne:
-vrijednosti $$0$$ i $$+\inf$$ sugeriraju da na tom pikselu disparitet nije definiran.
+vrijednosti $0$ i $+\inf$ sugeriraju da na tom pikselu disparitet nije definiran.
 Konačno, obratite pažnju na rubne piksele, pošto će dio okana ispadati izvan rubova slike.
 
 Zbog brzine izvođenja, predlažemo da koristite gotovu implementaciju za pronalazak slikovnih okana.
@@ -205,7 +209,7 @@ Implementirane funkcionalnosti iskoristite u `scripts/extract_triplet_patches.py
 Skripta učitava podatke iz skupa Middlebury koje smo namijenili za učenje, priprema okna za učenje,
 i serijalizira ih na disk. Za svaku scenu spremite sliku koja sadrži nekoliko okana za vizualnu inspekciju, poput ove:
 
-![trojke](../assets/images/lab2/tripletsx4.png)
+![trojke](assets/img/triplets_64x4.png)
 
 Predlažemo da trojke spremite u strukturu riječnika s ključevima `r`, `p` i `q`.
 Sve trojke za učenje možete serijalizirati u jednu veliku datoteku,
@@ -213,9 +217,21 @@ pozivom [torch.save](https://pytorch.org/docs/main/generated/torch.save.html).
 
 Očekivano zauzeće na disku, ako okna spremate u preporučeni `uint8` podatkovni tip, je oko 5.7GB.
 
-### Zadatak 2: učenje modela
+### Zadatak 2: izračun volumena cijene (15% bodova)
 
-Pripremljene podatke koristit ćemo za izražavanje spomenutog trojnog gubitka.
+Implementirajte izračun volumena cijene u modulu `src/model/cost_volume.py`.
+U modulu smo izdvojili metodu `create_cost_volume`.
+Metoda prima dva tenzora ugrađivanja i računa volumen cijene koristeći skalarni umnožak kao mjeru sličnosti.
+Osigurajte da je parametar smjera dobro definiran te da tenzori sadrže normalizirane vektore ugrađivanja.
+
+Ispravnost sučelja provjerite pozivom:
+```bash
+python3 -m unittest tests/test_model/test_cost_volume.py
+```
+
+### Zadatak 3: učenje modela (15% bodova)
+
+Podatke pripremljene u prvom zadatku koristit ćemo za izražavanje spomenutog trojnog gubitka.
 Preostaje nam izraziti model i optimizacijski postupak.
 Preporučamo osloniti se na okvir `pytorch_lightning`.
 
@@ -225,7 +241,7 @@ Razred obavezno mora sadržavati metodu `forward` koja prima slikovni tenzor, a 
 Vodite računa kako gubitak očekuje normalizirane vektore ([F.normalize](https://pytorch.org/docs/stable/generated/torch.nn.functional.normalize.html)).
 Dodatno, implementirajte i metodu `forward_cost_volume`, koja prima slikovni par, poziva `forward`
 za svaku sliku, te na temelju ugrađivanja računa volumen cijene.
-U modulu smo izdvojili metodu `create_cost_volume` koju trebate koristiti u pozivu `forward_cost_volume`.
+U implementaciji valja koristiti metodu `create_cost_volume` iz drugog zadatka ove vježbe.
 Ispravnost oblika povratnih vrijednosti provjerite s:
 ```bash
 python3 -m unittest tests/test_model/test_mc_cnn.py
@@ -281,9 +297,13 @@ U tom slučaju možete smanjiti slike na ulazu u model.
 Vodite računa kako je tad potrebno interpolirati mapu dispariteta, a vrijednosti u mapi skalirati
 (pomak od 1px na 4 puta manjoj širini slike odgovara pomaku od 4px u izvornoj slici).
 
-`*` Prilikom učenja, povezivanje podataka za korisnika radi `pytorch_lightning`.
+<sub>
+
+`*` Prilikom učenja, povezivanje podataka za korisnika radi pytorch_lightning.
 
 `**` Numerička diferencijacija radi se u prostoru kontinuiranih vrijednosti.
+
+</sub>
 
 #### Petlja učenja
 
@@ -302,21 +322,34 @@ Ako ste uspješno implementirali sve funkcionalosti, trebali biste vidjeti kako 
 Pri završetku učenja, parametri modela bit će spremljeni na disku.
 Parametre treniranog modela su potrebni u idućem koraku.
 
+<sub>
 
 `*` U našoj implementaciji, jedna epoha učenja traje oko 10 minuta i tad postaje jasno konvergira li učenje.
 
-### Zadatak 3: prikaz i vizualizacija rezultata
-Cilj posljednjeg zadatka je pronaći validacijske scene u kojima postupak radi najbolje odnosno najgore.
-Dopuinte skriptu u `scripts/validate.py` tako da:
+</sub>
+
+### Zadatak 4: prikaz i vizualizacija rezultata (45% bodova)
+Napomena: ako niste trenirali vlastiti model,
+možete iskoristiti [ONNX](https://onnx.ai) model koji se u ovom repozitoriju nalazi u `assets/model/mccnn.onnx`.
+Koristite biblioteku `onnxruntime` da pokrenete model ([uputa](https://onnxruntime.ai/docs/api/python/tutorial.html#step-3-load-and-run-the-model-using-onnx-runtime)).
+Model za ulazni tenzor slikovnih vrijednosti tipa `uint8` i dimenzija `N x 3 x H x W`
+vraća ugrađivanje dimenzija `N x 64 x H/4 x W/4` (model interno poduzorkuje sliku kako bi uštedio na računanju).
+
+Cilj ovog zadatka je pronaći validacijske scene u kojima postupak radi najbolje odnosno najgore.
+Ovo ćete ostvariti tako da dopunite jednu od sljedećih skripti:
+- `scripts/validate.py` ako ste uspješno trenirali svoj model, odnosno
+- `scripts/validate_onnx.py` ako koristite postojeći model.
+ 
+Dopunite skriptu:
 1. Izračunate mapu dispariteta za svaki par iz skupa Middlebury 2014.
 2. Za svaku mapu dispariteta:
    * izračunajte pogrešku,
    * spremite mapu dispariteta na disk,
    * spremite pogrešku svakog piksela kao sliku. Iznos pogreške kodirajte sljedećim bojama:
      * crna: nevažeći disparitet,
-     * zelena: pogreška unutar $$[0\text{px}, 2\text{px} \rangle$$,
-     * žuta: pogreška unutar $$[2\text{px}, 8\text{px}\rangle$$,
-     * crvena: pogreška $$> 8\text{px}$$.
+     * zelena: pogreška unutar $[0\text{px}, 2\text{px} \rangle$,
+     * žuta: pogreška unutar $[2\text{px}, 8\text{px}\rangle$,
+     * crvena: pogreška $> 8\text{px}$.
 3. Pripremite tablicu koja za svaki par slika prikazuje pogrešku.
-Prilikom predaje vježbe pripremite tablicu s rezultatima i slike koje vizualiziraju pogrešku.
 
+Prilikom predaje vježbe pokažite tablicu s rezultatima i slike koje vizualiziraju pogreške.
