@@ -14,17 +14,17 @@ Ova vježba razmatra problem stereoskopske rekonstrukcije.
 Naš cilj je razviti algoritam koji će za svaki piksel lijeve slike pronaći odgovarajući (ili korespondentni) piksel desne slike.
 Naš pristup temelji se na ugrađivanju slikovnih okana u apstraktni vektorski prostor.
 
-Neka postupak za slikovno ugrađivanje $h(\mathbf{x}) = \mathbf{y}$ 
-preslikava slikovno okno $\mathbf{x} \equiv x_{cij} \in \mathbb{R}^{C \times H \times W}$
-u metrički prostor $\mathbf{y} \equiv y_f \in \mathbb{R}^{f}$.
+Neka postupak za slikovno ugrađivanje $$h(\mathbf{x}) = \mathbf{y}$$ 
+preslikava slikovno okno $$\mathbf{x} \equiv x_{cij} \in \mathbb{R}^{C \times H \times W}$$
+u metrički prostor $$\mathbf{y} \equiv y_f \in \mathbb{R}^{f}$$.
 Koristimo tzv. [Einsteinov zapis](https://www.continuummechanics.org/tensornotationbasic.html)
 koji omogućava izražavanje dimenzionalnosti proizvoljnih tenzora i osi redukcije operatora.
-Položaje u slici predstavljamo kao indekse piksela u matrici dimenzija $H W$.
-Domena para koordinata je $(i, j) \in [0, H\rangle \times [0, W\rangle$.
+Položaje u slici predstavljamo kao indekse piksela u matrici dimenzija $$H W$$.
+Domena para koordinata je $$(i, j) \in [0, H\rangle \times [0, W\rangle$$.
 
-Neka je $a_ib_i \equiv \mathbf{a}^{T}\mathbf{b}$ skalarni umnožak vektora $\mathbf{a}$ i $\mathbf{b}$.
-Želimo naučiti slikovno ugrađivanje takvo da vektori korespondentnih okana $r_f$ i $p_f$
-budu bliže jedan drugome od vektora nekorespondentnih okana $q_f$.
+Neka je $$a_ib_i \equiv \mathbf{a}^{T}\mathbf{b}$$ skalarni umnožak vektora $$\mathbf{a}$$ i $$\mathbf{b}$$.
+Želimo naučiti slikovno ugrađivanje takvo da vektori korespondentnih okana $$r_f$$ i $$p_f$$
+budu bliže jedan drugome od vektora nekorespondentnih okana $$q_f$$.
 Radi jednostavnosti i brzine, blizinu ćemo mjeriti skalarnim umnoškom.
 Naš kriterij možemo izraziti sljedećom jednadžbom:
 $$
@@ -32,43 +32,43 @@ r_f p_f > r_f q_f
 $$
 
 U zadatku guste stereoskopske rekonstrukcije, traženo ugrađivanje možemo koristiti za izgradnju volumena cijene.
-Volumen cijene $\mathbf{V} \equiv V_{dij} \in \mathbb{R}^{D \times H \times W}$ 
+Volumen cijene $$\mathbf{V} \equiv V_{dij} \in \mathbb{R}^{D \times H \times W}$$ 
 je trodimenzionalna struktura koja definira negativnu sličnost
-referentnog slikovnog okna oko slikovne koordinate $(i, j)$ i slikovnog okna pomaknutog za disparitet $d$.
-Drugim riječima, za ugrađivanja $r_{fij}$ i $p_{fij}$ volumen cijene definiramo kao:
+referentnog slikovnog okna oko slikovne koordinate $$(i, j)$$ i slikovnog okna pomaknutog za disparitet $$d$$.
+Drugim riječima, za ugrađivanja $$r_{fij}$$ i $$p_{fij}$$ volumen cijene definiramo kao:
 
 $$
 V_{dij} = -r_{fij} p_{fi(j-d)}
 $$
 
-Na ovaj način smo za svaki piksel $(i, j)$ definirali cijenu uparivanja okna referentne slike s oknom druge slike na položaju $(i, j-d)$.
-U praksi, pretraživanje radimo za $d \in [0, D\rangle$.
-$D$ postavljamo sukladno parametrima rektificiranog stereoskopskog para kamera.
+Na ovaj način smo za svaki piksel $$(i, j)$$ definirali cijenu uparivanja okna referentne slike s oknom druge slike na položaju $$(i, j-d)$$.
+U praksi, pretraživanje radimo za $$d \in [0, D\rangle$$.
+$$D$$ postavljamo sukladno parametrima rektificiranog stereoskopskog para kamera.
 
 ### Arhitektura MC-CNN
-U okviru ove vježbe, postupak za ugrađivanje izrazit ćemo dubokim konvolucijskim modelom $h_{\mathbf{\theta}}$,
-a parametre modela $\mathbf{\theta}$ ćemo pronaći učenjem na prikladno definiranim podacima.
+U okviru ove vježbe, postupak za ugrađivanje izrazit ćemo dubokim konvolucijskim modelom $$h_{\mathbf{\theta}}$$,
+a parametre modela $$\mathbf{\theta}$$ ćemo pronaći učenjem na prikladno definiranim podacima.
 
 Naučit ćemo `fast` inačicu modela za korespondencijsku metriku [1](https://www.jmlr.org/papers/volume17/15-535/15-535.pdf).
 Model _matching cost convolutional neural network_ (MC-CNN) uvodi prikladan okvir za učenje.
 Arhitektura dubokog modela je sekvencijalna i sastoji se od 4 konvolucijska sloja.
-Nakon prve tri konvolucije slijedi $ReLU$ aktivacijska funkcija.
+Nakon prve tri konvolucije slijedi $$ReLU$$ aktivacijska funkcija.
 Izlazni, četvrti konvolucijski sloj, nema nelinearnost.
-Sve konvolucije proizvode 64 mape značajki, a sve jezgre su veličine $3 \times 3$.
+Sve konvolucije proizvode 64 mape značajki, a sve jezgre su veličine $$3 \times 3$$.
 Značajke posljednjeg sloja su normalizirane, nezavisno za svaki prostorni položaj u mapi značajki.
 
 Bitno je naglasiti kako operacija konvolucije sadrži parametar koji definira ponašanje na rubovima.
-Naime, ako u konvoluciji $k \times k$ želimo zadržati prostornu dimenzionalnost,
-potrebno je nadopuniti ulaznu mapu nulama, i to$\lfloor\frac{k}{2}\rfloor$ elemenata na svakom rubu.
+Naime, ako u konvoluciji $$k \times k$$ želimo zadržati prostornu dimenzionalnost,
+potrebno je nadopuniti ulaznu mapu nulama, i to$$\lfloor\frac{k}{2}\rfloor$$ elemenata na svakom rubu.
 Međutim, u našem je slučaju korisno ugasiti nadopunjavanje nulama prilikom učenja modela.
-Za spomenutu četveroslojnu arhitekturu, ako obrađujemo okno prostorne veličine  $9 \times 9$, bez nadopunjavanja
-ćemo proizvesti f-dimenzionalni vektor (prostorna dimenzionalnost je $1 \times 1$).
+Za spomenutu četveroslojnu arhitekturu, ako obrađujemo okno prostorne veličine  $$9 \times 9$$, bez nadopunjavanja
+ćemo proizvesti f-dimenzionalni vektor (prostorna dimenzionalnost je $$1 \times 1$$).
 Ovo svojstvo će nam pomoći prilikom izražavanja gubitka.
 
 Model se uči trojnim gubitkom. Za ugrađivanja referentnog, pozitivnog i negativnog okna, redom
-$r_f = h_\theta(\mathbf{x}^{ref})$,
-$p_f = h_\theta(\mathbf{x}^{pos})$ i 
-$q_f = h_\theta(\mathbf{x}^{neg})$,
+$$r_f = h_\theta(\mathbf{x}^{ref})$$,
+$$p_f = h_\theta(\mathbf{x}^{pos})$$ i 
+$$q_f = h_\theta(\mathbf{x}^{neg})$$,
 gubitak izražavamo kao:
 
 $$
@@ -76,14 +76,14 @@ L(r_f, p_f, q_f) = max(0, r_f p_f - r_f q_f + m)
 $$
 
 Dakle, gubitak na skupu za učenje je minimalan kad je sličnost svih pozitivnih i referetnih ugrađivanja
-veći od sličnosti referentnih i negativnih ugrađivanja za najmanje $m$. Hiperparametar $m$ se naziva margina.
+veći od sličnosti referentnih i negativnih ugrađivanja za najmanje $$m$$. Hiperparametar $$m$$ se naziva margina.
 
-Za izražavanje trojnog gubitka, potrebno je izračunati ugrađivanja $r_f$, $p_f$ i $q_f$
+Za izražavanje trojnog gubitka, potrebno je izračunati ugrađivanja $$r_f$$, $$p_f$$ i $$q_f$$
 na odgovarajućim položajima stereoskopskog para slika.
 Podatkovni skup koji koristimo sadrži precizne mape dispariteta dobivene tehnikama koje koriste strukturirano svjetlo.
-Ove mape dispariteta $d_{ij} \in \mathbb{R}^{+}$ koristimo kako bismo pronašli položaje korespondentnih slikovnih okana.
-Za neki položaj u referentnoj slici, $(i, j)$, odgovarajući položaj pozitivnog okna u drugoj slici je $(i, j - d_{ij} * s)$,
-gdje je $s$ indikator smjera:
+Ove mape dispariteta $$d_{ij} \in \mathbb{R}^{+}$$ koristimo kako bismo pronašli položaje korespondentnih slikovnih okana.
+Za neki položaj u referentnoj slici, $$(i, j)$$, odgovarajući položaj pozitivnog okna u drugoj slici je $$(i, j - d_{ij} * s)$$,
+gdje je $$s$$ indikator smjera:
 
 $$
 s = 
@@ -177,18 +177,18 @@ python3 -m unittest tests/test_data/test_datasets/test_middlebury/test_middlebur
 Jednom kad implementirate podrazrede, potrebno je pripremiti slikovna okna za učenje trojnim gubitkom.
 
 Modul `src/data/triplets.py` sadrži metodu `extract_triplets` koja prima učitani par slika, disparitet,
-prostorne dimenzije izrezanih okana te indikator smjera $s$ (`direction`),
+prostorne dimenzije izrezanih okana te indikator smjera $$s$$ (`direction`),
 a vraća sve trojke za učenje za ulazne parove slika.
 Trojke se dobivaju ovako:
-- za svaki valjani disparitet referentne slike, izrežite okno prostorne veličine $p \times p$.
+- za svaki valjani disparitet referentne slike, izrežite okno prostorne veličine $$p \times p$$.
 - Oko položaja pomaknutog za iznos dispariteta, izrežite pozitivno okno u drugoj slici.
 - Negativno okno izrežite na isti način kao i pozitivno,
-no pomaknite iznos dispariteta za nasumičan iznos iz $[o_l, o_h]$ u bilo kojem smjeru.
+no pomaknite iznos dispariteta za nasumičan iznos iz $$[o_l, o_h]$$ u bilo kojem smjeru.
 
-$[o_l, o_h]$ je smisleno postaviti na vrijednosti blizu $[4, 20]$.
-Za učenje modela MC-CNN, veličinu okna valja postaviti na $p=9$.
+$$[o_l, o_h]$$ je smisleno postaviti na vrijednosti blizu $$[4, 20]$$.
+Za učenje modela MC-CNN, veličinu okna valja postaviti na $$p=9$$.
 Vodite računa kako mape dispariteta sadrže vrijednosti koje nisu validne:
-vrijednosti $0$ i $+\inf$ sugeriraju da na tom pikselu disparitet nije definiran.
+vrijednosti $$0$$ i $$+\inf$$ sugeriraju da na tom pikselu disparitet nije definiran.
 Konačno, obratite pažnju na rubne piksele, pošto će dio okana ispadati izvan rubova slike.
 
 Zbog brzine izvođenja, predlažemo da koristite gotovu implementaciju za pronalazak slikovnih okana.
@@ -347,9 +347,9 @@ Dopunite skriptu:
    * spremite mapu dispariteta na disk,
    * spremite pogrešku svakog piksela kao sliku. Iznos pogreške kodirajte sljedećim bojama:
      * crna: nevažeći disparitet,
-     * zelena: pogreška unutar $[0\text{px}, 2\text{px} \rangle$,
-     * žuta: pogreška unutar $[2\text{px}, 8\text{px}\rangle$,
-     * crvena: pogreška $> 8\text{px}$.
+     * zelena: pogreška unutar $$[0\text{px}, 2\text{px} \rangle$$,
+     * žuta: pogreška unutar $$[2\text{px}, 8\text{px}\rangle$$,
+     * crvena: pogreška $$> 8\text{px}$$.
 3. Pripremite tablicu koja za svaki par slika prikazuje pogrešku.
 
 Prilikom predaje vježbe pokažite tablicu s rezultatima i slike koje vizualiziraju pogreške.
