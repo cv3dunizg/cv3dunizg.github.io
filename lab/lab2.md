@@ -297,13 +297,9 @@ U tom slučaju možete smanjiti slike na ulazu u model.
 Vodite računa kako je tad potrebno interpolirati mapu dispariteta, a vrijednosti u mapi skalirati
 (pomak od 1px na 4 puta manjoj širini slike odgovara pomaku od 4px u izvornoj slici).
 
-<sub>
-
 `*` Prilikom učenja, povezivanje podataka za korisnika radi pytorch_lightning.
 
 `**` Numerička diferencijacija radi se u prostoru kontinuiranih vrijednosti.
-
-</sub>
 
 #### Petlja učenja
 
@@ -322,11 +318,7 @@ Ako ste uspješno implementirali sve funkcionalosti, trebali biste vidjeti kako 
 Pri završetku učenja, parametri modela bit će spremljeni na disku.
 Parametre treniranog modela su potrebni u idućem koraku.
 
-<sub>
-
 `*` U našoj implementaciji, jedna epoha učenja traje oko 10 minuta i tad postaje jasno konvergira li učenje.
-
-</sub>
 
 ### Zadatak 4: prikaz i vizualizacija rezultata (45% bodova)
 Napomena: ako niste trenirali vlastiti model,
